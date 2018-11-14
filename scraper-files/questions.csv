@@ -1,0 +1,886 @@
+Post ID,Title,Question,User ID,Vote Score,Answer Count,View Count,Date,URL,Full URL
+1,How to eavesdrop and decrypt the HTTPs communication of an IoT device?,"
+I am trying to setup a MitM scenario between an IoT device and WAN. It is possible and quite easy to achieve same thing for the application run on a mobile device by setting my proxy server(Fiddler)'s certificate is trusted. 
+Since the IoT device that is being tested does not let you to make it consider the certificate as trusted, I am looking for the alternative methods. Is there any way to break in HTTPs connection and see all content as plain-text?
+",2,0,1,165 times,2018-11-05 10:08:41Z,/questions/197028/how-to-eavesdrop-and-decrypt-the-https-communication-of-an-iot-device,https://security.stackexchange.com/questions/197028/how-to-eavesdrop-and-decrypt-the-https-communication-of-an-iot-device
+2,IOT secure data transfer,"
+I have a question about a monitoring software architecture. 
+Think about 50 different locations in different cities. Assume that these locations are small plants.
+In every location there are approximately 50 devices which produce small amounts of data which is a string and an integer counter. 
+I need to take these data from devices and save them in a server database within the plant. 
+Periodically I need to send these data from the server to HQ for reporting. 
+I don't want to send data from plant to HQ in realtime as the connection might be down for a day or 2 between the plant and the HQ.
+Assume that we don't trust plant operators and products can be stolen. E.g. 50 products are produced in the plant but only 40 are reported to HQ.
+Basically, a string and an integer should be taken from a device and transmitted to the HQ in another city.
+There are 3 places where data should be secured, I guess.
+
+Between device and server. (Both are in the plant, they will be connected via ethernet or serial)
+On the server  
+Between the server and HQ
+
+1) For the first path; device will be in a hard case which can't be opened by anyone except authorized personnel. 
+Software on the device will have a SHA key and it will encrypt data and send to the server over serial or ethernet. Server will write encrypted or decrypted data to a database.  
+
+Is encrypting data and sending it over TCP socket secure enough?  
+As the device can't have a Hardware Security Module, the encryption key will be hardcoded and it will be in memory. Is there a way to secure the key other than locking it in a steel case?  
+If the server has the same SHA key which is on the device, should it be on a Hardware Security Module?  
+
+2) The server will be secured by a hard case and will be accessible by the HQ over the remote desktop connection as well. Antivirus and firewall software will be installed and configured.  
+3) Should I again encrypt data on the server and send it over TCP sockets and decrypt at the center?  
+
+Should I use a protocol like https and use REST?  
+Do you recommend another solution?
+
+",4,0,1,52 times,2018-10-16 16:29:46Z,/questions/195817/iot-secure-data-transfer,https://security.stackexchange.com/questions/195817/iot-secure-data-transfer
+3,Proper security for IoT device,"
+I'm developing a product with simple Cortex-M MCU (with no OS on board, firmware on bare metal) and internet connectivity via external module.
+How do I make it secure? More specifically, how do I protect the data that is sent to and from the remote server?
+My thoughts are:
+
+I can't assume that firmware can be protected; since all users will have physical access to it - they eventually will find a way to dump it. Flash-read protection won't work, encrypting the flash won't prevent dumping it from RAM or something else.  
+Using external encrypted flash/eeprom won't work for the same reasons.  
+Relying on HTTPS on the external chip won't be enough because external module is connected to the MCU via UART and can easily be sniffed or tampered.
+
+I have very basic understanding of cryptography but I know that I shouldn't invent my own, so I presume I'll have to encrypt all the data that is sent to the server by some well-known public key crypto. Probably using session keys.
+But that still requires using one master secret key on the device and I don't know how to store it securely due to 1).
+Any ideas? Is there a well-known bulletproof solution?
+Or I should just generate random keys for every device (not derived from device ID or anything like that)? So if one device is compromised it won't affect the whole network - and that's about it?
+UPD: Clarification - I don't want to allow device owner to impersonate other devices and upload false data (about other devices) to the database.
+",7,2,2,87 times,2018-10-14 19:18:06Z,/questions/195666/proper-security-for-iot-device,https://security.stackexchange.com/questions/195666/proper-security-for-iot-device
+4,Penetration testing or Malware analysis? [closed],"
+My M.Sc research is about developing IDS for IOT.
+I'm confused about which field should learn more about; penetration testing or malware analysis.
+I have some knowledge about each one but for IDS, which is working with malware, I don't know which field I should focus on!
+I'll use AI (Deep Learning) for building an IDS based on Contiki and cooja platform.
+",9,-2,1,43 times,2018-10-07 11:44:41Z,/questions/195242/penetration-testing-or-malware-analysis,https://security.stackexchange.com/questions/195242/penetration-testing-or-malware-analysis
+5,Lightweight terminal protocol for IoT,"
+For IoT devices with limited resources (e.g. embedded system with 32 kB RAM, 128 kB Flash memory, running an RTOS such as FreeRTOS, small TCP/IP stack such as lwIP):
+It might be useful to have a terminal type protocol for debugging or testing. However, telnet is not secure, while SSH seems sufficiently complicated so that it's difficult to implement and fit into such a small system.
+Are there any lightweight yet secure terminal protocols that are suitable for such a resource constrained IoT system?
+Pragmatically, is it possible to cut down SSH to a lean implementation, e.g. with AES but no 3DES, even though the latter is technically mandatory for a conformant SSH implementation?
+",11,1,1,42 times,2018-09-06 01:54:27Z,/questions/193142/lightweight-terminal-protocol-for-iot,https://security.stackexchange.com/questions/193142/lightweight-terminal-protocol-for-iot
+6,Do I need Gateway Firewall for IoT network? [closed],"
+Do I need a gateway firewall to prevent attacks like DoS, if my IoT network can only talk to cloud using IPsec?
+Even if  there is need that can be implemented at cloud. Is there any need for it to present in IoT network?
+",14,1,2,43 times,2018-09-01 12:04:17Z,/questions/192840/do-i-need-gateway-firewall-for-iot-network,https://security.stackexchange.com/questions/192840/do-i-need-gateway-firewall-for-iot-network
+7,What is the risk of running a IOT device exposed to the internet using non https port?,"
+I have a IOT device in my home that controls my security system and let me enable/disable it.
+It can be accessed via web interface and a mobile app. It's unknown to me what OS or other ports that may be open or other aspects. I only interface with it that way.
+The device has a built-in DDNS-like service that lets me redirect to the device without knowing my IP.
+I have the following settings I can enable or disable: 
+ENABLE HTTPS ON CUSTOM PORT
+SET DEFAULT HTTP PORT
+SET ""SOFTWARE"" PORT
+
+I enabled HTTPS on a high port and set the http port to 0. However if I do that with the software port the mobile app wont work. I don't know if this port is working with https or http, or even if my mobile app connection to it is encrypted. The software port is not accessible on the browser. The HTTPS port is not accessible outside LAN by router rules.
+What is the risk posed by this device if I expose it to the internet with a possibly plain HTTP port?  Is there anything I can do to mitigate this risk? 
+My goal here is to have the device accessible externally, and communicate with it securely with the mobile app, and limit risk of it infecting other devices in my network if compromised.  
+",16,1,1,75 times,2018-08-06 08:43:46Z,/questions/191031/what-is-the-risk-of-running-a-iot-device-exposed-to-the-internet-using-non-https,https://security.stackexchange.com/questions/191031/what-is-the-risk-of-running-a-iot-device-exposed-to-the-internet-using-non-https
+8,Robust SSL pinning on IoT device with Let’s Encrypt,"
+I would like to implement SSL pinning on ESP8266. Since leaf certificate is changing quite often I would like to check for which domain leaf was issued and check that root belong Let’s Encrypt.
+To which property should I pin in root? I would like to avoid the situation when certificate expires and I would need to re-flash my device.
+",17,1,1,116 times,2018-07-26 09:22:58Z,/questions/190409/robust-ssl-pinning-on-iot-device-with-let-s-encrypt,https://security.stackexchange.com/questions/190409/robust-ssl-pinning-on-iot-device-with-let-s-encrypt
+9,What kind of IoT devices use certificates?,"
+I have read that PKI certificates are the main way to provide security on IoT platforms. And the common enrollment protocols for certificates are:
+
+SCEP (Simple Certificate Enrollment Protocol) 
+EST (Enrollment over Secure Transport) 
+CMP (Certificate Management Protocol) 
+CMC (Certificate Management over CMS)
+
+(CMP is the one which is used for securing LTE eNodeBs.) 
+
+Now what is not clear is what devices get the certificates? I am assuming that sensors etc are too small to get certificates and use them? So is anything used for securing sensors in IoT? I think gateways can use certs but gateways probably don't need these protocols - they are not really IOT devices. Also what do the gateways use the certs for - is it to communicate with the cloud servers or is it to communicate with the gateways?  
+So what kind of IoT devices use these protocols to enroll certs? How do they use the certs? Do they use it only for authentication? Or also for encrypting communication? Are they sophisticated enough to do this?
+",20,0,3,219 times,2018-06-19 12:33:16Z,/questions/187941/what-kind-of-iot-devices-use-certificates,https://security.stackexchange.com/questions/187941/what-kind-of-iot-devices-use-certificates
+10,Security Advantages of Azure Sphere vs other embedded OS,"
+I know Azure Sphere is new, and to my understanding Microsoft is targeting the embedded IOT market, but how is Azure Sphere more secure than other embedded RTOS systems like VxWorks or Integrity? Don't many of the embedded security measures mentioned at https://www.microsoft.com/en-us/azure-sphere/details/ already exist in most embedded devices? Is it their combination of using hardware and software security measures that will give Azure more security than normal embedded operating systems?
+What separates Azure Sphere from other security focused embedded operating systems?
+",22,0,1,104 times,2018-04-25 18:09:37Z,/questions/184601/security-advantages-of-azure-sphere-vs-other-embedded-os,https://security.stackexchange.com/questions/184601/security-advantages-of-azure-sphere-vs-other-embedded-os
+11,Which are the most dangerous and popular botnets that came from IoT devices?,"
+The ease of taking control of a cheap IoT device makes them the perfect target to craft a botnet to perform DDoS attacks. 
+I heard about botnets created from a lot of hacked IoT devices used to create DDoS attacks on websites.
+How much of this information is true? Is there an existing common threat about IoT botnets nowadays? Which were the most popular IoT botnets and attacks?
+",25,-1,2,220 times,2018-04-23 10:03:25Z,/questions/184365/which-are-the-most-dangerous-and-popular-botnets-that-came-from-iot-devices,https://security.stackexchange.com/questions/184365/which-are-the-most-dangerous-and-popular-botnets-that-came-from-iot-devices
+12,Which are the most common vulnerabilities for poor crafted IoT devices? [closed],"
+I'm learning about securing IoT devices and starting to learn how to develop my own software for them. 
+I wanted to know which are the most common vulnerabilities that any scriptkiddie could exploit and how to be aware of them in general terms. 
+I'm in a very initial stage, so any tip or information regarding:
+
+Popular vulnerabilities in devices or brands
+Securing typical sofware for cameras/sensors/small devices...
+Tools for pentesting devices/examples
+
+",25,0,2,70 times,2018-04-20 08:44:22Z,/questions/184139/which-are-the-most-common-vulnerabilities-for-poor-crafted-iot-devices,https://security.stackexchange.com/questions/184139/which-are-the-most-common-vulnerabilities-for-poor-crafted-iot-devices
+13,Does LoraWan protocol's Over The Air Activation run Diffie Hellman?,"
+I am looking at the LoraWan protocol specification and I want to capture the over the air activation of a device. So far I have seen the:
+https://zakelijkforum.kpn.com/lora-forum-16/over-the-air-activation-otaa-8323
+As it seems that it is using nonces in order to generate the key, I thought, ""Hey it seems like Diffie Hellman to me.""
+
+Is the Over the air activation in LoRaWan is as the link mentions?
+If yes, is Diffie Hellman the key exchange being used?
+
+",29,0,1,79 times,2018-03-25 16:22:26Z,/questions/182113/does-lorawan-protocols-over-the-air-activation-run-diffie-hellman,https://security.stackexchange.com/questions/182113/does-lorawan-protocols-over-the-air-activation-run-diffie-hellman
+14,ESP8266 Dash Button Security,"
+I have built a dash button using ESP8266 microcontroller. The microcontroller should make a response to a ASP.NET WebApi Rest Service to trigger an action. How can i make this api call secure. The action should only be triggered from this specific microcontroller. Replaying the Api Call may not be possible. 
+How can i archive this?
+I think about challange response with a secret both client(esp8266) and server knows.
+",31,3,1,61 times,2018-03-21 20:02:50Z,/questions/182010/esp8266-dash-button-security,https://security.stackexchange.com/questions/182010/esp8266-dash-button-security
+15,Is using both client side certificate and JWT for IoT device redundant?,"
+Is there a case to be made for authorizing with both a client side certificate and JWT for an IoT device?
+Are JWTs good enough (assuming following of the specs)?
+And if client side certs are truly needed, what of expiration dates? (set the client cert expiration way out into the future, etc)?
+",34,1,2,257 times,2018-02-07 16:09:08Z,/questions/179315/is-using-both-client-side-certificate-and-jwt-for-iot-device-redundant,https://security.stackexchange.com/questions/179315/is-using-both-client-side-certificate-and-jwt-for-iot-device-redundant
+16,How to keep Internet of Things projects secure? [closed],"
+I want to experiment with the use of sensors for data logging and potentially for automated actions based on data properties. An example of the latter is if a value being monitored exceeds a threshold for X amount of intervals, some kind of notification or response is triggered, whether an LED lighting up or email being sent out.
+I'm not an expert about sensors, networking, IoT, robotics, scripting, machine learning, or programming in general. That's all part of the learning process. I know enough to know security is important and easier to achieve if it's a goal from the beginning. So my question as I embark on this learning excursion is, what do I need to be aware of or control for to keep these systems safe as I create and experiment with them? If that question is so broad a book answers it, could you recommend a learning resource? Where does one start for learning how to keep home brewed IoT systems secure?
+I realize this depends on two major things: security is harder as complexity increases; and security depends on threat models. Well, my simple sensor systems are bound to get more complex if I pursue more significant projects with them, thus the importance of good security that scales from the start. As for threat models, I don't anticipate enemies and these would all be relatively low-value and plentiful targets (many sensors monitoring basic things) but I do expect there are malicious agents seeking to control any processing power they can or disrupt systems just for the sake of chaos. Lastly as an importart part of the threat model is physical security, because if I put a sensor outside with a solar panel to power it, how do I stop mischievous kids or crooks from destroying or stealing the technology?
+",40,3,5,172 times,2018-02-02 20:45:41Z,/questions/179009/how-to-keep-internet-of-things-projects-secure,https://security.stackexchange.com/questions/179009/how-to-keep-internet-of-things-projects-secure
+17,How do you change the password of an IoT device like a DVR box?,"
+
+The above picture is Brian Krebs responding with advice about protecting yourself from the IoT hacks.  It's common advice given for protecting IoT devices from attacks like the Mirai botnet.  
+My question is, what does it mean? Supposedly the biggest category of devices compromised were webcams and DVR boxes. What does it mean to ""change the password"" of a DVR box? A webcam? Or any other IoT device (a coffee-maker password?) If I have a device that uses UPnP, where is its ""password""? Those devices just plug in, and work. Never seen a coffee pot ask for credentials before.
+",42,1,1,61 times,2018-01-31 23:03:10Z,/questions/178843/how-do-you-change-the-password-of-an-iot-device-like-a-dvr-box,https://security.stackexchange.com/questions/178843/how-do-you-change-the-password-of-an-iot-device-like-a-dvr-box
+18,Is a PKI for the IoT really a good idea?,"
+I am reading a bit about the security of IoT devices and found quite a lot of articles describing how a PKI would be an improvement for the current infrastructure. I am, however, not convinced if setting up a PKI would improve security for most of the IoT use cases. I was wondering if I was seeing something incorrect. To give an example:
+I understand how IoT devices used in Industrial Control Systems would benefit from a PKI, since they usually communicate without the interference of users and therefore cannot use traditional methods for authentication like passwords, biometrics and tokens. 
+For the more basic use cases like cameras, microwaves or refrigerators that are connected to the internet, I don't see the added value of a PKI. Am I overlooking something, or does PKI indeed not improve security for these devices?
+Edit: some examples:
+
+https://www.scmagazine.com/pki-for-the-internet-of-things/article/539469/
+https://techbeacon.com/managed-pki-certificates-securing-internet-things
+
+",43,18,1,"4,254 times",2018-01-22 10:50:58Z,/questions/178134/is-a-pki-for-the-iot-really-a-good-idea,https://security.stackexchange.com/questions/178134/is-a-pki-for-the-iot-really-a-good-idea
+19,Is it safe to use an auto pay feature on my smart watch that stores card info?,"
+(So guess what I got for Christmas...)
+While I do appreciate the tech and some of the features in the smart watch, I am skeptical of it's biggest feature -- the Pay feature which essentially duplicates your credit card's magnetic info and stores it within the watch (or the phone it is paired with? not sure on that). It is great to just walk up to a payment terminal and bring your wrist close to it and the smart watch does the payment for you by surrendering the stored card info. Not that it is such an awesome feature that I would buy a smart watch for that, but since I have it now I am thinking of using it.
+Making my question more generic to all smart watches and IoT devices that have such auto-pay features: from a security standpoint, how safe is it to store your credit card's magnetic info on a smart watch like that? Is it about as safe as storing it on your phone or on a website like Amazon? I worry that a smart watch's OS might be easier for attackers to target since it is more likely to have security vulnerabilities than a more mainstream and major OS like Red Hat or Mac OsX (not saying these don't have major vulnerabilities but still...). So if I have my credit card stored at a bunch of places like Amazon, Android phone, smart watch etc., attackers are more likely to target something like a watch to steal it from. Am I correct in this assumption?
+Side note: I confess that I do not yet fully understand how the watch is able to act like a credit card to make payment at terminals. From what little I understand, it stores some limited one-time ""payment tokens"" that allow it to make payments.
+",44,0,1,51 times,2017-12-28 01:07:50Z,/questions/176233/is-it-safe-to-use-an-auto-pay-feature-on-my-smart-watch-that-stores-card-info,https://security.stackexchange.com/questions/176233/is-it-safe-to-use-an-auto-pay-feature-on-my-smart-watch-that-stores-card-info
+20,Port-forwarding to a web server on Raspberry Pi,"
+I've recently created a relatively simple smart Christmas tree which is a Raspberry PI Zero W powered LED strip.
+In order to control it via IFTTT webhooks, I've started a lightweight flask server on the Raspberry Pi - on a specific port with several endpoints for different animations/patterns. Then, on the home router, I've configured port-forwarding to the flask server started on the Raspberry Pi.   
+Currently, the flask API is completely open, - though, one, in order to use it, would need to know the IP address and the port values.
+The risks in terms of security in this particular case are, of course, minimal, but what are the general ways to improve the security of this home automation setup? Should I go for a full-fledged web server like Apache?
+I was thinking to at least require a ""secret"" key in a cookie, which the IFTTT recipes and the flask server would only know. Since the resources of the device are limited, I guess, performance & security need to be carefully balanced.
+",45,2,1,694 times,2017-12-23 05:13:05Z,/questions/176022/port-forwarding-to-a-web-server-on-raspberry-pi,https://security.stackexchange.com/questions/176022/port-forwarding-to-a-web-server-on-raspberry-pi
+21,What are some interesting project ideas that use machine learning to solve issues in IOT security? [closed],"
+I am interesting in IOT security and machine learning/deep learning. I am looking for good project ideas to work on. 
+example: http://projectabstracts.com/20138/a-malicious-pattern-detection-engine-for-embedded-security-systems-in-the-internet-of-things.html
+",14,0,1,800 times,2017-12-21 15:35:58Z,/questions/175928/what-are-some-interesting-project-ideas-that-use-machine-learning-to-solve-issue,https://security.stackexchange.com/questions/175928/what-are-some-interesting-project-ideas-that-use-machine-learning-to-solve-issue
+22,How safe are wifi enabled talking toys?,"
+There have been ads on the radio recently for a wifi enabled toy called Talkies, which are advertised as being able to communicate with app enabled phones, with a ""trusted circle"" that other phones can be added to.
+(Obligatory photo of a cute wifi enabled critter)
+
+Especially considering the Krack vulnerability, and the known process of ""grooming"" a child that a sexual or other predator goes through to gain their trust and exploit them (Here is a story about how Snapchat was used), is this a toy that I should steer away from for my child? (3 years old currently)
+",52,50,6,"10,788 times",2017-10-31 19:19:44Z,/questions/172553/how-safe-are-wifi-enabled-talking-toys,https://security.stackexchange.com/questions/172553/how-safe-are-wifi-enabled-talking-toys
+23,how to implement TLS between web-server and embedded devices,"
+I am working on remote light control system. The devices/controllers are like raspberry pi sized units running embedded programs to accept commands from a management application running on remote web-server. The devices are deployed in the field (street) and connected to internet via  GPRS & Ethernet.
+There are hundreds of such devices not having host-name and their IP is not static. So SSL certificates may not be possible here???.  
+Does the ""shared secrete"" approach works best here? but then distributing these keys to already existing devices would be challenging as it cannot be done over insecure OTA.
+",54,0,3,719 times,2017-10-26 16:37:43Z,/questions/172226/how-to-implement-tls-between-web-server-and-embedded-devices,https://security.stackexchange.com/questions/172226/how-to-implement-tls-between-web-server-and-embedded-devices
+24,Additional risks to home network in exposing (raspberry pi) honeypot to the internet,"
+While I would like to contribute piping of logs from a home-deployed honeypot to the DSHIELD project using a raspberry pi, I am concerned that the additional exposure of the port to the internet would provide:
+
+A wider exposure surface
+An additional endpoint for attackers to compromise potentially, which they could then use as a pivot point to do loop-back attack to other IOT or devices within the home network that may not have been exposed to the internet.
+
+Would anyone be able to advise if the above additional risks are correct, and what would be a reasonable solution to place for a home network environment please?
+",56,1,1,188 times,2017-10-23 06:19:18Z,/questions/171928/additional-risks-to-home-network-in-exposing-raspberry-pi-honeypot-to-the-inte,https://security.stackexchange.com/questions/171928/additional-risks-to-home-network-in-exposing-raspberry-pi-honeypot-to-the-inte
+25,Secure operation of IoT equipment?,"
+In the light of recent events around Mirai not being the only IoT botnet, but being joined by IoTroop / IoT_reaper (see here and here ), I wondered what steps need to be taken to securely operate an IoT device. Obviously, just plugging the device into your public-IP internet connection is unwise. But I don't feel that this is the usual deployment scenario. My personal setup is a rather typical home-user's: ISP -> cable modem -> wireless router, and all computers/devices behind this router. This means that there is some firewalling between any given device and the internet. As far as my experience from several companies and universities goes, there is a similar amount of firewalling, if you'd plug your IoT device into any of their company-in-house-network sockets.
+So, the first part amounts to the question: What (network) attack vectors need to be considered?
+In the above-mentioned setup I regarded the IoT-device as not directly accessible from the internet. This does not seem to be true in the presence of an UPnP-enabled router. On several sites I found that deactivating UPnP increases your security. By my mediocre understanding what UPnP does, this seems very logical, as I don't want insecure devices to poke holes into my firewall. But the same sites that suggest turning UPnP off, never seem to mention what possible side-effects this might have. (I read that some software like Windows Live Messenger relys on UPnP?)
+Without UPnP, and without manually redirecting any ports to my IoT device, it seems that my IoT-device would need to make active connections. I can imagine two reasons to make such connections: Connecting to an automatic firmware upgrade mechanism, and to connect to a manufacturer/third-party service, which allows the device to be available from outside of my LAN (e.g. like the Ivideon service).
+So, the second part of the question is: Do these active connections pose a threat? (Given that any accounts on such sites have decent passwords.) Does one need to be afraid of man-in-the-middle attacks on the FW-upgrade mechanism, or maliciously altered FW-images?
+But what else am I missing out? 
+[ Of course, there are two most-basic suggestions, one hears on a daily basis: Change default passwords and apply firmware updates (if the manufacturer even cares to provide them). ]
+",59,1,2,111 times,2017-10-22 14:24:25Z,/questions/171893/secure-operation-of-iot-equipment,https://security.stackexchange.com/questions/171893/secure-operation-of-iot-equipment
+26,Managing https security for IoT gateways,"
+My company is a IoT-Gateway manufacturer. Customers are increasingly getting serious about security issues in the IoT domain. Additionally, governments require dedicated security features as HTTPS for embedded web severs.
+For example, the German government agency for security in IT-systems (BSI) requires to use ""TLS 1.2 in combination MIT Perfect Forward Secrecy"" as minimum security.
+My questions are: 
+
+From an IoT manufacturer's point of view, is an ""upload certificate"" feature in the IoT device sufficient to ensure certificate security?
+Are there already a standard API (or RFC) to replace certificates? Considering large IoT installations the replacement and management of certificates is defitively a big challenge.
+How do companies manage the HTTPS certificate infrastructure for IoT devices today? Are self-signed certificates used in Intranets or official certificates? Does every IoT gateway get a different certificate? Do companies operate private certificate authorities?
+
+",61,1,2,176 times,2017-09-29 17:17:56Z,/questions/170371/managing-https-security-for-iot-gateways,https://security.stackexchange.com/questions/170371/managing-https-security-for-iot-gateways
+27,Should firmware images for IoT be encrypted for security reasons?,"
+When working with Internet of Things devices, is it recommend to obfuscate or encrypt firmware images pushed to clients? This to make reverse engineering harder.
+(They should be signed of course)
+",70,27,8,"5,271 times",2018-02-05 11:27:54Z,/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons,https://security.stackexchange.com/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons
+28,How to brute force a login page of an IP camera created in .asp?,"
+I am new to stackexchange. I desperately need some help. I am doing my thesis on 'IoT Threats', one of my objectives is to try to brute force into an IP camera. I am using Kali Linux Hydra to do the brute force, however I have not been successful in completing this, I know the method I am using is not the correct one, I think, I don't know :( 
+All the examples I have looked shows only how to do a brute force for the extension .php?. The login page of the IP camera I am testing however is in .asp , and I do not see any <form> in the source code of the login.asp page. The login url created when you visit http://192.168.1.3:85 is
+
+http://192.168.1.3:85/doc/page/login.asp?_1503752871126
+
+(GET method is used, checked via Wireshark,
+HTTP requests to /PSIA/Custom/SelfExt/userCheck)
+I need your help with the below:
+
+Can I use brute force using hydra for .asp ?
+If yes how does the command look like ?  I used
+
+
+hydra -l admin -P wordlist.txt 192.168.1.3 -s 85 http-form-get '/PSIA/Custom/SelfExt/userCheck:lausername=^USER^&lapassword=^PASS^:User name or password is incorrect:H=Authorization: Basic YWRtaW46QkM1MUZFOTUyRkI3' -V
+
+
+If not how can I get access to this IP camera like a cracker? 
+
+Other Information nmap: 
+OPEN PORTS: 
+
+23 - telnet BusyBox telnetd,
+85 - http Hikvision IP camera httpd,
+443 - ssl/http Hikvision IP camera httpd,
+554 - rtsp Hikvision 7513 POE IP camera rtspd,
+7001 - afs3-callback?,8000 - http-alt?,
+8200 - trivnet1?
+
+kindly advise.
+",72,3,1,"1,116 times",2017-08-28 11:41:24Z,/questions/168329/how-to-brute-force-a-login-page-of-an-ip-camera-created-in-asp,https://security.stackexchange.com/questions/168329/how-to-brute-force-a-login-page-of-an-ip-camera-created-in-asp
+29,Why do cellphones not use software to simulate a NAT router between the phone and the internet?,"
+Connecting through wifi adds the benefit of being behind NAT. Why do cellphones not simulate being behind a nat network when connecting directly to the internet to limit the attack surface? Or, is there software that has implemented this?
+",73,2,1,100 times,2017-07-19 16:18:07Z,/questions/165569/why-do-cellphones-not-use-software-to-simulate-a-nat-router-between-the-phone-an,https://security.stackexchange.com/questions/165569/why-do-cellphones-not-use-software-to-simulate-a-nat-router-between-the-phone-an
+30,Could someone execute an assassination by exploiting a connected thermostat? [closed],"
+With connected thermostats such as the Nest gaining popularity due to their convenience, I've been wondering for a while about the potential for exploiting its intended function rather than just using it as an entry point into a network. Every summer you hear about people dying due to overheating, and it occurs to me that someone with malicious intent could take control of a connected thermostat and raise the temperature high enough to potentially kill someone in their sleep?
+For example, are there any safeguards built into a Nest thermostat at the hardware level to prevent someone from raising the temperature to 100+ degrees or forcing the furnace to remain on constantly?
+Are there any known examples of this, and is there any practical way to mitigate the risk aside from not using a connected thermostat or using a strong, unique password to protect the account tied to the device?
+",74,-4,1,89 times,2017-07-07 15:43:53Z,/questions/163614/could-someone-execute-an-assassination-by-exploiting-a-connected-thermostat,https://security.stackexchange.com/questions/163614/could-someone-execute-an-assassination-by-exploiting-a-connected-thermostat
+31,Does still make sense to use SHA1?,"
+I'm working with Arduino and hash-based signatures which are signature schemes that use only hash functions. Due to the constraints of an Arduino I was thinking about using SHA1 as the underlying function of my hash-based signature. But I'm not sure if it still makes sense to use SHA1 due to its vulnerabilities. Is there a scenario in which would be acceptable to use SHA1?
+",77,4,2,332 times,2017-06-26 17:28:45Z,/questions/162779/does-still-make-sense-to-use-sha1,https://security.stackexchange.com/questions/162779/does-still-make-sense-to-use-sha1
+32,"How to detect, if ESP32 or ESP2866 IoT devices hide malicious in their firmware?","
+ESP32 and ESP2866 devices are very famous as cheap IoT controller and connect via wireless LAN. 
+Unfortunately the firmware of these devices is still closed source and quite large. It is there any chance to detect, if malicious software is shipped in the firmware, which opens backdoors or harms the network?
+",78,0,1,297 times,2017-06-15 19:12:29Z,/questions/162045/how-to-detect-if-esp32-or-esp2866-iot-devices-hide-malicious-in-their-firmware,https://security.stackexchange.com/questions/162045/how-to-detect-if-esp32-or-esp2866-iot-devices-hide-malicious-in-their-firmware
+33,How would an external attacker utilise universal plug and play to bypass a firewall?,"
+I'm wondering what strategies and techniques are used to bypass firewalls which have universal plug and play.  I'm aware of security issues regarding UPNP in the past but I've also heard that there are some persistent vulnerabilities with UPNP that have not been patched, presumably because it would negatively effect the usability of UPNP.
+In this scenario, I am examining how an Internet of Things embedded device might be insecure despite of being placed behind a home firewall.  Assuming the device had FTP enabled and no further controls on it, so that a simple FTP cracking attack would suffice, how would these UPNP firewall bypassing techniques be used to establish an unfiltered connection between the IoT device and said attacker?  
+",79,3,1,127 times,2017-05-31 20:44:18Z,/questions/160878/how-would-an-external-attacker-utilise-universal-plug-and-play-to-bypass-a-firew,https://security.stackexchange.com/questions/160878/how-would-an-external-attacker-utilise-universal-plug-and-play-to-bypass-a-firew
+34,How to secure JavaScript-enabled login page without TLS,"
+I am involved in an IoT project with single pager web UI. Unfortunately, as it was discovered in a hard way, TLS stack is not viable on the selected platform. The alternatives I've found for securing the XMLHTTPRequest traffic relay on integrity and authenticity of the bootstrap/login page. Is it safe to assume that in local networks attackers will not be able to intercept a request for login page from a browser to a device and send a hijacked login page instead with malicious JavaScript?
+",81,1,1,144 times,2017-05-08 17:20:57Z,/questions/159040/how-to-secure-javascript-enabled-login-page-without-tls,https://security.stackexchange.com/questions/159040/how-to-secure-javascript-enabled-login-page-without-tls
+35,"What strategy would one utilise in order to breach an entire network, after gaining access to an embedded device on said network?","
+I am currently researching IoT security and am trying to find out about how a single device with poor password security on a network could be utilised to gain access to the other components of said network.
+Let's assume that it's an embedded device running some kind of Linux distribution.
+I'm trying to write about the implications of poor password security for IoT devices, and why you should care even if it's a mundane device that controls no private data.
+",79,2,1,62 times,2017-04-25 15:01:58Z,/questions/158097/what-strategy-would-one-utilise-in-order-to-breach-an-entire-network-after-gain,https://security.stackexchange.com/questions/158097/what-strategy-would-one-utilise-in-order-to-breach-an-entire-network-after-gain
+36,Cloud Data collection regulation [on hold],"
+IF an examiner finds credentials for a cloud storage account is it acceptable to use the credentals to login and preserve,collect,produce,present ?
+What cirmustance can this be done and should not be done ? 
+In this case, a private investigator coducting an investigation for a university has found credintals for a students uni google drive account.
+Is there an ISO doc that has guidelines on this ?
+",84,0,1,52 times,2018-11-06 14:48:05Z,/questions/197058/cloud-data-collection-regulation,https://security.stackexchange.com/questions/197058/cloud-data-collection-regulation
+37,Is it safe to keep my KeePassX database on my server or cloud with encryption? [duplicate],"
+
+My KeePassX file has a long and strong password. 
+I've read several articles and discussions about how safe it'll be stored such a file on VPS or cloud service such as Dropbox. There was no consensus in the discussions.
+I'm aware of a possibility that storage or my server can be hacked, or a staff member would copy my file to her computer and try to guess my password -- this is what my question is about too.
+Finally, how safe is this if my file protected by long enough password by itself not encrypted by some other tool unrelated to KeePassX? If the worst happens -- my file gets stolen by a hacker.
+I need a simple and succinct answer without any ""if...then"", ""if not....""
+",86,1,1,69 times,2018-10-06 20:15:09Z,/questions/195212/is-it-safe-to-keep-my-keepassx-database-on-my-server-or-cloud-with-encryption,https://security.stackexchange.com/questions/195212/is-it-safe-to-keep-my-keepassx-database-on-my-server-or-cloud-with-encryption
+38,Amazon EC2 Abuse Report,"
+My company recently received an email from Amazon which notified us of malicious activities occurring on our running EC2 Instance. 
+The email states:
+We observed machines under your control participating in a DDoS attack
+targeting Google IPs.
+The attack was a UDP amplification attack. In this attack, a UDP-based
+service is abused to attack others, wasting your bandwidth and computing
+resources.
+I am fairly new to all of this stuff in addition to AWS and have no idea as to where to start. What should be the first steps for me to take to mitigate this?
+After running the commands from @ximaera
+Davids-MacBook-Pro:~ davidpham$ ntpdc -nc monlist *ip*
+*ip*: timed out, nothing received
+***Request timed out
+Davids-MacBook-Pro:~ davidpham$ dig @ip +edns=0 +ignore com ANY
+
+<<>> DiG 9.10.6 <<>> @ip +edns=0 +ignore com ANY
+; (1 server found)
+;; global options: +cmd
+;; connection timed out; no servers could be reached
+Davids-MacBook-Pro:~ davidpham$ 
+
+This was the output I received. Am i missing something?
+",88,2,1,187 times,2018-10-10 22:21:06Z,/questions/195164/amazon-ec2-abuse-report,https://security.stackexchange.com/questions/195164/amazon-ec2-abuse-report
+39,What are some attacks to consider in a cloud deployment?,"
+I want to discuss the following scenario: 
+I use a cloud provider like Amazon where every instance of the OS is a VM. The hypervisor launches the VMs as needed. So let's assume there are two VMs running, mine and attacker's on the same box at the same time.
+Scenario 1: The attacker has root access to his VM. But does not have physical access to the box. What attack vectors do I worry about? 
+
+Obviously any vulnerabilities in my VM (OS and services it provides).
+  Let's assume this is out of scope for this discussion
+Vulnerabilities in the hypervisor that lets the attacker intercept all data to and from my VM. 
+  Are there known vulnerabilities like this? 
+Any other scenarios like DMA attacks? 
+
+Scenario 2: The attacker has physical access to the box. He manages the box and is able to install custom hardware or use the peripherals like USB, HDMI etc? 
+
+I know that one can introspect the VM he wants to attack directly as software-based attacks are easier. Let's assume it's out of scope.
+
+",89,1,1,67 times,2018-10-04 19:37:44Z,/questions/195072/what-are-some-attacks-to-consider-in-a-cloud-deployment,https://security.stackexchange.com/questions/195072/what-are-some-attacks-to-consider-in-a-cloud-deployment
+40,Security risks of exposing a VM to single IP address on the Internet,"
+I have a small office network with about 10 workstations and a single physical domain controller. I want to move it to the cloud. For that, I deployed a Windows VM on Azure, which I'm going to promote as an additional DC. Then, I'll shut down the physical one.
+Currently the physical server also serves as a VPN server, and the cloud VM is connected to the local office network via this VPN with L2TP and IPSec. When I'll shut down the physical server, it will also kill the VPN.
+I thought about exposing the cloud VM itself to the office, instead of initiating a connection from it. On Azure, I have the ability to expose the VM to all traffic from a single IP address on the Internet. This way I can use the office's external static IP and the workstations will be able to communicate with the cloud DC.
+My question is, what realistic security risks are involved in this process? Would it be easy to exploit, even when I expose it only to a single IP address? Should I avoid this strategy and keep the VPN approach?
+",92,0,3,96 times,2018-08-11 18:11:39Z,/questions/191392/security-risks-of-exposing-a-vm-to-single-ip-address-on-the-internet,https://security.stackexchange.com/questions/191392/security-risks-of-exposing-a-vm-to-single-ip-address-on-the-internet
+41,Privacy of client's virtual machine in cloud computing,"
+As we know clients can create and run their virtual machines (VM)in the cloud computing. My question is about the confidentiality of data stored in the client's VM.
+Question 1: Does data stored in a client's VM remain private in the cloud? Is the cloud able to read the data?
+Question 2: Is there any way to hide data (e.g. secret keys) stored in the client's VM? 
+",94,0,2,80 times,2018-07-20 09:23:49Z,/questions/190003/privacy-of-clients-virtual-machine-in-cloud-computing,https://security.stackexchange.com/questions/190003/privacy-of-clients-virtual-machine-in-cloud-computing
+42,Safely connect to remote site from cloud based code,"
+I am connecting my computer located at my home to a remote server. 
+To communicate with the server, I use a config file that contains my private and public keys and a passphrase. My code reads the config file and sends a message containing the signature from the private key, the public key and the passphrase.
+Now, I would like to run my code on the Cloud, for example AWS.
+I suppose it is not safe to store the config file on AWS, so what would be the correct way to connect safely from AWS to the remote server ?
+",96,1,1,31 times,2018-06-26 08:27:06Z,/questions/188473/safely-connect-to-remote-site-from-cloud-based-code,https://security.stackexchange.com/questions/188473/safely-connect-to-remote-site-from-cloud-based-code
+43,How does security work in a cloud-to-cloud backup scenario?,"
+I'm thinking of using Spinbackup which is a cloud-to-cloud backup of gmail, but I was resistant to the idea of telling Spinbackup my gmail password for obvious reasons. However, on the Spinbackup security page it says this:
+
+Spinbackup never requires Google user credentials. We don’t store your
+  passwords on our servers. It cannot access passwords as it uses OAuth
+  2.0 to access your Google account data, the latest Google API, which allows two-step verification.
+
+My common-sense reaction is that surely if someone has the privilege to back up my email, then that they can also read my email (and probably send email on my behalf too). Without going in to all the details about OAuth2, can someone explain what the above statement means and what security it offers?
+",97,3,1,52 times,2018-05-25 11:38:52Z,/questions/186486/how-does-security-work-in-a-cloud-to-cloud-backup-scenario,https://security.stackexchange.com/questions/186486/how-does-security-work-in-a-cloud-to-cloud-backup-scenario
+44,Penetration Testing of IaaS/PaaS environment - CVSS Score,"
+How can I measure the effectiveness of a Penetration Testing carried out in a Cloud Environment (IaaS/PaaS) by a third Party Vendor ? Should I ask for a CVSS score or something else ?
+Any advise will be highly appreciated.
+",99,1,1,97 times,2018-05-21 01:04:34Z,/questions/186164/penetration-testing-of-iaas-paas-environment-cvss-score,https://security.stackexchange.com/questions/186164/penetration-testing-of-iaas-paas-environment-cvss-score
+45,Do I need to trust my Paas provider?,"
+I am currently entering the world of deploying my web application to the cloud.
+While trying out Paas providers like heroku, I realized, that the platform has full access to my application. The docker container I'm deploying via there command line tool is fully readable by heroku and passwords for database, external storage providers are all in my env variables that are also stored in my heroku account.
+Does this mean, I need to fully trust my paas provider?
+In my mind a simple VPS would be safer in that regard, because the iaas provider does not need (have?) access to my private machine. Only I have the password to that server. And my application code and passwords are inside the machine, so he has no access to it.
+Of course the server would probably be more insecure to the outside world than my nodes on paas, because I have to configure the application hosting myself with a VPS and I'm certainly not as qualified as people who get paid for that stuff.
+Is there some truth in this text or am I understanding something wrong here?
+",100,0,1,32 times,2018-04-28 11:53:42Z,/questions/184792/do-i-need-to-trust-my-paas-provider,https://security.stackexchange.com/questions/184792/do-i-need-to-trust-my-paas-provider
+46,What are the privacy conerns with cloud based submission in antivirus?,"
+It seems like many antivirus programs use the cloud to scan files for malware. Isn't this a privacy concern if local files are being uploaded to the cloud? For example with Automatic Sample Submission and Cloud Based Protection in Windows 10.
+How exactly does this work because if some remote computer in the cloud can detect it, why not just have virus signature updates (like the old way of doing it)? If they use more advanced scanning techniques wouldn't this imply the whole file is being transferred and run? 
+",104,5,3,170 times,2018-04-12 14:17:28Z,/questions/183553/what-are-the-privacy-conerns-with-cloud-based-submission-in-antivirus,https://security.stackexchange.com/questions/183553/what-are-the-privacy-conerns-with-cloud-based-submission-in-antivirus
+47,Detect and Scan Open Ports,"
+I am trying to understand two questions -
+
+I run Qualys/Nessus scans on periodic basis in our Azure/AWS environment and always run into issues while detecting for Open ports, A basic nmap scan would detect open port however a Qualys/Nessus scan doesn't seem to detect. How can i make sure i get the best results when I run the scans everytime using these scanners? If I have to run NMAP on Public IP's in our AZURE environment, what would be the best practice to run these scans ?
+how can I run scans on Cloud environment like Azure/AWS to detect for open ports on continuous basis? 
+
+",106,0,1,346 times,2018-04-05 01:15:52Z,/questions/182951/detect-and-scan-open-ports,https://security.stackexchange.com/questions/182951/detect-and-scan-open-ports
+48,How can I protect my cloud processing from everyone … even those with root access?,"
+How can I run my top secret code and data on any cloud hosting provider such that everyone even the hosting vendor with root is denied access ? ... a research proposal
+What is the current state of either userspace or  OS architecture such that only processes running with a one time expiring key can gain access to OS managed resources ( memory/networking/CPU)? It is not that data structures managed by the OS are all encrypted, rather that they appear encrypted to non key holders. Users running under root also must have such a key.  Basically remove the notion of root with its unlimited powers. How far along is any project gotten so far towards providing this goal?
+It does not go unnoticed that to solve the issue of an underlying hypervisor like OS having access to my computation I could scatter my code and data across multiple cloud providers and reconstitute downstream on my own local client such that no single cloud OS can gain any semantics 
+Perhaps userspace application level is better suited than the OS to implement this scatter then gather distributed encrypted chunking of compute and data
+... the analogy would be a biological organism who's cells function in tiny disperse bodies where the entire organism only coalesces after the state of each cell is reported back to my secure client running locally ...  sure this is computationally inefficient however I am willing to pay this price for ultimate privacy ... any security less than this is a joke since I cannot prove that the powers to be in today's cloud compute environments do not have their fingers in the pie
+",108,-1,1,145 times,2018-03-29 19:14:37Z,/questions/182150/how-can-i-protect-my-cloud-processing-from-everyone-even-those-with-root-acc,https://security.stackexchange.com/questions/182150/how-can-i-protect-my-cloud-processing-from-everyone-even-those-with-root-acc
+49,How do companies manage resources shared with 3rd parties on cloud platforms?,"
+Over the years people at my company have shared resources on cloud platforms with 3rd many parties. This can be files on Google Drive, articles on Confluence, repositories on Github, slack channels, really anything on a cloud platform that allows for collaboration. 3rd parties include ex-employees, clients and ex-clients, partners and suppliers. Over time this is becoming a significant security risk with data such as documents containing trade secrets or personal data shared  with external entities, who no longer have a legitimate need for this data. Some of these documents are still being updated from time to time by people in the company who are unaware who else has access rights! Is this a common situation? How do companies usually manage cloud resources? Is it all down to how diligent (or not so dilignet) the account admins are?
+Take Google Drive as an example. The platform allow you to share files with people outside of an organization. As clients, suppliers and employees come and go we've accumulated a large amount of files on these platforms that are shared with people who don't really need to access them any more. The process of going through all our files, and determining who needs access and who doesn't is very painful, and needs to be done on a regular basis. Is there a better way? How do other companies manage this?
+",111,2,2,114 times,2018-02-13 13:08:57Z,/questions/179705/how-do-companies-manage-resources-shared-with-3rd-parties-on-cloud-platforms,https://security.stackexchange.com/questions/179705/how-do-companies-manage-resources-shared-with-3rd-parties-on-cloud-platforms
+50,What does Spectre mean for public cloud computing?,"
+From a tweetstorm by security journalist Nicole Perlroth:
+
+The most visceral attack scenario is an attacker who rents 5 minutes of time from an Amazon/Google/Microsoft cloud server and steals data from other customers renting space on that same Amazon/Google/Microsoft cloud server, then marches onto another cloud server to repeat the attack, stealing untold volumes of data (SSL keys, passwords, logins, files etc) in the process.
+
+While Meltdown can be patched, my understanding is that there is no short term solution to Spectre. That seems to make this problem very, very bad. Wouldn't that spell the death of the whole bussiness? On the other hand, my natural instinct in these situations is usually to try to dismiss it as hype. 
+So:
+
+If I have a sensitive service running in a public cloud such as AWS, should I panic and take it offline right away to stop my SSL keys from being stolen?
+Is there anything cloud providers can do in the short to medium term to make their services reasonably safe?
+Is there (or can there be) virtualization software that is not vulnerable to Spectre even though the host system is?
+
+",47,9,1,351 times,2018-01-04 18:50:56Z,/questions/176705/what-does-spectre-mean-for-public-cloud-computing,https://security.stackexchange.com/questions/176705/what-does-spectre-mean-for-public-cloud-computing
+51,AWS Tenant Restrictions,"
+I'm a sysadmin of a medium sized chain of Italian restaurants.  While I'm not dealing with patient health records or financial information I am still security focused.
+I'm trying to achieve tenant restrictions for Amazon AWS, similar to what I do for Outlook.  I do not want users to log into personal AWS accounts, only the organization one (https://docs.microsoft.com/en-us/azure/active-directory/active-directory-tenant-restrictions)
+For S3 buckets themselves I can limit PUTs and POSTs to them to prevent uploads on non-approved buckets.  I want to prevent users from logging into a personal AWS account on the web console and uploading from there.
+I'm using a proxy based solution for a SWG and can apply headers as needed. 
+Does some kind of header exist that I can shove into my S3 requests (or auth requests to AWS) that prevents people from logging in with personal accounts similar to what O365 provides?
+",113,4,1,142 times,2017-11-30 16:39:40Z,/questions/174656/aws-tenant-restrictions,https://security.stackexchange.com/questions/174656/aws-tenant-restrictions
+52,Using SSL (e.g. storing private keys) in SAAS / managed applications,"
+How does one evaluate the risk of storing a private key (secret) on services like the AWS elastic load balancer, or for the purpose of my question: any service non-self managed service that could benefit from SSL ?
+In security, I consider ""my identity"" a key aspect. We have Certificate Signing Request to address this problem on the generation part of the pipeline but it's up to me to manage the rest of the pipeline.
+My current ideas:
+
+I know that I still have to believe that the authority chain is not compromised (vs PGP/distributed  processes).
+I still have to believe that the physical access to my servers in the data center is not compromised
+They are asking me to create yet another vector of attack. My problem is that the aws services are certainly a target of interest to many attackers. If there is no current problem, there will be, sometime in the future. And they have their own sysadmins, helpdesk, etc that, may or may not, have have access to the keys.
+I do not do it. I store my private keys on my own servers. Traffic is routed and handled at my servers.
+If I had to do it, I would reduce attack time windows by refreshing those keys periodically (I have yet to analyse the consequences of this approach)
+
+Am I being to paranoid or is security being (once more) neglected ?
+(I feel that having SSL is a trend but the security of the thing isn't taken seriously anymore)
+",115,5,1,141 times,2018-09-13 07:38:43Z,/questions/173546/using-ssl-e-g-storing-private-keys-in-saas-managed-applications,https://security.stackexchange.com/questions/173546/using-ssl-e-g-storing-private-keys-in-saas-managed-applications
+53,Office 365 “ForeignRealmIndexLogonInitialAuthUsingADFSFederatedToken”,"
+I've detected a number of illegitimate logins to Office 365 (based on Client IP).  In the audit log, the operation is listed as ""ForeignRealmIndexLogonInitialAuthUsingADFSFederatedToken.""  I'm not terribly familiar with this logon type, and the MSDN articles didn't seem to provide the depth, only that it exists.  Can anyone explain what this could possibly mean?  
+",96,2,1,176 times,2017-11-07 13:41:13Z,/questions/172988/office-365-foreignrealmindexlogoninitialauthusingadfsfederatedtoken,https://security.stackexchange.com/questions/172988/office-365-foreignrealmindexlogoninitialauthusingadfsfederatedtoken
+54,A term for a policy that forbids employees storing intellectualy property (e.g. Source Code) on hosted third parties services,"
+To be honest, I was not sure if this belongs to this board or Law Stack Exchange.
+I am searching for a specific term that describes a policy that a company does not allow itself to share its intellectual property with third parties.
+A example for this are cloud services hosted by third-parties. It can happen that start-ups use these services for storing documents, sourcecode and databases because they lack the infrastructure. Big companies however, as far as I know, usually have policies which enforce that these services must not be used for said purposes.
+I tried to find this under the term ""Data Security Policy"" but the results do not correpond to that what I am looking for
+",118,0,1,69 times,2017-10-08 18:02:24Z,/questions/170890/a-term-for-a-policy-that-forbids-employees-storing-intellectualy-property-e-g,https://security.stackexchange.com/questions/170890/a-term-for-a-policy-that-forbids-employees-storing-intellectualy-property-e-g
+55,The difference between DDoS attacks in the cloud computing and the traditional network infrastructure [closed],"
+Is there any difference between the DDoS attack in the cloud computing and traditional network in infrastructure?
+What are the important features for detection these types of attack in cloud computing environment?
+My Ph.D research is about building a model to detect DDoS in the cloud environment. I, therefore, using a classification method. In my method, I trained the naïve base classifier with traditional network infrastructure dataset and test it on the cloud dataset. But the classifier misclassifies some sort of DDoS attack. For example, Smarf attack in the non-cloud dataset is misclassified as UDP attack in the cloud dataset, or normal traffic in the cloud dataset is more similar to the Ping-of-Death attack in the non-cloud dataset
+",121,0,2,135 times,2017-10-30 09:23:42Z,/questions/169228/the-difference-between-ddos-attacks-in-the-cloud-computing-and-the-traditional-n,https://security.stackexchange.com/questions/169228/the-difference-between-ddos-attacks-in-the-cloud-computing-and-the-traditional-n
+56,AWS Security - Dev Test Staging Production Environments,"
+Right now all our systems are in a traditional data center and traditional network topology. 
+We're planning to migrate to AWS and in doing so we're trying to figure out how to implement our dev/test/staging/production environments. Should we:
+1) Have separate AWS accounts for each environment and use consolidated billing?
+2) Create separate VPCs per environment? - keep in mind we'll likely want multiple regions/availability zones for High Availability
+3) Separate subnets per environment. Or should we use separate subnets for web severs/database servers/management-administration type servers?
+I've done some googling and reading and I can't find any clear cut answers. There seems to be a lot of mixed opinions. Mind you most of the posts I found weren't necessarily security minded folks so I thought I would ask here.
+What are other folks doing for cloud security, network topology, and a layered approach to network security with AWS.
+",122,6,1,342 times,2017-08-23 18:06:32Z,/questions/168074/aws-security-dev-test-staging-production-environments,https://security.stackexchange.com/questions/168074/aws-security-dev-test-staging-production-environments
+57,How secure is commercial cloud storage compared to my private cloud storage?,"
+I've been wanting to determine the most secure way to store data via Cloud storage solutions. And although at first it may seem like a duplicate question, I have read all the similar ones and nothing seems to directly address this.
+Here are my assumptions (correct anything if I've got it wrong):
+Commercial solutions (ie. iCloud, Google Drive, Dropbox, etc)
+
+Data is encrypted on a disk level by the cloud provider but not on a per-account level (meaning they can access your data unencrypted if they wish..)
+Data is protected by your account password and two-factor
+authentication (if enabled)
+The only foreseeable way to truely protect your data is to have some kind of encrypted volume that is in the cloud drive (maybe like a TrueCrypt volume or encrypted sparsebundle)
+If government agencies or the provider itself want to access your data they can
+Commercial solutions would be more secure than privately hosted cloud storage solutions. Simply, because that have significantly more money to spend on InfoSec and Cyber Security for their systems. 
+
+Private cloud storage (ie. OwnCloud, Nextcloud, etc)
+
+Probably aren't as secure as big applications like Google Drive or iCloud Drive
+You control the encryption so it can't be read by the provider (ie. the files stored on your own data store)
+All code is openly reviewed by experts & online communities rather than being closed source.
+It is more likely that government agencies can find security vulnerabilities in a private system???
+Data is presumably encrypted on two levels: your application encrypts the files on upload and all the storage is encrypted on disk level by your provider.
+
+
+So here's the question...
+What are the security benefits/concerns with using your own private cloud storage (where you control the encryption and security layers) vs entrusting companies (with millions of dollars expenditure on InfoSec) but are closed source and can access the data? 
+Ultimately - which is the better option and why.
+Thanks in advance for your answers! :)
+",124,5,3,513 times,2017-08-16 10:55:14Z,/questions/167582/how-secure-is-commercial-cloud-storage-compared-to-my-private-cloud-storage,https://security.stackexchange.com/questions/167582/how-secure-is-commercial-cloud-storage-compared-to-my-private-cloud-storage
+58,Email SPF record integrity,"
+I have been reviewing my company's SPF record with a number of our SAAS providers.
+One service advised me to use 'include:amazonses.com' in my record to allow emails to be validated.
+I am rather hesitant in allowing Amazon's service API to be allowed in the record.
+Is this not delegitimizing the purpose of SPF or am I arguing an authentication technology that was never prepared for Cloud driven services?
+If they gave me companyx.amazonses.com I would be a tad more interested in including this.
+What prevents a spam bot (minus the cost factor) from utilising these services with any one company's domain, effectively invalidating any SPF records?
+",126,0,2,111 times,2017-08-16 02:03:30Z,/questions/167577/email-spf-record-integrity,https://security.stackexchange.com/questions/167577/email-spf-record-integrity
+59,Reasons to limit password length [duplicate],"
+
+We are currently using a third party software for SSO Login in a hybrid landscape with SAP, ADFS, etc.
+The users have to change their password in the client software, which is then sent to a central server in the third party's cloud and used for a system wide synchronized login.
+Is this a good idea and really useful? I don't think so, but it is how it is...
+But now I wonder, the password policy says that the passwords have to have a minimum of 8 chars/numbers/special chars... so far so good, but the maximum length is also limited to 12.
+What does this mean in terms of security, which reasons could this have? Does this mean they don't hash the password and store them in plain text on their servers?
+There is no two factor authentification setup in any way. I am quite concerned now, could anyone please clarify the situation?
+",128,-1,1,117 times,2017-05-02 09:22:14Z,/questions/158562/reasons-to-limit-password-length,https://security.stackexchange.com/questions/158562/reasons-to-limit-password-length
+60,Cloud-based DDoS as a Service,"
+With the consolidation of cloud computing and virtualization, a really simple doubt comes to my mind: why isn't DDoS being largely offered as a service? Why don't we see cloud-based DDoS attacks? 
+vDOS, LizardStresser and others offered a way in which you could pay to attack a target but they used their own infrastructure. 
+It seems safer and simpler to just charge a client, use part of that money to rent servers on an IaaS provider and build a cloud-based botnet. That way one could start an attack from inside the provider to a specific target without even using their own structure. This could even be used for spoofing of attacks in general. Is there any particular reason why this doesn't happen? 
+I have no idea how difficult it is to build a botnet in either context (standard or cloud-based), if getting caught in the cloud would be easier or if this could just be a matter of profit.
+Thanks in advance.
+",132,18,5,"5,619 times",2017-04-25 03:19:47Z,/questions/158047/cloud-based-ddos-as-a-service,https://security.stackexchange.com/questions/158047/cloud-based-ddos-as-a-service
+61,How does the use of Microsoft-branded Azure products affect my privacy policy?,"
+I have an existing on premise infrastructure which I'm considering moving to Azure. On that platform, there are products that enhance my security, presumably by collecting metadata (IP, session, etc).
+Right now I have a privacy policy similar to DuckDuckGo.  I collect nothing.  Some products seem to collect data for a period of time in order to operate.  Examples include:
+
+Azure Threat Detection for SQL
+Azure Application Gateway
+Azure AD ""Risky Sign ins""
+etc...
+
+
+Question
+How can I gather the appropriate information in order to update my privacy policy accordingly? 
+",134,3,1,149 times,2017-04-18 15:40:02Z,/questions/157592/how-does-the-use-of-microsoft-branded-azure-products-affect-my-privacy-policy,https://security.stackexchange.com/questions/157592/how-does-the-use-of-microsoft-branded-azure-products-affect-my-privacy-policy
+62,Solutions for accessing webapp from inside and outside the corporate perimeter by same users?,"
+I'm looking for solutions that could best address the following requirements.
+
+We plan to develop a webapp and deploy it in the cloud.
+Corporate users must be able to access the webapp from the enterprise network, where they're already connected to a corporate Active Directory, with an SSO mechanism (e.g. SAML, OAuth/OpenID Connect, WS-Fed, etc.). This is the ""easy"" part, as ADFS provides solutions for this. 
+Here is where it gets less obvious: The same users can be on the road, and still be able to connect to the same webapp.
+When they're on the road, though, SSO is not mandatory: they could connect with other login credentials (e.g. via the webapp's own userid/password management system, or through a third-party identity provider). If there are solutions where they still could use their AD credentials from the outside of the company, this should be of course considered.
+In any case, a user should get her/his same preferences, personal data, etc. in the webapp, independently of the way s/he logs in (i.e. from inside the company or when on the road)
+If a user is de-provisioned from the AD, s/he must not be able to connect using the webapp's own login system or third-party identity provider. Same thing if her/his group memberships change: it must be taken into account in the webapp, whatever the login option used.
+
+I understand there are many possible solutions (VPN connection, using Azure AD, etc.), but what would be the one(s) with the best combination of impacts on the present infrastructure, cost, user-friendliness, security, and availability?
+Thanks!
+",137,2,2,254 times,2017-04-13 17:39:32Z,/questions/157350/solutions-for-accessing-webapp-from-inside-and-outside-the-corporate-perimeter-b,https://security.stackexchange.com/questions/157350/solutions-for-accessing-webapp-from-inside-and-outside-the-corporate-perimeter-b
+63,How to manage customer-supplied encryption keys in a multi-tenant cloud SaaS?,"
+I'm working at an EU-based company and we'd like to offer business customers some kind of OS-independent cloud-based SaaS platform for processing and storing sensitive (health) data. We'd like to implement our software on the Google Cloud Platform.
+All sensitive data should be encrypted with symmetric keys that are provided by the customer and are not stored on the cloud platform. (We trust google but the patriot act is a problem.)
+However, the client interface should preferably run as web app within the browser. This makes client-side encryption complicated.
+Also, many employees should have access to the encrypted data within the business customer's domain. Therefore, the encryption key must somehow be shared between employees.
+One idea is to generate the encryption key out of a shared passphrase (using PBKDF2), to store it within a session cookie (lifetime=0) and to transfer it to the cloud server for each request accessing sensitive data. The server performs the requested operation and then deletes the key out of its memory.
+Of course, there might always be ways to extract the key if we or Google would want to do this, but we can assure that the data are stored encrypted with a user-supplied key only managed by the customer.
+I wonder if anyone has better ideas. Thank you very much in advance.
+",140,4,2,257 times,2017-12-20 14:24:49Z,/questions/155920/how-to-manage-customer-supplied-encryption-keys-in-a-multi-tenant-cloud-saas,https://security.stackexchange.com/questions/155920/how-to-manage-customer-supplied-encryption-keys-in-a-multi-tenant-cloud-saas
+64,Application used in health industry: HIPAA HITECH hosting “requirements”,"
+We have a scenario at my employer where we host an application that is used for uploading, storing, & managing documents related to patients' bills from healthcare providers.  It is our knowledge so far that these documents contain PHI, and there are many policies developed in our Security Program to mitigate the risks of our current hosting solution.
+From a pure application architecture standpoint the application is quickly expanding its used disk space, and we are trying to decide if we can leverage Cloud storage in any way.  Obviously, introducing another hosting provider must be accompanied with our verification of risk mitigation on their behalf, such as in the form of a Business Associates Agreement (BAA)...
+at least that is the traditional way that the ""chain of custody"" is maintained from any number of hosting providers.
+First I'll ask: am I off base with that statement ^^?
+Then I'll ask the question: is a BAA required (by law?) to host PHI such that a chain of custody exists?  If not, is a BAA still applicable or even plausible for anyone looking to use Cloud provider services?
+Thank you for help!
+Cheers!
+SAM
+",142,1,1,73 times,2017-04-03 18:07:06Z,/questions/155581/application-used-in-health-industry-hipaa-hitech-hosting-requirements,https://security.stackexchange.com/questions/155581/application-used-in-health-industry-hipaa-hitech-hosting-requirements
+65,can cloud data be recovered by hacking on the servers? [closed],"
+i have a problem. i want to ask if cloud service providerss can run test on their storage devices to recover data we delete., and if someone can hack into the servers do recover dat which we have deleted
+",143,-3,1,46 times,2017-02-26 04:44:43Z,/questions/152390/can-cloud-data-be-recovered-by-hacking-on-the-servers,https://security.stackexchange.com/questions/152390/can-cloud-data-be-recovered-by-hacking-on-the-servers
+66,How does Google SQL Proxy work?,"
+Google Cloud SQL instances are by default not exposed to the Internet. One of the connection methods supported is Cloud SQL Proxy, which is able to map the Cloud SQL instance to a local port (say, localhost:3306) or a UNIX socket.
+It is authenticating with a service account, which is in practise a public/private key pair (be it as a file or attached to a Compute Engine instance via metadata).
+My suspicion is that it works similarly to stunnel, the server exposes an SSL service that tunnels the mysql protocol and the client authenticates with a client certificate. Does anyone have more information on how this protocol works?
+I would like to understand which connections are made, how are my keys used, which encryption methods are used and, in general, which security principles are protecting my connection.
+Can I reuse the same service account credentials to authenticate connections to my own databases (say, Redis)? If so, how?
+Thanks!
+",145,3,1,338 times,2017-02-22 07:46:08Z,/questions/151795/how-does-google-sql-proxy-work,https://security.stackexchange.com/questions/151795/how-does-google-sql-proxy-work
+67,"is Cryptpad safe for corporate use (logs which includes hostnames, IP and internal configuration) [closed]","
+We don't have an internal Gist for fast sharing snippets and logs extracts with co workers.
+Is it safe to use this web service?
+quote from GitHub site:
+
+CryptPad is private, not anonymous. Privacy protects your data,
+  anonymity protects you. As such, it is possible for a collaborator on
+  the pad to include some silly/ugly/nasty things in a CryptPad such as
+  an image which reveals your IP address when your browser automatically
+  loads it or a script which plays Rick Astleys's greatest hits. It is
+  possible for anyone who does not have the key to be able to change
+  anything in the pad or add anything, even the server, however the
+  clients will notice this because the content hashes in ChainPad will
+  fail to validate.
+The server does have a certain power, it can send you evil javascript
+  which does the wrong thing (leaks the key or the data back to the
+  server or to someone else). This is however an active attack which
+  makes it detectable. The NSA really hates doing these because they
+  might get caught and laughed at and humiliated in front of the whole
+  world (again). If you're making the NSA mad enough for them to use an
+  active attack against you, Great Success Highfive, now take the
+  battery out of your computer before it spawns Agent Smith.
+Still there are other low-lives in the world so using CryptPad over
+  HTTPS is probably a good idea.
+
+",147,0,2,451 times,2017-01-14 16:21:54Z,/questions/148366/is-cryptpad-safe-for-corporate-use-logs-which-includes-hostnames-ip-and-intern,https://security.stackexchange.com/questions/148366/is-cryptpad-safe-for-corporate-use-logs-which-includes-hostnames-ip-and-intern
+68,"What are the privacy differences with Azure trustee delegates in China, Germany, and other locations?","
+Azure has different privacy agreements set up with different datacenters as mentioned in this footnote
+
+Azure is now available in China through a unique partnership between Microsoft and 21Vianet, one of the country’s largest Internet providers. (https://www.azure.cn/)
+In Germany, Azure will be available via a new data trustee model whereby customer data remains in Germany under control of T-Systems, a Deutsche Telekom company, acting as the German data trustee.
+
+In addition there are presumably different regulations for hosting in a UK based datacenter vs one in the US
+Question
+
+What are the privacy differences with Azure trustee delegates in China, Germany, and the GA offering?
+Would it ever make sense for a US based person to leverage a German (or other) datacenter for production use?
+Should I assume the lowest common denominator of privacy when two different datacenters interact with each other? 
+What would guide a US based person to opt in, or opt out of a given datacenter? 
+
+",134,10,1,352 times,2017-04-25 05:04:09Z,/questions/147399/what-are-the-privacy-differences-with-azure-trustee-delegates-in-china-germany,https://security.stackexchange.com/questions/147399/what-are-the-privacy-differences-with-azure-trustee-delegates-in-china-germany
+69,Persistent exploits on “baremetal” cloud hosting services,"
+There are several cloud providers that offer ""baremetal"" hosting where tenants are allowed root-level access to the OS running directly on the hardware. What is the risk that a previous malicious tenant installed a firmware-based compromise that would grant them root-level access past reinstall when one of the kernel modules attempts to interact with that malicious hardware/firmware?
+",150,1,2,135 times,2017-01-03 16:05:22Z,/questions/147122/persistent-exploits-on-baremetal-cloud-hosting-services,https://security.stackexchange.com/questions/147122/persistent-exploits-on-baremetal-cloud-hosting-services
+70,Do we need to include SIEM hosted in the cloud in CDE scope for PCI DSS requirement..? where no CD or transacation logs are being process or managed,"
+We have our cardholder data environment (CDE) hosted in on-premise model (private datacenter), except SIEM solution is implemented for logging and monitoring in private cloud. where we are forwarding only security logs and not forwarding any logs relating to cardholder data / transaction logs. do we still need to include the cloud hosted SIEM solution in CDE scope for PCI DSS requirement..?
+",151,0,1,169 times,2016-12-09 03:02:27Z,/questions/144746/do-we-need-to-include-siem-hosted-in-the-cloud-in-cde-scope-for-pci-dss-requirem,https://security.stackexchange.com/questions/144746/do-we-need-to-include-siem-hosted-in-the-cloud-in-cde-scope-for-pci-dss-requirem
+71,Is cloud storage safe to use if I use gpg and is my method secure?,"
+I have to regularly back up data and use google drive and sometimes sync.com. I have lots of images, videos and spreadsheets and sometimes my backups are 4 or 5 GB.
+I typically add all the files to a folder. Then I use tar to create a single tar ball. Once the Tarball is created I use gpg -c with AES-256 encryption. For the password I use LastPass to generate a 100 character password consisting of lowercase, uppercase, numbers and some special characters.  I create a secure note in last pass documenting the password and file location. Then I use the split command to divide the .gpg file into chunks of 50MB rather than storing one huge file. 
+Then I upload the files to my sync or google drive where I have large amounts of data. 
+My last pass account is protected by a 30 character passphrase  which I can remember easily but it contains some numbers and special characters.
+I specifically want to use sync.com or something equivalent rather than storing on my local Hard drive as I think the data is less likely to be lost or damaged.
+Is my procedure of securing my data and photos secure? I don't want google employees or sync employees looking through my holiday photos.
+",154,3,2,"1,268 times",2016-11-27 00:31:46Z,/questions/143662/is-cloud-storage-safe-to-use-if-i-use-gpg-and-is-my-method-secure,https://security.stackexchange.com/questions/143662/is-cloud-storage-safe-to-use-if-i-use-gpg-and-is-my-method-secure
+72,4G Pocket WiFi - IMSI Catcher?,"
+Nearly all mobile phones are vulnerable to IMSI catcher attack's fake mobile networks. They can access storage, inject rootkits/backdoors, turn the microphone on view internet traffic even with a VPN in use. Conduct MITM attacks.
+They all have bad modem isolation, allow IMSI catcher direct access to hardware components that allow for compromise. Some phones have good modem isolation there all old phones.
+This explains it:
+https://replicant.us/freedom-privacy-security-issues.php
+Just to be clear the phones with good modem isolation prevent remote attacks on phones IMSI catchers can do. Or there wouldn't be a threat model for it. So the phones on that site prevent it.
+I want to no about 4G portable hotspots separate from phones, since there seems some doubt about IMSI catchers. Here's an article from electronic frontier foundation about them, why phones in general have bad security. 
+https://ssd.eff.org/en/module/problem-mobile-phones
+I'm considering if buying a portable 4G portable hotspot would be safe from IMSI catcher  if a phone with no sim cards at all was connected to the portable 4G hotspot. 
+What effects could a IMSI catcher have? I'm thinking as its separate from the phone itself it obviously stops access to phones hardware components. But what hardware it can see and access on the portable 4G hotspot itself is a question? it might be able to backdoor, compromise it's security.
+I don't know if there are any 4G portable hotspots that have good modem isolation. The article explains if you use a VPN on a phone with bad modem isolation, then an IMSI catcher can see the all traffic unencrypted.
+So if using a VPN on a phone with no sim cards at all that's connected to a portable 4G hotspot, will the IMSI catcher get unencrypted access to all traffic? or is good modem isolation needed for the portable 4G hotspot itself, to prevent that as it is on a phone? 
+Maybe this would be the same for home wireless mobile broadband? They plug into power source but are also 4G but closer to a traditional router.
+",155,0,1,48 times,2018-11-11 07:43:05Z,/questions/197426/4g-pocket-wifi-imsi-catcher,https://security.stackexchange.com/questions/197426/4g-pocket-wifi-imsi-catcher
+73,GSM - Implementing Cipher Mode Command on YateBTS,"
+I've been studying on Yate & YateBTS source code for a while, and I was wondering why there is no ciphering mode implementation in the source!?
+I use the combination of BladeRF x40 FPGA and YateBTS package to simulate a private BTS and have a private GSM network in a small area, but all packets are transferred in clear text and can be captured and sniffed by Wireshark!
+Is there anybody released a patch for YateBTS to enable Ciphering Mode Command? I need my connection ciphered by A5/2 algorithm. It takes a lot of time and effort to do it by my own! Have anyone patched the source to make ciphering command mode work?
+EDIT:
+We need to send Ciphering Mode Command message (RR) from BTS to MS to make ciphering enabled.
+",157,3,1,41 times,2018-11-04 22:45:01Z,/questions/196983/gsm-implementing-cipher-mode-command-on-yatebts,https://security.stackexchange.com/questions/196983/gsm-implementing-cipher-mode-command-on-yatebts
+74,Does the device you are logging into count as one of the factors for MFA when you are using device biometrics? [duplicate],"
+
+Yes it does because
+
+I 'have' the physical device 
+I 'am' the owner of the fingerprint
+
+But no it doesn't because
+1=>2 : If you have my device the fingerprint is now something you can get.
+Which makes me unwilling to install banking or payment apps on my phone. I'd want a separate physical dongle. Access to a bank account would justify the cost of forging a fingerprint.
+",159,0,1,89 times,2018-10-12 14:46:20Z,/questions/195530/does-the-device-you-are-logging-into-count-as-one-of-the-factors-for-mfa-when-yo,https://security.stackexchange.com/questions/195530/does-the-device-you-are-logging-into-count-as-one-of-the-factors-for-mfa-when-yo
+75,JWT or session cookie for API for both web and mobile app?,"
+I've been reading all I could about this subject for the last couple of days and I can't decide what would be the best approach.
+The only two requirement are: 
+
+I need to know the users that are logged in and every session they have, so the user would be able to see a list with this information and be able to close any session they choose.
+Both apps should use the same endpoints of a rest API.
+
+At first I was using session cookies, and calling the API with setCredentials=true, but I found that mobile apps handle cookies differently and I don't have control over that (for example, they get deleted for various reasons before expiring). I thought about saving the cookie in native storage and appending it to every request, but I can't access the cookie in any way because httpOnly is set to true. The solution would be to set httpOnly to false, but this way I'm exposing the cookie and I'm not sure of what security measures I should put in place to protect the cookie from been stolen or tampered with.
+The other solution would be to use JWT and store that in web/native storage. I would also store in a table every token still valid (hashed with a password algorithm) to get the list of users logged in and their sessions, and another table for invalid tokens for when the user chooses to end a particular session / changes password / etc. But again I'm not sure about the security measures I should us with this approach. Should I encrypt the token also? I was thinking about appending to it data about the device that ask for the token to always check that the device that asked for the token is the one using it. What other things I should do to protect this token?
+If I implement correctly either of this options, which one would be more secure for both web and mobile?
+",162,0,2,105 times,2018-10-10 17:14:26Z,/questions/195474/jwt-or-session-cookie-for-api-for-both-web-and-mobile-app,https://security.stackexchange.com/questions/195474/jwt-or-session-cookie-for-api-for-both-web-and-mobile-app
+76,Can smartphone app be hacked by wifi?,"
+We all know that it is possible to spy on other people in the same wifi network, even if it is difficult. 
+What about apps, like Facebook app for Android? Is it similar to an https website so it is encrypted? For example, if I put my password on the Facebook app, can someone on my wifi network look at it?
+",163,0,1,80 times,2018-10-08 15:51:45Z,/questions/195312/can-smartphone-app-be-hacked-by-wifi,https://security.stackexchange.com/questions/195312/can-smartphone-app-be-hacked-by-wifi
+77,Surveillance by mobile network provider,"
+I am customer of Vodafone Germany as my mobile network provider. After extension of my RED S mobile contract i realized, that the option ""Vodafone Secure Net"" is enforced by the company without informing me beforehand. After calling the customer service i found out, that its free for 3 month and that they are not able to deactivate before.
+For me this situation is not acceptable, because i don't want my network provider to monitor or even MITM attack my connections as stated here (german source). Even encrypted traffic is monitored:
+
+The upgrade is also designed to help detect likely sources of malware that is hidden within encrypted web traffic using a secure HTTPS address. Further, parents can monitor the online activity of their offspring through the Secure Net app.
+  (source)
+
+So my question, how does Vodafone Secure Net or similar services affect the users privacy and / or security?
+",164,-1,1,96 times,2018-09-27 11:58:28Z,/questions/194585/surveillance-by-mobile-network-provider,https://security.stackexchange.com/questions/194585/surveillance-by-mobile-network-provider
+78,Fake bank text message,"
+I recently tried to use my card to buy something on my phone for £29.99. My card was declined so I used a different card and the payment went through. 
+A couple minutes later I get a message from a number, the same as my bank's, telling me ""you've paid £29.99. if this is true send Y if not true send N"" for the declined card. Since that wasn't true and the payment wasn't made on that card I sent N. 
+After speaking with the bank they told me it was not a legitimate text so they made me cancel my card. But is my phone hacked now that I've responded to the malicious text? 
+",165,0,1,102 times,2018-09-24 22:42:38Z,/questions/194388/fake-bank-text-message,https://security.stackexchange.com/questions/194388/fake-bank-text-message
+79,"Police forcing me to install Jingwang spyware app, how to minimize impact?","
+Chinese police are forcing whole cities to install an Android spyware app Jingwang Weishi. They are stopping people in the street and detaining those who refuse to install it.
+Knowing that I may be forced to install it sooner or later, what are my options to prepare against it?
+Ideally:
+
+Make it appear like the app is installed and working as intended,
+without having it actually spy on me.
+
+The app is downloadable and documented. It basically sends the IMEI and other phone metadata, as well as file hashes, to a server. It also monitors messages sent via otherwise secure apps. I don't know whether it includes sophisticated anti-tempering features or not. 
+I can't afford two phones nor two contracts, so using a second phone is not a viable option for me.
+",183,507,18,"105,678 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
+80,Mobile application authentication using UUID,"
+I write back-end code for mobile applications. I am needing to write the code for authentication and the simplest yet secure solution I can think of is:
+
+When user signs in, device sends username and password to server
+If credentials are valid server returns token
+User sends token with every request
+
+Details about token
+
+In Java I can create token as UUID (which is created using SecureRandom under the hood)
+I write this token into DB in users table in user row
+On every mobile application request I make SELECT ... FROM users WHERE token = ? and check if current user is allowed to perform operation
+Periodically I change token in users table to expire previous token
+
+Is it good enough?
+It seems secure, but I'm not a security expert so I thought I'd ask here. I haven't seen this solution before and I am wondering why.
+
+Someone would complain about performance because of hitting DB every time but in real application every request generates a lot of SQL queries so one more shouldn't be a problem.
+Someone could complain about UUID, but as far as I know in Java UUIDs are presumed impossible to guess because of the implementation of SecureRandom.
+
+Is this solution secure or are there any holes I couldn't see?
+",184,1,1,44 times,2018-09-18 16:09:58Z,/questions/193983/mobile-application-authentication-using-uuid,https://security.stackexchange.com/questions/193983/mobile-application-authentication-using-uuid
+81,Mobile call encryption [duplicate],"
+
+Is the signals of a mobile phone-call encrypted between the phone and the mobile-tower or only between the towers? And is it possible for a non-authority individual to eavesdrop on your conversation if he picks up the signal between the phone and the tower? 
+",186,0,1,119 times,2018-09-18 14:24:19Z,/questions/193982/mobile-call-encryption,https://security.stackexchange.com/questions/193982/mobile-call-encryption
+82,What tests can be performed on mobile apps to determine if they are secure?,"
+My company is looking to work with a potential client's backend provider in order to make an app for them. To do this, we need to use their API. We've spoken to this company and they are worried about security and so have said that they will only let us launch the app if we have it penetration tested by a third party.
+The app will allow users to login and access their financial information so it makes sense that they want to make sure everything is secure but, from my understanding, ""penetration testing"" doesn't really make sense for a mobile app. Is this correct? What can we do to satisfy them that the app is secure? Is there a name for a kind of standard app security test that could be performed by a third party?
+",190,0,2,86 times,2018-09-16 20:08:00Z,/questions/193861/what-tests-can-be-performed-on-mobile-apps-to-determine-if-they-are-secure,https://security.stackexchange.com/questions/193861/what-tests-can-be-performed-on-mobile-apps-to-determine-if-they-are-secure
+83,Authenticate user based on mobile device identifier,"
+I have a hypothetical mobile game where players don't necessarily need to create accounts to play. Their data is keyed off of a device identifier like an advertising identifier (IDFA) or Apple's identifierForVendor or Android ID
+For GDPR, I need to allow all users to download their data. 
+Is it safe to use the ID as an authentication secret to uniquely identify a user/device, or are these ID values predictable / published somewhere and easy to spoof?
+",192,2,2,68 times,2018-09-18 22:00:31Z,/questions/193667/authenticate-user-based-on-mobile-device-identifier,https://security.stackexchange.com/questions/193667/authenticate-user-based-on-mobile-device-identifier
+84,Is there a way to secure an API key on iOS?,"
+When a user logs in the App, they are given a unique API key (each user's API key will be different). The user uses this API key to make HTTP requests. Currently, the API key is saved in an SQLite database on iOS and it is retrieved from the database when you make API requests. However, I'm not sure how safe this is. On the backend, the user and backend team have the ability to delete the API key and we are using SSL.
+I've thought about keychains, but I was told it doesn't really protect much.
+https://stackoverflow.com/questions/14778429/secure-keys-in-ios-app-scenario-is-it-safe/14865695#14865695
+",194,0,1,56 times,2018-09-13 15:44:58Z,/questions/193662/is-there-a-way-to-secure-an-api-key-on-ios,https://security.stackexchange.com/questions/193662/is-there-a-way-to-secure-an-api-key-on-ios
+85,How to make QR Code uncopyable - Scanning of the QR Code at consumer level [closed],"
+I am designing a Consumer Protection System for import products on Blockchain technology. My Client wants to use QR Code instead of Security Tax Stamp. How can we make QR Code uncopyable at the consumer level?
+Scenario:
+I went to a shop to buy an imported Cadbury chocolate bar. The chocolate bar I am buying is not custom cleared and QR Code pasted on it is copied from an authentic custom cleared chocolate bar. As a consumer, I scan the QR Code on that product using an authorized application it will fetch the information stored against that QR Code.
+Adding an unauthentic product on blockchain is impossible but at consumer level where only scanning is involved how can it be made secure in a manner that consumer is able to find out the product they are buying is authentic or not?
+Thanks.
+",196,-1,1,155 times,2018-09-05 03:14:05Z,/questions/193070/how-to-make-qr-code-uncopyable-scanning-of-the-qr-code-at-consumer-level,https://security.stackexchange.com/questions/193070/how-to-make-qr-code-uncopyable-scanning-of-the-qr-code-at-consumer-level
+86,Should you remove the user's application PIN if they explicitly log out,"
+I am looking for some security driven insight on when to dispose of a mobile application user's PIN in a few scenarios:
+Background: When the user downloads and installs the mobile app, they are asked to log in with username and password. After authentication is successful they are prompted to set a PIN for easier access to the app during the session lifetime.
+1) The app session expires and the user needs to re-enter their username and password to ""restart"" the session. 
+
+Here I would presume to leave the PIN in place as this was not an action initiated by the user.
+
+2) The user clicks ""log out"" in the app to kill their session manually. 
+
+Here I would presume the PIN should be removed as this was an explicit action by the user.
+
+I understand that this may be viewed as ""subjective"", but I believe that there should be a best practice around this as this involves defining an average user's intent regarding security.
+",197,0,1,40 times,2018-08-27 16:18:09Z,/questions/192417/should-you-remove-the-users-application-pin-if-they-explicitly-log-out,https://security.stackexchange.com/questions/192417/should-you-remove-the-users-application-pin-if-they-explicitly-log-out
+87,Should I block a user from using banking app if they fake the location?,"
+I was wondering if this could be a security issue for banking application and if so, why? What are the risks if I allow it?
+",200,0,3,108 times,2018-08-11 15:47:40Z,/questions/191388/should-i-block-a-user-from-using-banking-app-if-they-fake-the-location,https://security.stackexchange.com/questions/191388/should-i-block-a-user-from-using-banking-app-if-they-fake-the-location
+88,Protecting payment mobile app against mobile theft,"
+Currently I'm designing a payment app.
+It has the standard security controls such as HTTPS communication, certificate pinning, no cache, login with 2FA (OTP), 2FA for payment operation.. but I'm not sure how to protect the user against a mobile theft.
+A thief can reset the password due to the fact that the user usually signed in to the email app, biometric authentication can be easily bypassed due to compatibility and UX requirements, secret questions are usually easy to guess.
+Are there any other measures that can be done in order to eliminate damage from mobile theft?
+",203,1,2,59 times,2018-08-01 17:33:24Z,/questions/190800/protecting-payment-mobile-app-against-mobile-theft,https://security.stackexchange.com/questions/190800/protecting-payment-mobile-app-against-mobile-theft
+89,"Can infection effect a phone through it's wireless hotspot, also the usb tethering","
+If I made a wireless hotspot from my phone and had computers infected with malware connect and use my wireless connection of the phone can any malware from the pc get into the phone?
+If my phone was connected to an infected computer by the USB cable the first thing that happens when you connect to the computer is you get asked to allow or deny the computer access to the phone's storage. If I choose ""deny"" so storage isn't mounted and then use USB tethering for the internet would this be fine, to avoid the phone been infected? 
+Also would both my questions be at more risk if USB debugging on the phone was turned on? I know it allows the computer to run commands on the phone, I just don't know if USB debugging has risks with wireless hotspot, or if USB debugging can be used by the computer if I choose to deny access to phones internal storage.
+",155,1,2,317 times,2018-07-23 13:10:51Z,/questions/190166/can-infection-effect-a-phone-through-its-wireless-hotspot-also-the-usb-tetheri,https://security.stackexchange.com/questions/190166/can-infection-effect-a-phone-through-its-wireless-hotspot-also-the-usb-tetheri
+90,Call and Unsolicited One Time Passwords,"
+Context:
+I got a call from a US phone number from a guy claiming he was from a dark web website (something .onion, I can't remember) and he was calling regarding my ""fake passport application"". I hung up (call duration: 20s), he called back and I told him I hadn't applied for any such thing and hung up again (call duration: 40s)
+A minute later, my phone is flooding with SMS's regarding One Time Passwords from about 20+ different websites. 20+ SMSs within the 10 seconds. (These were all genuine companies, like Amazon and stuff)
+My question is, Am I being attacked?
+Is my identity being used to sign up on different websites or this is just spam? Can an attacker gain access to these OTPs? How do I know my calls/texts/location/network usage isn't being monitored? Is my sensitive information at risk?
+Extra Info:
+I use an iPhone (iOS 12 Beta). My outlook account was compromised one day before this happened. (easy password). I've changed the password now.
+
+Paranoia: The person on call knew my name. The sources of the OTPs are genuine. I don't see the motive behind sending OTPs from tons of different websites unless they can access the OTPs. (possible iOS vulnerability that isn't documented yet?) I see 4 possible intentions:
+
+Using my identity as part of a fake passport/profile on the dark web.
+Using my identity on regular websites (Amazon, etc)
+Gaining sensitive information from my device.
+Elaborate Spam/prank 
+
+",204,3,1,57 times,2018-07-13 22:19:25Z,/questions/189541/call-and-unsolicited-one-time-passwords,https://security.stackexchange.com/questions/189541/call-and-unsolicited-one-time-passwords
+91,Can malware be installed on a mobile phone when the user opens an sms?,"
+Is it possible for an adversary send malware over messages? I mean, when the victim clicks on the message sent by the attacker, a malware should be installed into his phone (in background). The hacker should then be able to steal all the data in the victim's phone. Is it really possible? How to perform this attack? What are the possible ways to mitigate risk?
+",205,0,1,101 times,2018-07-07 15:37:27Z,/questions/189146/can-malware-be-installed-on-a-mobile-phone-when-the-user-opens-an-sms,https://security.stackexchange.com/questions/189146/can-malware-be-installed-on-a-mobile-phone-when-the-user-opens-an-sms
+92,Identify anonymous mobile phone user by network participants,"
+I have wondered this for quite some time but have not found any references. In the TV series ""The wire"" they use disposable prepaid mobile phones as a counter-surveillance technique. However if someone uses a prepaid mobile phone and connects to the same people as with his old phone, wouldn't this uniquely identify him? For example if Alice knows Bob and also Eric, while Eric lives in a town far away. Now Alice buys a new burner phone and still messages with Bob and Eric, what are the odds that another network user who is not Alice knows Bob and Eric too? I mean only knowing two people - even if Eric lived in the same area as Bob - will greatly reduce the number of suspects. Is this technique used? And where can I read up on it? I'm interested in the technical as well as legal aspects of this method.
+",207,2,1,77 times,2018-07-06 14:29:55Z,/questions/189085/identify-anonymous-mobile-phone-user-by-network-participants,https://security.stackexchange.com/questions/189085/identify-anonymous-mobile-phone-user-by-network-participants
+93,OTP generation is specific to SIM or Phone number,"
+Are the messages including OTP sent to a mobile phone addressed to the SIM card or the phone number?
+If I decide to have a new phone number and the old phone number is allotted to a new customer, the bank may send the OTP to the same old number even if I have the SIM.
+So is OTP or messages sent to the SIM?
+Are text messages specific to SIM or specific to phone number?
+",210,0,2,147 times,2018-06-22 10:28:14Z,/questions/188041/otp-generation-is-specific-to-sim-or-phone-number,https://security.stackexchange.com/questions/188041/otp-generation-is-specific-to-sim-or-phone-number
+94,Is showing the package name(Android)/bundle ID(ios) a security risk?,"
+Suppose I release an app and accidentally publish the package name/bundle ID of the app which is suppose to be shown in development only, in a page. Is there any security concern that arises from this?
+",211,1,1,108 times,2018-06-13 07:05:06Z,/questions/187657/is-showing-the-package-nameandroid-bundle-idios-a-security-risk,https://security.stackexchange.com/questions/187657/is-showing-the-package-nameandroid-bundle-idios-a-security-risk
+95,How does TrueVault's de-identification process work?,"
+I'm thinking of using TrueVault, but I'm not entirely sure about the sequence of events involved in de-identifying data and re-identifying it. More info here. Here is the process, as I understand it, but I don't know exactly in what order:
+
+PHI is stored in a HIPAA-compliant TrueVault server. TrueVault returns an opaque identifier that can be stored alongside de-identified data in AWS. 
+To fetch this data, the data is returned from two different sources: the TrueVault server and AWS, where analyses on the data-sets are being performed. Does this happen simultaneously? What happens first?
+To pull de-identified, a request is made to the AWS server – which would also return the opaque identifier. Then, a request would be made to the TrueVault server to identify the user associated with the opaque identifier. Is this the right order of events?
+The data would be re-identified in the client application when requested by an authenticated user. 
+
+What is the sequence of events here? Is PHI data first sent to the TV server, and then an opaque identifier is sent to AWS along with the separated data? What information does the client application have at any one time? Clarity on the process would be appreciated.
+",213,0,1,59 times,2018-06-10 15:19:34Z,/questions/187486/how-does-truevaults-de-identification-process-work,https://security.stackexchange.com/questions/187486/how-does-truevaults-de-identification-process-work
+96,How is this registration setup vulnerable?,"
+I'm developing a mobile app for iOS and Android that has, due to specs that are given by management, some security flaws. However, I can't quite explain in concrete business speak why the specs are not secure, and thus I can't convince them to change their requirements.
+Some background; when we implement user registration, there are two options to do so: fill in a mobile number (and trigger an SMS verification) or connect with Facebook. The backend is a RESTful API.
+The first flaw is that when we connect with Facebook, they still want the user to create a username and password in the app. The only thing they want to use the Facebook login for is to auto-fill some of the data in the registration form, like the username. This means that the Facebook login is essentially useless since the backend never sees a successful Facebook login token. It still boils down to form-submitted data.
+The second flaw is that when we register using our mobile number, they want the password to be filled in after the SMS verification step. So the flow is: 
+
+register with a mobile number, 
+get an SMS verification
+supply the password. This means the person who registered their
+mobile number is not guaranteed to be the one who is also
+supplying the password.
+
+Of course, user login is what you would expect - fill out the username/mobile number and password. Always, even when they registered via Facebook.
+My question is, what are some attacks that a hacker could do to take advantage of a registration setup such as this? I intend to use this info to make a more concrete case of why the registration flow should change.
+",215,4,1,69 times,2018-06-02 07:09:57Z,/questions/186976/how-is-this-registration-setup-vulnerable,https://security.stackexchange.com/questions/186976/how-is-this-registration-setup-vulnerable
+97,Why don't websites and devices offer fake logins for hackers?,"
+I was thinking about this earlier this morning and was wondering why websites and devices don't offer fake logins for hackers? What I mean by that is that if a hacker finds out some of your details and tries to log in to a website (for example) the website will show that you have successfully logged in but will show dummy data that is completely fake.
+That way the hacker won't know if they have got the login details correct or not. It will also protect people in a security situation. For instance, imagine a criminal has stolen someones phone and realises he can't access it. He then points a gun at the owner who then types in part of their details correct but some of them incorrectly. The device unlocks in fake mode, and the criminal then thinks they have access and they decide not to shoot the person because they have complied with their wishes. But the criminal never knows that what they see is just a fake login.
+Has anyone implemented something like this? It seems like quite a good idea to me.
+",225,61,11,"21,487 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
+98,OAuth2 for mobile apps with confidential backend client (Is PKCE required?),"
+I'm wondering why neither rfc6749 nor rfc8252 seem to consider the case where the mobile app does not make protected resource requests (and is therefore not a client) but instead relies on a backend server (confidential client) that does. 
+*Note that I use the term mobile app instead of native app only because the spec defines a native app as being a public client:
+From rfc6749 
+
+Section 2.1:
+
+A native application is a public client installed and executed on
+        the device used by the resource owner.  Protocol data and
+        credentials are accessible to the resource owner.  It is assumed
+        that any client authentication credentials included in the
+        application can be extracted.  On the other hand, dynamically
+        issued credentials such as access tokens or refresh tokens can
+        receive an acceptable level of protection.  At a minimum, these
+        credentials are protected from hostile servers with which the
+        application may interact.  On some platforms, these credentials
+        might be protected from other applications residing on the same
+        device.
+
+section 1.1:
+
+client - 
+        An application making protected resource requests on behalf of the
+        resource owner and with its authorization
+
+
+The case that I'm inquiring about is similar to how rfc6749 section 2.1 defines a web application, but instead of an HTML user interface, the interface would be a mobile app:
+
+A web application is a confidential client running on a web
+        server.  Resource owners access the client via an HTML user
+        interface rendered in a user-agent on the device used by the
+        resource owner.  The client credentials as well as any access
+        token issued to the client are stored on the web server and are
+        not exposed to or accessible by the resource owner.
+
+
+rfc8252's definition of native app seems more reasonable as it doesn't restrict its use to apps that are public clients: 
+
+""native app""  An app or application that is installed by the user to
+        their device, as distinct from a web app that runs in the browser
+        context only.  Apps implemented using web-based technology but
+        distributed as a native app, so-called ""hybrid apps"", are
+        considered equivalent to native apps for the purpose of this
+        specification.
+
+But again, the spec only provides the best practice for the case where the native app is also the (public) client. 
+
+In summary, 
+
+I'm wondering why I haven't been able to find any mention of the client profile I described above (either in the specs or elsewhere).
+Would the Authorization Code Grant (without PKCE) be considered
+secure enough since even if a malicious app intercepts the
+authorization code (sent by the external user-agent to the
+native app, via inter-app communication) it wouldn't be able to
+exchange it for an access token as it would not be in possession of
+the client secret which is stored on the backend?
+
+Note that I'm only asking these questions to gain a better understanding of the theory, and not for anything practical.
+",227,1,1,429 times,2018-05-30 03:01:27Z,/questions/186731/oauth2-for-mobile-apps-with-confidential-backend-client-is-pkce-required,https://security.stackexchange.com/questions/186731/oauth2-for-mobile-apps-with-confidential-backend-client-is-pkce-required
+99,Why don't mobile devices let you change the IMEI number for better anonymity?,"
+The vast majority of modern day mobile devices have a fixed IMEI number that's impossible to change, which makes it easy to track people if they use the same device constantly. It's quite easy to swap SIM cards frequently if you wish to stay anonymous, however throwing out whole devices can quickly get too expensive. 
+What's the reason behind this? Why not let users randomize their IMEI number if they wish?
+",229,3,3,297 times,2018-05-24 14:58:24Z,/questions/186408/why-dont-mobile-devices-let-you-change-the-imei-number-for-better-anonymity,https://security.stackexchange.com/questions/186408/why-dont-mobile-devices-let-you-change-the-imei-number-for-better-anonymity
+100,Can Signal encrypted voice calls be listened into by other apps?,"
+Signal App (by Open Whisper) provides encrypted voice calls allowing two people to communicate via a data connection with secure encryption (assuming no MiTM attack).  Given that Signal App uses the microphone on the mobile devise (iPhone/Android) and many other apps may also have permission to access the mic, is there a potential for the call to be listened to by other apps?
+Does Signal have any method for gaining exclusive access to the mic and excluding other apps from access it while making a call?  If yes, what is this mechanism?
+",230,3,1,114 times,2018-05-24 11:43:52Z,/questions/186393/can-signal-encrypted-voice-calls-be-listened-into-by-other-apps,https://security.stackexchange.com/questions/186393/can-signal-encrypted-voice-calls-be-listened-into-by-other-apps
+101,Shoulder surfing prevention or mitigation for unlocking mobile devices,"
+How can shoulder surfing be prevented or mitigated when unlocking mobile devices? 
+I found other questions about shoulder surfing that focus more on desktop machines, but I believe the issue is much more serious and worrying for mobile devices. You carry them around all the time, you are unlocking them in front of other people all the time, the input method for gestures/pins/passwords is slower and leaks a lot of info in several ways (from visual touch feedback to grease marks, etc). I find it way too easy to steal unlock codes (especially gestures and pins), all it usually takes is standing next to somebody when they are about to unlock the screen. 
+As far as I know, Android supports gestures (ridiculously insecure), pins (still very insecure), and passwords (more secure but also more cumbersome to type). I don't know if anything else is possible, or if there are any settings or methods to mitigate this threat.
+",231,1,1,90 times,2018-05-22 13:22:33Z,/questions/186274/shoulder-surfing-prevention-or-mitigation-for-unlocking-mobile-devices,https://security.stackexchange.com/questions/186274/shoulder-surfing-prevention-or-mitigation-for-unlocking-mobile-devices
+102,Do app lockers improve smartphone security?,"
+I recently installed Norton App Lock on my smartphone. It asks for a password pattern every time one tries to open an app. So, theoretically, it protects you in case someone is able to bypass your OS password pattern.
+But it also hurts usability because I have to input these patterns frequently.
+Do those kinds of app really improve security in anyway?
+",184,5,1,142 times,2018-05-23 08:20:33Z,/questions/186272/do-app-lockers-improve-smartphone-security,https://security.stackexchange.com/questions/186272/do-app-lockers-improve-smartphone-security
