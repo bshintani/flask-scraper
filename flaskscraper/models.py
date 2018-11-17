@@ -39,3 +39,10 @@ class Answer(db.Model):
 
     def __repr__(self):
         return f"Answer('{self.answer}')"
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('answer.id'))
+    comment = db.Column(db.String())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date = db.Column(db.String())
