@@ -108,12 +108,12 @@ def step_into_url():
                 try:
                     # This try block collects the ANSWER USERS ONLY
                     k = 0
-                    #print(f'# of Answers: {len(answer_containers)}')
+                    answer_id = 1
+                    # for each answer on the question's page
                     for user in answer_containers:
-                        # comment_user_urls = []
 
                         answer_comment_containers = user.find_all('div', 'comment-text js-comment-text-and-form')
-                        print('\n\n  NEW ANSWER')
+                        print(f'\n\n  Answer: {answer_id}')
                         #print(len(answer_comment_containers))
                         try:
                             for comment in answer_comment_containers:
@@ -122,7 +122,7 @@ def step_into_url():
                                 comment_user = comment.find('a', 'comment-user').text
                                 # comment_user_urls.append(comment.find('div', 'comment-body').a['href'])
                                 comment_user_url = comment.find('div', 'comment-body').find('a', 'comment-user')['href']
-                                #print(comment_user_url)
+                                comment_date = comment.find('span', 'relativetime-clean').text
                                 checklist = []
                                 #print('before if post_id != 1')
                                 if user_id != 1:
@@ -139,11 +139,18 @@ def step_into_url():
                                     #print(checklist)
                                     if 'true' in checklist:
                                         print(f'\tSkip Commenter: {comment_user}')
+                                        rev_user_id = 0
+                                        for users in users_list:
+                                            if comment_user in users:
+                                                rev_user_id = users[0]
+                                        full_comment_list.append(tuple((post_id, answer_id, rev_user_id, comment_body, comment_date)))
+                                        print(rev_user_id)
                                         continue
                                     elif 'false' in checklist:
                                         #print('FALSE')
                                         #user_url = answer_containers[i].find('div', 'user-details').a['href']
                                         print(f'\tCommenter: {comment_user}')
+                                        print(f'\t  {comment_date}')
                                         sleep(randint(3,5))
                                         response1 = get(base_url + comment_user_url)
                                         html1 = BeautifulSoup(response1.text, 'html.parser')
@@ -193,6 +200,10 @@ def step_into_url():
                                         #print(base_url + comment_user_url)
 
                                         users_list.append(tuple((user_id, comment_user, comment_user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + comment_user_url)))
+
+                                        full_comment_list.append(tuple((post_id, answer_id, user_id, comment_body, comment_date)))
+                                        print(post_id, answer_id, user_id)
+                                        #answer_id += 1
                                         #print('append good')
                                         user_id += 1
                                         #print('+1 user good')
@@ -201,6 +212,7 @@ def step_into_url():
                                 elif user_id == 1:
                                     #user_url = answer_containers[i].find('div', 'user-details').a['href']
                                     print(f'\tCommenter: {comment_user}')
+                                    print(f'\t  {comment_date}')
                                     sleep(randint(3,5))
                                     response1 = get(base_url + comment_user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
@@ -237,10 +249,16 @@ def step_into_url():
                                     #print(base_url + comment_user_url)
 
                                     users_list.append(tuple((user_id, comment_user, comment_user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + comment_user_url)))
+
+                                    full_comment_list.append(tuple((post_id, answer_id, user_id, comment_body, comment_date)))
+                                    print(post_id, answer_id, user_id)
+                                    #answer_id += 1
                                     #print('append good')
                                     user_id += 1
                                     #print('+1 user good')
                                     #print('\n')
+
+                            answer_id += 1
                         except Exception as e:
                             print(e)
                             continue
@@ -256,7 +274,7 @@ def step_into_url():
                             user = answer_containers[i].find('div', 'user-details').a.text
                             user_img = answer_containers[i].find('div', 'gravatar-wrapper-32').img['src']
                             checklist = []
-                            print('#' + str(len(users_list)))
+                            #print('#' + str(len(users_list)))
                             if post_id != 1:
                                 for users in users_list:
                                     if user not in users:
@@ -488,6 +506,7 @@ def step_into_url():
                     # iterate over the answer_containers list, add the post_id, and append to full_answer_list
                     i = 0
                     j = 0
+                    answer_id_final = 1
                     for answer in answer_containers:
                         answer = answer_containers[j].find('div', 'post-text').text
                         vote_score = answer_containers[j].find('span', 'vote-count-post ').text
@@ -511,9 +530,11 @@ def step_into_url():
                                     answer_containers_id = users[0]
                                 else:
                                     pass
+
                         i += 1
-                        full_answer_list.append(tuple((post_id, answer, vote_score, answer_date, answer_containers_id)))
+                        full_answer_list.append(tuple((post_id, answer_id_final, answer, vote_score, answer_date, answer_containers_id)))
                         print('Added Answer')
+                        answer_id_final += 1
                         j += 1
                     post_id += 1
                 except Exception as e:
@@ -530,35 +551,8 @@ def step_into_url():
     write_questions_to_csv(full_question_list)
     write_answers_to_csv(full_answer_list)
     write_users_to_csv(users_list)
+    write_comments_to_csv(full_comment_list)
 
-
-# def add_user_question(answer_container):
-#     user_url = answer_container.find('div', 'user-details').a['href']
-#     print(f'\tStepping into {user_url}')
-#     sleep(randint(15,27))
-#     response1 = get(base_url + user_url)
-#     html1 = BeautifulSoup(response1.text, 'html.parser')
-#     # user_data is the whole grid that contains pertinent metrics that we will be using
-#     user_data = html1.find('div', 'fc-medium mb16')
-#     user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-#     #user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
-#
-#     user_num_answers = user_metrics[0].text
-#     user_num_questions = user_metrics[1].text
-#     user_num_reached = user_metrics[2].text
-#     print('correct2')
-#     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
-#     for arbitrary_tag in arbitrary_tags:
-#         if arbitrary_tag.find(text=re.compile('Member for ')):
-#             user_joined_date = arbitrary_tag.span['title']
-#         if arbitrary_tag.find(text=re.compile(' profile views')):
-#             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-#     print(f'Joined Date: {user_joined_date}')
-#     print(f'Views: {user_profile_views}')
-#     user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-#     print(f'Reputation Obtained: {user_reputation}')
-#
-#     return user_num_answers
 
 
 def write_questions_to_csv(full_question_list):
@@ -572,7 +566,7 @@ def write_questions_to_csv(full_question_list):
 def write_answers_to_csv(full_answer_list):
     with open('answers.csv', 'w') as out:
         csv_out = csv.writer(out)
-        csv_out.writerow(['Post ID', 'Answer', 'Vote Score', 'Date', 'User ID'])
+        csv_out.writerow(['Post ID', 'Answer ID', 'Answer', 'Vote Score', 'Date', 'User ID'])
         for row in full_answer_list:
             csv_out.writerow(row)
         print("Answers successfully written to csv.")
@@ -584,3 +578,11 @@ def write_users_to_csv(users_list):
         for row in users_list:
             csv_out.writerow(row)
         print("Users successfully written to csv.")
+
+def write_comments_to_csv(full_comment_list):
+    with open('comments.csv', 'w') as out:
+        csv_out = csv.writer(out)
+        csv_out.writerow(['Post ID', 'Answer ID', 'User ID', 'Comment', 'Date'])
+        for row in full_comment_list:
+            csv_out.writerow(row)
+        print("Comments successfully written to csv.")

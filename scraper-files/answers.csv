@@ -1,28 +1,28 @@
-Post ID,Answer,Vote Score,Date,User ID
-1,"
+Post ID,Answer ID,Answer,Vote Score,Date,User ID
+1,1,"
 If the issue is that you don't want any device to impersonate others, the problem is simple, and already solved. Just look at every single online service that have users and don't want one user to access data belonging to other user: authentication. 
 You must use TLS, this is the first point. Without TLS you are building a castle on the sand.
 Second: have a sign-up routine that your devices will follow when they connect for the first time and don't have a key pair yet: generate a new one, send to the server. Any time later that the device sends anything, it need to sign the data with its key, so the server knows it's legit. 
 An attacker will only be able to impersonate devices he owns, or can physically access, and there's no way around this. But they cannot impersonate any other, even with access to your database. 
 ",1,2018-10-14 02:05:35Z,2
-1,"
+1,2,"
 
 More specifically, how do I protect the data that is sent to and from the remote server?
 
 I'm not sure if I properly understood your question. But I understand the above part that you just want to protect the data in transit between client and server. In this case HTTPS (or plain TLS) is enough. This will automatically use different encryption keys for different TLS sessions (where TLS session will have the same lifetime as the TCP connection unless session resume is used)  so the risk you imagine of having the same encryption key on all devices does not exist.
 But HTTPS or TLS will not protect against somebody who has physical access to the device and intercepts the data there before encryption and after decryption. It only protects the data in transit. 
 ",1,2018-10-13 19:59:56Z,3
-2,"
+2,1,"
 Yes, you still need a firewall on your end. In the case of a DoS/DDoS, your connection would potentially be flooded to the point where your devices would not be able to establish the IPSEC tunnel and would therefore not function [properly].  If the firewall only exists on the cloud side, that does nothing for your service at your house/office.
 A DoS/DDoS attack will probably not be stoppable no matter what equipment you have since it's happening at the connection level.  Typically with a DoS/DDoS you deal with it further and further up the path as close to the source as can be.  For example, you call your ISP so they can block it from getting to you, then they call their provider to have them block it before it gets to them, and so on.  It can only be blocked so much before someone is left to take the hit but that's usually at the backbone level where they have more than enough bandwidth to deal with it until it is dealt with by other means (like finding the people causing it and stopping the attack).
 ",1,2018-09-01 12:19:33Z,4
-2,"
+2,2,"
 Since you've mentioned it's a closed network (connected through IPSEC), instead of deploying firewall and other traditional VPN (IPSEC) networks for your IoT network, you may try to implement SDP (Software defined perimeter) solutions.
 You may refer details through wiki: https://en.wikipedia.org/wiki/Software_Defined_Perimeter
 Or refer working group : https://cloudsecurityalliance.org/group/software-defined-perimeter/#_overview
 This could be an alternative to traditional approaches and there are commercial solutions available to try out : https://www.perimeter81.com/software-defined-perimeter-enterprise
 ",1,2018-09-03 02:35:16Z,5
-3,"
+3,1,"
 IoT covers a broad range of devices and use cases, like at home the router, smart light bulbs, smart thermostat, maybe smart locks etc. And even more cases can be found in the industry where sensors or data collection systems are everywhere.
 Given the broad range of devices they have some things in common: they have some firmware which might have bugs or missing features and thus need to get updates. And they need to communicate with other systems to receive and/or provide collected data.
 And this is where certificates (or other trusted containers for a public key) help: 
@@ -40,12 +40,12 @@ I am assuming that sensors etc are too small to get certificates and use them?
 
 Public key cryptography as the central part of certificate is not that resource intensive as one might think. It is for example already implemented in smart cards or TPM chips which means that it can probably be implemented also in most IoT devices which are capable enough to do some kind of network communication. The usual use cases for public key cryptography within IoT require only the occasional creation or verification of digital signatures or encryption of small data, which means that speed of the operation is usually not that critical.  
 ",2,2018-06-24 08:27:45Z,3
-3,"
+3,2,"
 I'd say that certificates are an important part of the security of an IoT devices, not the most important. 
 Think of an IoT device use case? Is it a connected Light Bulb? Then is the web site that the App connects to control the bulb more important to protect than the bulb itself (which uses Zigbee)? Or is it an open platform that has a web app running on it? then make sure the OWASP Top Ten is being used to harden the app. 
 IoT Security falls in to a multitude of areas Device, Communication and Cloud. Putting one above the other is not a good strategy. 
 ",0,2018-06-21 21:41:55Z,8
-3,"
+3,3,"
 The question is certainly very broad; it's a bit like asking ""what devices can use an internet connection?""
 We should first establish why we need certificates.
 Secure Communication
@@ -54,7 +54,7 @@ Signature Validation
 Firmware updates are usually signed by the manufacturer. Devices only accept an update if they can verify its signature. They check the signature against a certificate installed by the manufacturer.
 So, broadly speaking, any device that communicates or updates can make use of certificates, because public-key cryptography is fundamental to keeping these things secure.
 ",0,2018-06-23 22:26:15Z,9
-4,"
+4,1,"
 Popular IoT botnets and attacks:
 
 Linux.Aidra 
@@ -67,7 +67,7 @@ Brickerbot
 
 Reference: Radware Blog
 ",0,2018-04-23 09:42:32Z,11
-4,"
+4,2,"
 The truth is that IoT is a new trend, a new surface with a lot of possibilities, and one of the most popular IoT botnets is Mirai, here is a brief description of it:
 
 Mirai (Japanese for ""the future"", 未来) is a malware that turns
@@ -86,7 +86,7 @@ Mirai (Japanese for ""the future"", 未来) is a malware that turns
 If you want to check the source code, here it is. Also you can check this report from Arbor Networks about IoT DDoS Attacks for further information.
 Hope it helps.
 ",0,2018-04-23 09:41:17Z,12
-5,"
+5,1,"
 The most common vulnerability is no security at all. Many brands just:
 
 put a completely insecure web server onto their devices. 
@@ -99,7 +99,7 @@ For best practices, try to keep your code simple and authenticate everything. Th
 PS: Also authenticate using something like HMAC, as your connection will most likely not be secure. You should avoid sending passwords.
 PPS: If you want some sort of developer access, use public key cryptography and always include an option to turn it off.
 ",2,2018-04-20 08:37:59Z,15
-5,"
+5,2,"
 Peter's answer is good and covers most of the problems. The typical end-user must be taken into consideration, too. The problem with IoT devices is that many of them does something that is not perceived as data processing by the end-user. Therefore, they might be used just like the item before its new smart version, leaving default password as is.
 As a developer using common default password for every device isn't a good practice. Better alternatives include:
 
@@ -108,43 +108,43 @@ forcing user to pick own password during initial setup
 using default passwords calculated from e.g. device S/N and/or MAC address using complex algorithm. Such password can be printed on a label outside the device and it would survive resets and firmware upgrades.
 
 ",1,2018-04-20 09:39:58Z,17
-6,"
+6,1,"
 Only reason you need the additional JWT is if there are going to be different claims and identities being used with the devices that require seperate privileges.
 Now as this is IoT do you have a way to revocate and update certificates? Are you able to handle all the required certificate operations?
 ",0,2018-02-07 21:04:59Z,19
-6,"
+6,2,"
 Let me explain with example: suppose you are using device provisioning service from Azure, it requires 509 certificate. But to get signed certificate we need key/pair to be generated on the device. so KEY plays important role and loosing it is risk. So we need to design in such a way that key is possessed based on request/demand. so to request or demand, we can initiate the trust by using JWT :) so this helps to secure the design 
 ",0,2018-08-08 07:58:11Z,20
-7,"
+7,1,"
 If your devices need Internet access, use a three router Y-configuration to separate your 'ordinary' (home/work) network from the one containing your IOT devices.
 There are plenty of resources about that on the Internet.
 This article goes in-depth describing the disadvantages of simpler configurations, leading up to the Y concept. The author even has a walkthrough showing how he set this up for himself.
 Note: Many modern router devices let you mimic this configuration with one box only, but talking about three physical ones makes you understand it better. You may even have some old routers laying around that you now have a purpose for.
 ",1,2018-02-05 20:59:37Z,21
-7,"
+7,2,"
 You start by not giving them access to the Internet.  If your Intranet of Things devices have no direct contact with the outside world (eg. your IoT sprinkler controller is firewalled off from the Internet and needs to go through a proxy when requesting a weather forecast), it becomes much harder for an attacker to do anything.  If there's no connection whatsoever, any attacker needs to be physically present.
 ",2,2018-02-02 22:42:21Z,24
-7,"
+7,3,"
 You didn't mention the first rule of IoT security. Change the admin password. If possible make it complex. I have witnessed hundreds, if not thousands, of penetration attempts and most of them are attempting to compromise some form of administration account with guessable passwords. 
 Another thing that you can do is register it with a directory. You may have AD available to you but there are also dozens of online cloud versions available too.
 If you are going to have multiple devices this can simplify any administrative
 activities as well.
 ",1,2018-02-05 17:36:33Z,25
-7,"
+7,4,"
 IoT is a loaded term.  I'm going to assume the topic is about ""How to keep self-configured IoT devices secure"" and disregard cloud-based IoT devices.
 The best way to learn about securing IoT devices is to learn how generic security works.  IoT devices are by definition, internet connected devices.  They are no different than computers, servers, network printers, routers, switches, etc.  They face all the same problems that those devices face when it comes to security.
 You can find a ton of information on how to secure network infrastructure online.  There are many other resources as well, such as academic classes.
 I personally, run a firewall on my router that segments my network and white-list locations I access it from.
 To disregard my disregard, cloud-IoT devices are at the mercy of their cloud services.
 ",1,2018-02-05 20:10:00Z,23
-7,"
+7,5,"
 
 Lastly as an importart part of the threat model is physical security, because if I put a sensor outside with a solar panel to power it, how do I stop mischievous kids or crooks from destroying or stealing the technology?
 
 You, essentially, have to build a better mouse trap. Consider your physical security situation - is the street side of your house safe, but kids out of view of the streets will wreck things? Perhaps the opposite is true - position the sensors within view of the street (or vice versa). Next, consider replace-ability - is this a cheap sensor or a $150 weather station type deal? Consider pairing down the features of outdoor sensors to lower the cost of replacement. If it takes you five minutes and five dollars to replace the sensor, who cares if it's broken or stolen every three months. Thirdly, consider hardening - is your sensor on the top of a 30 ft roof? Is it resistant to a baseball or rock? Do you need to walk up to it and wail on it with a golf club for a few minutes to break it? Can you make it that resistant? 
 All security is about making compromise ""not worth it"" for the attacker. It's hard to overcome the ""worth it"" factor for teenagers - the destruction itself is the reward, and making a harder target makes the destruction more fun. You'll have to think critically about what you need to do to make the sensors unlikely to be damaged, or make them easier to replace when damage occurs.
 ",1,2018-02-05 20:34:31Z,26
-8,"
+8,1,"
 Be very, very careful. It's not KRACK that is the problem, it is a lax attitude to security and privacy in general. So called ""smart"" consumer products can often be hijacked, accessed from the internet, or monitored. As a customer, it is hard to know if any specific product is safe or not.
 The Norwegian Consumer Council has been on the case for a while, and produced a few horror stories. From a report, aptly titled #ToyFail, on three ""smart"" dolls:
 
@@ -169,14 +169,14 @@ Smart toys and entertainment devices for children are increasingly incorporating
 
 So unless you have a real need (other than ""this is cool"") for these kinds of products, I would say that your best approach is to simply stay away from them.
 ",92,2017-10-31 15:13:39Z,30
-8,"
+8,2,"
 It really depends on your threat model.  I wouldn't be particularly worried about a particular sexual predator in your local area having the technical skills necessary to utilize Krack to inject voice into the toy. Unless it uses the vulnerable Linux driver, the key clearing won't work and the partial nature of the compromise for a general reset would make voice injection nearly impossible.  
 Similarly, as a client device, it doesn't offer a whole lot of security risk other than possibly as a listening device, depending on if it is always on or activated by pushing a button.  Krack wouldn't make it usable as an entry point in to your network directly, so I don't see it as a particularly riskier device than any other IOT device.
 As always in security, it comes down to your risk aversion though.  Personally, if I thought it would be valuable to my child (who is also 3) I don't think I would consider the local security implications as a reason not to get it for my home environment.  I'd be more concerned about the controls and security on the web side.  
 My main concern for IOT devices isn't the local compromise so much as the web connected remote compromise.  The chances of a sufficiently skilled and motivated malicious individual in your direct proximity is pretty low.  The chances of a motivated and malicious user on the Internet trying to remotely access the IOT device is significantly higher and it's important to understand what holes the devices punch in your network protections.
 Also, as Michael was kind enough to point out, the interests of such a broad hacker are much less likely to be concerned with your privacy and much more likely to either be interested in attacks on your other computers or on the computational capabilities of the device as an attack bot.
 ",15,2017-10-31 15:04:35Z,32
-8,"
+8,3,"
 Welcome to the Internet of Things(IoT). This is a... thing. Therefore, it can be assimilated
 
 Mirai is a type of malware that automatically finds Internet of Things devices to infect and conscripts them into a botnet—a group of computing devices that can be centrally controlled.
@@ -193,27 +193,27 @@ The account data was left in a publicly available database that wasn't protected
 
 I'm going to be honest. These things are scary powerful in what they can do. Even if it doesn't expose your messaging, it could still be used for something malicious like a DDOS attack. If I were you, I'd pass on anything like this unless there's something explicit about security.
 ",12,2017-10-31 18:09:50Z,34
-8,"
+8,4,"
 This is pretty much the same kind of toy as CloudPets. Those were toys that allowed talking with the children (toy) by using a mobile app. The security was terrible. It turned out that both the user details and the pet recordings were available on databases with no password. And the company didn't even answer to the mails alerting them of the vulnerabilities.
 You can view about this terrifying story on Troy Hunt blog: https://www.troyhunt.com/data-from-connected-cloudpets-teddy-bears-leaked-and-ransomed-exposing-kids-voice-messages/
 Now, Talkies may actually have made the right choices (it's hard to do so many things wrong as CloudPets did!), but this showcases the level of security of this sector.
 So no, I wouldn't trust this toy with my kids data. Not to mention how the toy itself could be compromised (eg. like Hello Barbie).
 In fact, Germany went so far to ban the internet connected Cayla dolls over fears they could be exploited to target children: https://www.telegraph.co.uk/news/2017/02/17/germany-bans-internet-connected-dolls-fears-hackers-could-target/
 ",6,2017-11-01 17:29:50Z,35
-8,"
+8,5,"
 Internet-enabled anything poses a risk.  As a rule, security is an expense and consumers as a whole really don't consider product security when making purchasing decisions.  For example, there was a thread on Reddit recently about a couple who got divorced and she didn't change the password on the Nest thermostat.  So while she was out, he would crank up the air conditioning or heat and cause massive utility bills.  We also know of baby monitors that have been used to listen in on neighbors without their consent.  I've attended IT security demos of internet-connected light switches, showing how easy it was to attack them.
 krack is important, definitely, but when compared to a non-existent security posture is irrelevant.  Quite simply, if someone is concerned about security, I'd suggest not purchasing networkable anything unless they can identify a need for it to have a network connection and they have the skills to properly secure both it and their network.
 WRT your trusted circle of phones: how often would you plan on managing that list?  What is the means to join that trusted circle?  Do you know when your friends sell their phones back so you can decommission them from your circle? (If your answer is not ""no"" to the last one, you're probably not being realistic with yourself.)
 Encourage creativity.  Build skills.  Get the kid a bunch of building blocks or a train.  Get a Spirograph.  Play cards/games with them.  Find something that they will play with for hours that doesn't require your constant attention.  
 ",4,2017-10-31 17:22:04Z,36
-8,"
+8,6,"
 This puts the ""IOT"" in ""IDIOT!"".
 Most of the companies that make these have no clue how to prevent hackers from taking them over, sometimes programming comically stupid/obvious exploits into them.
 The KRACK exploit might be irrelevant half the time since most of these manufacturers wouldn't figure out how to implement some form of encryption.
 Any type of internet-enabled voice recording is potentially creepy and downright dangerous invasion of privacy. These devices likely use the cloud for sound processing and storage considering they are almost certainly based on low-grade ARM chips and minimal cheap flash storage at most.
 Even if the device is properly made, there's no similar guarantee on the cloud app it uses. You'd be surprised how often researchers happen to stumble on valuable leftover data in the cloud that the previous user of a logical machine instance failed to clean up.
 ",2,2017-11-01 04:44:14Z,37
-9,"
+9,1,"
 The design requirements of your system are not fully clear to me. But I will assume in the following that you have full control over the setup and that this setup has only the following requirements:
 
 secure connection between devices and central management server
@@ -228,14 +228,14 @@ Create a TLS connection from the device to the management system which requires 
 These setups are similar in that the secure connection (i.e. VPN tunnel or TLS) is initiated from the client, since the client IP address is dynamic and the management system has a static IP or at least a static hostname. It might be useful to add some authentication of the client to this because you don't want that some attacker connects to your management system.
 One way would be to create your own PKI with your own CA and issue a unique certificate for each device. The subject of this certificate can be some device-id which you can use to identify the device. These client side certificates could be used for authentication in the VPN or as client certificates in the TLS connection. And, if a certificate got compromised (i.e. someone hacked the device) you can simply centrally block access with this certificate in your management system.
 ",2,2017-10-26 16:56:35Z,3
-9,"
+9,2,"
 
 There are hundreds of such devices not having host-name and their IP is not static. So SSL certificates may not be possible here???
 
 Remember: before trying to figure out any security solutions, start with determining your threat profile.  What attacks are you trying to prevent?
 I would guess that one of the major ones is to prevent an attacker from pretending to be the control server and successfully sending commands to the controllers.  For this, then, you want the devices to be able to authenticate the server, and that requires a certificate on the server side, not on the devices - either a traditional HTTPS (or HTTPS-like, if you're using a different protocol) setup if the clients initiate a connection to the server, or a client-side certificate if the server is initiating a connection to the devices.
 ",1,2017-10-26 17:16:29Z,41
-9,"
+9,3,"
 
 There are hundreds of such devices not having host-name and their IP
   is not static. So SSL certificates may not be possible here???.
@@ -247,13 +247,13 @@ If your organization has a PKI already, consult with them.  They should assign a
 Remember, once devices are out in the field they can possibly be stolen, tampered with, and/or disassembled.  Don't place any more trust in the client certificates than you need to.  Don't allow these same device certificates to grant administrative permissions on the server.  And if a device goes missing, invalidate its certificate quickly.
 * I apologize for using the word ""simple"" in conjunction with PKI.
 ",1,2017-10-26 18:06:17Z,42
-10,"
+10,1,"
 UPnP can safely be disabled. If a service needs a port punched it’ll tell you. 
 In regards to MITM and altered firmwares: it’s a Wild West our there. Some manufacturers have secure signed images severed on secure servers, some just flash whatever random binary they find over HTTP. You really won’t be MITM’d be your ISP hopefully so that’s not an issue however these unsigned and insecure firmware devices can be compromised from an adjacent compromised device. So if you’re already breached you may be in for an even bigger headache where your only real option is likely to bin the device. If the device is your fridge I’m sorry. 
 This same principle also applies to all outgoing connections as well if there is some vulnerability in how it handles the responding data. If either the server is compromised or an adjacent device is compromised then an insecure and vulnerable device could be hijacked.
 What’s your best bet? Probably keeping them from accessing the wider internet. When that’s not possible, use client isolation so that hijacked devices can’t infect your other devices. Really your best bet is to use as few IOT devices since you really have very little control or access to the configuration.
 ",0,2017-10-22 19:28:06Z,43
-10,"
+10,2,"
 
 What (network) attack vectors need to be considered?
 
@@ -278,36 +278,36 @@ Do these [IOT device client] connections pose a threat?
 
 Potentially yes. There are well known patterns for protecting against the third-party attacker model - but the reason people get excited about IOT devices is that so few of them implement these solutions, or fail to implement them correctly (e.g. requiring SSL, but not validating the certificate). 
 ",0,2017-10-23 12:16:23Z,44
-11,"
+11,1,"
 Many companies (like fortinet, stormshield, ...) use selfsigned certificates. They have a internal PKI which produce these certificates but they are not trusted by web browsers.
 Many of them permit to upload the owner certificate. There is no big deal with this operation except that permissions must be carrefully configured
 What do you need is probably a PKI to manage your own certificates. Then, you can set a secured https channel if you control the gateway and the client.
 If you do not control the client, you cannot force it to trust your Certification Authority (CA), so you cannot ensure that https between the gateway and the client is safe (man is the middle is possible).
 So you can propose to clients to add your CA as a trusted one or make your CA be signed by a certification well known authority (comodo, verisign, etc.)
 ",1,2017-09-29 12:54:13Z,47
-11,"
+11,2,"
 I suggest that the critical part would be the ability to add and remove certs from the device, and to set/change any passwords. 
 If the device is acting as a server then the definition of certs is the server certificate(s) and private key(s). If the device acts as a client or validates client certificates then the definition includes ca certs. If you are not using client certs then you need some other way of authenticating management operations (e.g. password).
 So that's at least 3 security related functions.
 While CMP/rfc6712 springs to mind as a method for renewing a certificate, it strikes me that you probably should not initiate the certificate renewal on the IOT device.
 ",1,2017-09-29 18:05:47Z,44
-12,"
+12,1,"
 Some people argue that code which is open source can be audited by many and therefor contains little bugs. On the other hand, attackers have the same easy access and also look for these same vulnerabilities. There is definitely a tradeoff here which is not correctly described in previous answers.
 Others mention that code should be inherently secure and therefor requires no obfuscation/encryption/hiding. It is true that a system should be designed to be secure even if you know how it works. This doesn't mean that this is always the case AND the implementation is flawless. In practice, code is never 100% secure. (Take a look at web app security: Why do we need security headers to protect us against XSS and CSRF attacks if there are no vulnerabilities in the web application?) Additional security measures can be taken by trying to hide the code through encryption and obfuscation. In the mobile world, reverse engineering is even seen as a serious risk: OWASP Mobile Top 10 risks. 
 As no system is 100% secure we can only try to increase the effort required to break it. 
 So now, the tradeoff between open source/easily available code VS encrypted and obfuscated code. Allowing public review on you source code can help reduce the number of bugs. However, if you are a small company where the public has little incentive to freely audit your code, there is no benefit from publishing your code as nobody will look at it with good intentions. However, it becomes much easier for attackers to discover vulnerabilities. (We are not talking about the newest iOS version which every security researcher is trying to crack)..
 In this case we aren't even talking about open sourcing the code for public review. We are talking about encrypting the firmware in transit. Security researchers are not likely going to buy your device to obtain the code to discover and publish vulnerabilities. Therefor the chance of having the good guys finding the vulnerabilities VS the bad guys finding them decreases.
 ",5,2017-09-05 07:50:19Z,48
-12,"
+12,2,"
 No. You should not rely upon the obscurity of your firmware in order to hide potential security vulnerabilities that exist regardless of whether or not you encrypt/obfuscate your firmware.
 I have a radical suggestion: do the exact opposite. Make your firmware binaries publicly available and downloadable, freely accessible to anyone who wants them. Add a page on your site with details on how to contact you about security issues. Engage with the security community to improve the security of your product.
 ",86,2017-09-01 13:38:54Z,51
-12,"
+12,3,"
 Doubtful it would be beneficial. It is by far a better option to push it open-source than closed source. It might seem silly and even controversial at first, but opening up a project to the public has plenty of benefits.
 While there are people with malicious intents, there are also people wanting to help and make the internet a better place. Open source allows more eyes to look over the project, not only to view about potential features, bugs, and issues but also increase security and stability of the ""thing""
 And to agree with Polynomial's answer, engaging in a community and building a base of people that help you out with security, will increase the client base by a significant margin.
 ",11,2017-09-01 13:52:35Z,52
-12,"
+12,4,"
 A well-designed firmware should rely on the strength of its access key rather than relying on the attacker's ignorance of the system design. This follows the foundational security engineering principle known as Kerckhoffs's axiom: 
 
 An information system should be secure even if everything about the
@@ -316,26 +316,26 @@ An information system should be secure even if everything about the
 The American mathematician Claude Shannon recommended starting from the assumption that ""the enemy knows the system"", i.e., ""one ought to design systems under the assumption that the enemy will immediately gain full familiarity with them"".
 You may be interested to know that prior to the late Nineteenth Century, security engineers often advocated obscurity and secrecy as valid means of securing information. However, these knowledge-antagonistic approaches are antithetical to several software engineering design principles — especially modularity.
 ",6,2017-09-01 18:33:32Z,54
-12,"
+12,5,"
 Are you sure you are not confusing two cryptographic methods?
 You should certainly sign your firmware updates for security reasons. This allows the device to verify they are from you.
 To encrypt them adds a little bit of obscurity and that's it. Since the decrypting device is not under you control, someone sooner or later will hack it, extract the decryption key and publish it on the Internet.
 ",3,2017-09-02 05:49:21Z,55
-12,"
+12,6,"
 You need to ask yourself this question.  Is someone clever enough and interested enough to download your firmware and start looking for vulnerabilities going to be deterred by an additional firmware encryption layer where the key must be revealed?
 This is just another hoop to jump through, no different than figuring out what disk format your firmware image is in.  This isn't even a particularly difficult hoop to jump through.  Keep in mind that all FAR more sophisticated methods of what amounts to DRM have all been broken.
 Odds are someone determined enough to hack your internet connected coffee maker/Dishwasher isn't going to be deterred by an additional encryption layer.
 ",0,2017-09-01 19:40:07Z,56
-12,"
+12,7,"
 In the sense of ""will the encryption of firmware prevent the detection of vulnerabilities in my code?"" other answers have addressed the core of it: although it may discourage some attackers, security through obscurity leads to a false feeling of invulnerability that is counterproductive.
 However, I'd like to add an extra bit on the basis of my experience. I have seen that the firmware packages are sometimes encrypted, but the motivation for that is only to preserve a company's intelectual property, rather than be a control against attackers.
 Of course, hackers often find ways around this ""control"", but that's a different story.
 ",0,2017-09-08 06:53:14Z,57
-12,"
+12,8,"
 Several people said you shouldn't rely on obfuscating the code by encrypting it, but to just make it secure. Quite recently the encryption of some rather critical software in Apple's iPhones was cracked (meaning that hackers can now see the actual code, no more). It stopped anyone from examining the code for three years, so the time from release to first crack has been increased by three years. That seems like some very successful obfuscation. 
 And encryption goes very well together with code signing. So when your device is given new firmware, it can reject any fake firmware. Now that part isn't just recommended, that is absolutely essential. 
 ",-3,2017-09-01 21:03:46Z,58
-13,"
+13,1,"
 My answer would always be ""in comparison to what else?""
 In this moment, SHA-1 is weaker than SHA-2:
 https://en.wikipedia.org/wiki/Secure_Hash_Algorithms
@@ -343,7 +343,7 @@ It's got known weaknesses, a smaller number of security bits, increased risk of 
 There is a reason - compatibility.  There will always be some suitably old technology out there that simply cannot (or has not) been upgraded to use the current recommended best practice.  So the big question is - does your business model benefit more from interoperability, or cryptographic strength?  
 My not-spending-lots-of-time-doing-math-research answer on SHA-1 vs. SHA-2 would be that it's a no brainer - SHA-2 is better.  But if you told me that your biggest customer has a substantial investment in SHA-1 only technology and can't improve the system... well... I'd probably advise finding a way to limit the scope of where and who you do SHA-1 with, and then make sure you have that customer sign a nice sounding waiver that they understand that you can't be entirely responsible for the risks of using a not-best-practices algorithm.
 ",2,2017-06-26 19:50:58Z,62
-13,"
+13,2,"
 The risk of using any algorithm is down to your risk appetite. Only you know if the risk of a SHA1 attack is something you are willing to accept. 
 I would use it if that was the only option for none mission critical or sensitive data. But that's only a personal opinion.
 ",0,2017-06-26 17:45:16Z,63

@@ -1,5 +1,5 @@
 from flaskscraper import db
-from flaskscraper.models import User, Question, Answer
+from flaskscraper.models import User, Question, Answer, Comment
 import csv
 
 with open('scraper-files/users.csv') as csvfile:
@@ -19,6 +19,13 @@ with open('scraper-files/questions.csv') as csvfile:
 with open('scraper-files/answers.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        answer = Answer(post_id=row['Post ID'], answer=row['Answer'], vote_score=row['Vote Score'], date=row['Date'], user_id=row['User ID'])
+        answer = Answer(post_id=row['Post ID'], answer_id=row['Answer ID'], answer=row['Answer'], vote_score=row['Vote Score'], date=row['Date'], user_id=row['User ID'])
         db.session.add(answer)
+        db.session.commit()
+
+with open('scraper-files/comments.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        comment = Comment(post_id=row['Post ID'], answer_id=row['Answer ID'], user_id=row['User ID'], comment=row['Comment'], date=row['Date'])
+        db.session.add(comment)
         db.session.commit()
