@@ -18,7 +18,7 @@ full_question_list = []
 full_answer_list = []
 full_comment_list = []
 # change the range of pages to increase the amount of pages. 1 page = 50 questions.
-pages = [str(i) for i in range(1,3)]
+pages = [str(i) for i in range(1,6)]
 
 def scrape_pages(url):
     requests = 0
@@ -91,7 +91,7 @@ def step_into_url():
                     print(e)
                     continue
                 try:
-                    # This try block collects the ANSWER USERS ONLY
+                    # This try block collects the ANSWER USERS
                     k = 0
                     answer_id = 1
                     # for each answer on the question's page
@@ -128,7 +128,7 @@ def step_into_url():
                                                 rev_user_id = users[0]
                                         # append the comment tuple to the full_comment_list which will be written to csv at the end
                                         full_comment_list.append(tuple((post_id, answer_id, rev_user_id, comment_body, comment_date)))
-                                        print(rev_user_id)
+                                        # print(rev_user_id)
                                         continue
                                     # if the user isn't in users_list we scrape their user info and add it to users_list
                                     elif 'false' in checklist:
@@ -278,23 +278,19 @@ def step_into_url():
                                     # user_data is the whole grid that contains pertinent metrics that we will be using
                                     user_data = html1.find('div', 'fc-medium mb16')
                                     user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                    #user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
 
                                     user_num_answers = user_metrics[0].text
                                     user_num_questions = user_metrics[1].text
                                     user_num_reached = user_metrics[2].text
-                                    #print('correct2')
+
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
                                         if arbitrary_tag.find(text=re.compile('Member for ')):
                                             user_joined_date = arbitrary_tag.span['title']
                                         if arbitrary_tag.find(text=re.compile(' profile views')):
                                             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                    #print(f'Joined Date: {user_joined_date}')
-                                    #print(f'Views: {user_profile_views}')
-                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                    #print(f'Reputation Obtained: {user_reputation}')
 
+                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
 
                                     users_list.append(tuple((user_id, user, user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + user_url)))
 
@@ -331,18 +327,15 @@ def step_into_url():
                                     user_num_answers = user_metrics[0].text
                                     user_num_questions = user_metrics[1].text
                                     user_num_reached = user_metrics[2].text
-                                    #print('correct3')
+
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
                                         if arbitrary_tag.find(text=re.compile('Member for ')):
                                             user_joined_date = arbitrary_tag.span['title']
                                         if arbitrary_tag.find(text=re.compile(' profile views')):
                                             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                    #print(f'Joined Date: {user_joined_date}')
-                                    #print(f'Views: {user_profile_views}')
-                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                    #print(f'Reputation Obtained: {user_reputation}')
 
+                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
 
                                     users_list.append(tuple((user_id, user, user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + user_url)))
 
@@ -372,18 +365,15 @@ def step_into_url():
                                     user_num_answers = user_metrics[0].text
                                     user_num_questions = user_metrics[1].text
                                     user_num_reached = user_metrics[2].text
-                                    #print('correct4')
+
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
                                         if arbitrary_tag.find(text=re.compile('Member for ')):
                                             user_joined_date = arbitrary_tag.span['title']
                                         if arbitrary_tag.find(text=re.compile(' profile views')):
                                             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                    #print(f'Joined Date: {user_joined_date}')
-                                    #print(f'Views: {user_profile_views}')
-                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                    #print(f'Reputation Obtained: {user_reputation}')
 
+                                    user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
 
                                     users_list.append(tuple((user_id, user, user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + user_url)))
 
@@ -398,7 +388,7 @@ def step_into_url():
                 try:
                     # This loop and conditionals checks whether or not the user_question name is in the users_list; if not, it adds the user_question to the users_list.
                     checklist = []
-                    print(f'\tChecking Questioner {user_question}')
+                    # print(f'\tChecking Questioner {user_question}')
                     for users in users_list:
                         if user_question not in users:
                             checklist.append('false')
@@ -420,18 +410,15 @@ def step_into_url():
                         user_num_answers = user_metrics[0].text
                         user_num_questions = user_metrics[1].text
                         user_num_reached = user_metrics[2].text
-                        #print('correct5')
+
                         arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                         for arbitrary_tag in arbitrary_tags:
                             if arbitrary_tag.find(text=re.compile('Member for ')):
                                 user_joined_date = arbitrary_tag.span['title']
                             if arbitrary_tag.find(text=re.compile(' profile views')):
                                 user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                        #print(f'Joined Date: {user_joined_date}')
-                        #print(f'Views: {user_profile_views}')
-                        user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                        #print(f'Reputation Obtained: {user_reputation}')
 
+                        user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
 
                         users_list.append(tuple((user_id, user_question, user_question_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + user_question_url)))
 
@@ -444,7 +431,7 @@ def step_into_url():
                         else:
                             pass
                     full_question_list.append(tuple((post_id, header, question, user_question_id, vote_count, answer_count, view_count[3].b.text, question_date, url, base_url + url)))
-                    print('Added Question')
+                    print('\tAdded Question')
                     # iterate over the answer_containers list, add the post_id, and append to full_answer_list
                     i = 0
                     j = 0
@@ -475,7 +462,7 @@ def step_into_url():
 
                         i += 1
                         full_answer_list.append(tuple((post_id, answer_id_final, answer, vote_score, answer_date, answer_containers_id)))
-                        print('Added Answer')
+                        print('\tAdded Answer')
                         answer_id_final += 1
                         j += 1
                     post_id += 1
@@ -487,9 +474,10 @@ def step_into_url():
             print(f'\nOuter skip: {post_id}\n')
             pass
         break
-    print(f'Number of Questions collected: {len(full_question_list)}')
+    print(f'\nNumber of Questions collected: {len(full_question_list)}')
     print(f'Number of Answers collected: {len(full_answer_list)}')
     print(f'Number of Users collected: {len(users_list)}')
+    print(f'Number of Comments collected: {len(full_comment_list)}')
     write_questions_to_csv(full_question_list)
     write_answers_to_csv(full_answer_list)
     write_users_to_csv(users_list)

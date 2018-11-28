@@ -407,6 +407,539 @@ It sounds like you need the secret to be active in memory all the time, and not 
 And HSM can also perform the cryptographic functions in the module itself.  Whether this is useful to you or not would depend on your application.
 ",1,2016-05-03 21:09:27Z,26
 9,1,"
+
+Google has access (obviously).
+The police will have access if they have a valid search warrant.
+A national security letter will give the FBI secret access.
+Various three-letter agencies may have access, depending on how they're doing at circumventing Google's encryption.  (Google started encrypting its internal traffic after it was revealed that the NSA was monitoring it.  Modern encryption, properly applied, is believe to be sufficient protection against three-letter agencies -- all known attacks are against the ""properly applied"" part rather than the encryption itself.)
+
+As for deletion, Google uses a highly distributed storage system.  I don't believe they will intentionally keep data after you delete it, but because of how Google's storage works, residual copies may stick around for a while.
+",48,2014-07-07 08:25:35Z,3
+9,2,"
+Not instantly. Although, that's what I want to believe. What you could do is the following. Download the Truecrypt version 7.1a and create an encrypted storage file (option 1 from the wizard) and choose 3 algorithm based encryption with a SHA-512 key. Put all your sensitive files in here and upload the encrypted file to Google Drive. When you want to work with your files. THIS IS IMPORTANT: Copy the encrypted file OUT of Google Drive, perform your work, encrypt and put the encrypted storage file back on Google Drive. This should keep your data safe.
+If you want to delete it, just delete the encrypted storage file, nothing they can recover without your key.
+PS: Since a short time you can ask Google to explicitly wipe your search data. If you just delete your search history through your user control panel in google than it is still used for advertisement. (scumbag, I know)
+",15,2014-07-07 08:29:02Z,85
+9,3,"
+Any data you upload to Google Drive (or Skydrive, or Dropbox for that matter) should be considered duplicated by the NSA. Apart from arbitrary queries from the aforementioned secret service, law enforcement agencies from any country may gain access to them through legal means (subpoenas and so on). And of course, Google engineers could in theory browse your files.
+As for what happens when you delete them, who knows? It is a good working assumption to consider that any data uploaded will stay on their servers forever. Realistically, I suppose it does get deleted at some point, but considering how much replication they must have, it may be a while. Your guess is as good as mine.
+Bottom line, it is not trivial to set up off-site backups for confidential data. The only thing you can trust (or hope to trust) is cryptography. Look into duplicity and other backup tools which support strong encryption!
+",10,2014-07-07 08:28:07Z,87
+9,4,"
+What about hosting those files on other hosting services which have client side encryption like:
+
+Tarsnap, which has open source client and does client side encryption.
+Tahoe-LAFS
+SparkleShare, which has GUI clients for all operating systems.
+more on https://prism-break.org/
+
+",6,2014-07-08 15:03:40Z,90
+9,5,"
+Cryptography is a form of smart obfuscation,
+it does not make things ""secure"", just ""secure enough, for now"".
+If someone REALLY is out to get you, he would store your encrypted data until a later date when encryption can be broken - anything from stronger computers to software vulnerabilities like ""heartbleed"" will do the trick to decrypt your stuff in the long game.
+Also, chances are, if someone really is out to get you it would probably try to find a way to hack your computer, not your cloud account, there's plenty of such software around - some of it available to random 3rd world governments under shareware trial licenses for free.
+",2,2014-07-07 18:33:36Z,91
+9,6,"
+To answer one of your questions: any Google employee who has administrative access to the hosts (file servers) on which the drive data is stored will have read-access to your data: this includes the operations engineers, service engineers, system administrators: these type of employees are typically the ones with that type of access.
+The answer to your other questions depends on what methods Google uses to remove distributed data across multiple hosts, and whether they are using any backup methods to store copies of the data. Nobody other than Google technicians will know the answer to this question, and of those probably only the engineers who maintain the filers and the data distribution structure. 
+To give you an idea of how truly ""privy"" that information is: I used to work at Yahoo as a Unix sysadmin, but I didn't work with the filer infrastructure and so even I don't know what the answer to that question would be for Yahoo data, although I spent a year working in the operations group for two of the departments there.. Only the engineers directly responsible for that infrastructure are going to know if the data is truly ""deleted"" or not (and to what level of deletion, if that makes sense to you).
+most likely, the file system pointers to the data are deleted within one or two days (depending on how long it takes to propagate through Google's infrastructure), while the actual data itself continues to reside on hard disk until it is overwritten: meaning the data (or parts of it) could theoretically (and fairly easily if someone made the effort) be recovered many months later. 
+Regarding other agencies or companies with access to this data? Nah .... the only way the NSA or somebody could access it is if they have employees working at Google. Unlikely. And even if they do, do they have root access on the servers in question? Not likely. As someone else mentioned, theoretically the government can get access through a subpoena process. But from a practical perspective do these people have willy-nilly access to John Anybody's data? Nah. 
+The only people who theoretically intercept your data when you upload it are the system administrators and operations engineers who work at the companies that provide the network backbone for the internet: such as UUNet. I know for a fact these people for many years have scanned internet traffic for illegal content, because years ago when I lived in Virginia I interviewed with UUNet for a job which involved this work. They offered the job to me, but I didn't take it because I accepted a job elsewhere at the time.
+",2,2014-07-08 00:06:37Z,94
+9,7,"
+This is more of a comment than an answer, but apparently I'm not allowed to comment yet. If you're concerned about the privacy of your cloud storage, you may want to consider Tresorit as an alternative to Google Drive. It offers client-side encrypted storage & syncing, so the Tresorit engineers aren't even supposed to be able to tell what files you're storing there, let alone their contents. It's also hosted in Switzerland to take advantage of that country's strong privacy laws.
+Of course, it has the same downside as all true encryption, which is that if you lose your password, there's nothing they can do to help you.
+",2,2014-07-08 18:26:21Z,95
+9,8,"
+Apart from statements like NSA has your data when uploading it is based on the assumption that your data being on your disk is not somehow accessible. Like others stated, if your data is encrypted in a strong manner on your disk and uploaded in the same way I would regard the online version more safe in terms of redundancy (google is managing the replication and backup of their cloud). Stealing or breaking your machine with your data then has no effect.
+If your data is not encrypted you still assume at this moment, that your data is totally secure on your disk and not accessible from the NSA. Depending on your operating system this might not even be the truth. Even if you can guarantee that your OS is free of any spyware, there is a chance that you cannot say the same for the channels through which you obtained the data. Being uploaded to google certainly allows easier access to data but I would not regard it as a ""none to full exposure"" in that way.
+",1,2014-07-07 13:28:53Z,96
+10,1,"
+Let's clear up a couple of misconceptions:
+
+DDoS mitigation partners cannot work unless they can decrypt traffic
+
+Yes, they can - they just can't do it as well, as the content is not visible, so the solutions which work on traffic flow will still work.
+
+Handing your key to a 3rd party is a bad thing
+
+Not necessarily. In fact this is extremely common for large corporates - who typically have their infrastructure managed by 3rd parties anyway. What it does do is require that you replace some of your technical controls with contractual controls, and that you take greater oversight/audit responsibilities over the 3rd party.
+Mitigation of the threat of the 3rd party misusing the key, or not protecting it is a straightforward one to assess and then provide a solution for. 
+",5,2013-11-13 15:34:13Z,99
+10,2,"
+SSL DDoS Attacks should be divided into two - 
+
+Protocol misuse attacks - 
+Such attacks exploit the protocol being used and can cause denial of service effect without completing the creation of secure connection (SSL in our case). A good example can be the THC-SSL-DOS which can be used to create repeating 'renegotiation' in the same connection, though never completing the creation of a secure channel.
+Protocol attacks, like the one mentioned above, do not require having keys. They can be mitigated with relatively simple protection measures as IPS signature, enforcement of server settings, or even dedicated DDoS appliances Pravail/Riorey/DefensePro/NSFocus/etc. 
+SSL Traffic Floods - 
+Here I refer to data that is being passed over the created secure channel. Without further information, these magnificent mitigation devices cannot distinguish between valid connections to malicious connections. They cannot even issue web challenge in an attempt to try and assess source legitimacy. So you are either stuck with nothing or some rate-limit protection - prone to false actions.  
+
+So, what can be done - 
+Some appliances can be fed with the certificates or be connected to another appliance from same family (DefensPro-Alteon / Pravail-VSS) - where the sister product opens the encryption, and ddos device does what it does and the flow is allowed to continue or is blocked. 
+Radware can issue a challenge on the initial encrypted request (and only on it). Arbor can continuously inspect encrypted traffic, and block suspicious traffic (no challenge). As long as you keep these machines at your place, the risks are rather low. 
+Some cloud services offer you to give them your keys. Not very recommended practice. 
+However, Prolexic lately published they can live with temp-short-lived keys to achieve the same. This might be a sufficient solution, considering all other limitations and restrictions when dealing with secured (encrypted) traffic. 
+And last -  is it bad to provide your key? 
+In a very basic manner - Your key is important to secure your communications. If someone has your key she can theoretically 'read' your communications, or impersonate to you while communicating with others. 
+However, as someone answered before me, you can practice sharing or having copies of your keys at different places. Depends on your infrastructure, on who manages your network, etc. 
+Above all it relates to TRUST. If you trust this 'born yesterday' DDoS protection in the cloud service - go a head, give them your keys :). There are companies that can be trusted and that put many efforts into complying with all regulatory requirements. It doesnt provide 100% insurance, but frankly, nothing does.   
+",2,2013-11-14 13:14:09Z,100
+10,3,"
+All the vendors are going to give you the same answer: you need to hand over your key to them either for a cloud-based security product, or for a box that they supply that sits in your network. Either way you cannot completely mitigate the threat that the have your keys. 
+The alternative is to mitigate the threats posed by individual attacks by:
+
+Keeping your systems and applications up to date: many previously serious ddos attacks have been eliminated by OS and software updates
+Modifying your configurations: you can often tweak OS and applications to be much more resilient
+Offload SSL computations: there are several solutions in this area, often load balancers have crypto engines that can do the work
+
+What you really need to do is perform (or have somebody perform) a threat analysis to find out your biggest concerns, then look for solutions to those. It may be a vendor solution is your best way forward, or you may be able to do just fine using tactical, zero or low cost solutions. 
+",1,2013-11-13 12:40:02Z,101
+10,4,"
+Ichilov's answer is more relevant.
+Two non-vulnerable SSL Attacks
+
+Send garbage data in place of pre-master secret (SSL Handshake flood)
+Continuously re-negotiate the per-master secret from the handshake again & again
+
+Hope Ichilov's explination is quite enough
+Mitigation:
+
+Client puzzle can help to mitigate DDoS attacks. The client puzzle
+mechanism could be developed for protocol. It's based on
+Proof-Of-Work systems. For SSL an IETF Draft is available at
+http://www.ietf.org/id/draft-nygren-tls-client-puzzles-00.txt .Client-Puzzle mechanism is an intent-based security mechanism that
+doesn't simply eliminate malicious clients, but increases the
+attacker's cost. Also these mechanism are more effective against
+signature based mitigation, which employs IDS/IPS systems with
+enormous amount of rules.
+The other method is to outsource the computation of modular exponent,
+a highly resource intensive operation. A partial computation can be
+outsourced to a daemon system(s). Otherwise, a system with
+crypto-chip can be used. Outsourcing can improve the performance of
+the server, but doesn't eliminating malicious client.
+
+I already developed client-puzzle mechanism to work with HTTP. Also I planned to develop for SSL. Hope, you might feel the article interesting.
+https://blog.cloudflare.com/keyless-ssl-the-nitty-gritty-technical-details/
+",1,2015-07-23 05:19:03Z,102
+10,5,"
+There are ways and means to monitor TCP and SSL handshakes to determine bad behaviour ahead of actually decrypting / offloading.
+Look at the client/server hello for non-RFC compliance and consider rate limitation for 'hello' floods based on this.
+HTH.
+",1,2017-01-23 15:00:07Z,103
+11,1,"
+You can do network scans from AWS services, but you need to fill out a request form; otherwise, you will breach their acceptable use policy.  You can find more information about the actual request process here https://aws.amazon.com/security/penetration-testing/
+",4,2013-02-20 15:25:17Z,104
+11,2,"
+NMAP is available for Linux, Windows, Mac OS X, BSD, Solaris, and other platforms as well. If the ""cloud service"" can provide one of these environments, you can use it to run nmap. You will also want your own public IP, not something behind a NAT.
+I think AWS is just web hosting, but maybe Amazon offers a service that could be used it this capacity. 
+EDIT: AWS apparently provides a full virtual server, but it is behind a NAT, not conducive to port scanning. 
+",1,2013-02-12 16:44:57Z,106
+11,3,"
+A VPS (virtual private server) is probably what you are looking for.  This would give you an actual VM to work from in a remote data center for a reasonably cheap price.  A VPN could also work (which would allow you to tunnel to an external IP with your own local hardware).
+",0,2013-02-12 17:04:50Z,11
+11,4,"
+You are probably going to need to ask permission from any cloud provider to do this.  They generally ban this for obvious reasons and you need to get a waiver.  I'm not sure they'd provide a waiver in this direction of scanning.  Usually their customers want to scan the services running in the cloud and the IaaS provider will give them a narrow window to do it in.
+",0,2013-02-12 20:50:23Z,108
+11,5,"
+u do not need a powerful machine to do portscanning, I do very large networks and use something simple like https://clientarea.ramnode.com/cart.php?gid=1 to do it. 
+",0,2013-02-15 15:03:59Z,109
+12,1,"
+Start with a network diagram based on how a corporate network would look like. For example the DMZ is going to contain the webservers and mailservers. Then there will be firewalls to protect the userland from the DMZ, also you are going to have domian controllers, database servers which are going to be part of a secure network. Hope you get an idea on what am trying to descibe. You can find a sample network diagram here on a for a pentest lab. You need not follow the same thing, but use it to design your own.
+As for actually building the lab I would suggest using vSphere server which allows you to virtualize the operating systems and build a network. Check this blog on setting up a virtual environment.
+Check out the following resources to help you in setting up a lab
+http://ist.bk.psu.edu/cvclab/wp-content/uploads/2011/12/BuildingLab1.pdf
+http://www.irongeek.com/i.php?page=videos/pen-testing-practice-in-a-box-how-to-assemble-a-virtual-network
+http://www.jasonjfrank.com/wp-content/uploads/2012/10/Building-your-Own-Penetration-Testing-Lab-on-the.pptm
+",4,2013-01-03 11:47:36Z,119
+12,2,"
+This presentation at OWASP AppSec USA 2012 is about a collaborative university program that teaches practical security. It is based on OWASP Hackademic Challenges Project. He starts talking about the pentesting lab at 06:30. 
+Books about building you own lab:
+
+Build Your Own Security Lab: A Field Guide for Network Testing by Michael Gregg, 2008
+Professional Penetration Testing: Volume 1: Creating and Learning in a Hacking Lab by  Thomas Wilhelm, 2009
+
+",3,2013-01-03 15:58:28Z,121
+12,3,"
+You need to be looking in the direction of vSphere and ESXi, Hyper-V, or the AWS. You are creating a cloud environment that can spawn new pre-configured networks and hosts. The licensing costs can be high but it will accomplish what you want.
+Alternatively, you could make VirtualBox and pre-made VMs available to students along with virtual network settings. That way they could work on the labs at home. 
+EDIT:
+My source at VMWare suggests that vCloud is the preferred approach, because it allows for the segregation you need to isolate student environments (isolated vlans, etc.). Other than that, a VPS (like EC2) can provide what you need cheaply.
+Either solution can be scripted for automated management.
+EDIT2:
+Found this open source virtualization option that allows for complex VLAN networking: ProxMox
+",3,2013-01-03 18:52:01Z,123
+12,4,"
+I would also recommend hackthissite.org.  They have a large selection of free demonstrators that vary in complexity.
+",2,2013-01-03 14:35:16Z,11
+12,5,"
+SANS also provide a paid-for service similar to what you're talking about called Netwars - the site is here https://www.sans.org/cyber-ranges/netwars
+",2,2013-01-03 15:56:36Z,124
+13,1,"
+While Thomas Pornin is correctly pointing out that the only way to trust a host under attack is using fully homomorphic encryption in practice you can try to work around this requirement. 
+A potential attacker has full control of CPU, memory and disk. So it is not possible to do any calculations on valuable data in a VM that might not be under your control. On the other hand it is often not necessary. If you want to use your VM as a database or storage / backup service the VM never needs access to unencrypted information. You could store files or entries in a database, store hashes of the encrypted files or file names and e.g. sort for file size or retrieve a certain file where the client supplies the file name as a hash value. 
+Such a scheme limits what you can do with your data but given a good encryption it is impossible for an attacker to steal your data. In the worst case they can modify it, so you need encrypted signatures to prevent tampering of the data.
+A popular example is boxcryptor, which uses an encrypted container to store files securely at different cloud providers. Another is duplicity, which allows encrypted backups using rsync and GnuPG. 
+Encrypting the storage of the VM itself by, e.g. truecrypt or Bitlocker does not increase the security level significantly. It might thwart an attack if the VM is powered off but as soon as you run it the OS needs the key to access the encrypted volume and at that moment a potential attacker can get hold of the key as well.
+",8,2012-10-06 16:21:59Z,126
+13,2,"
+If the host is hostile then resistance is futile.
+The host can read the disk, RAM and CPU state of your VM. Only fully homomorphic encryption would save you, but it does not work yet (Science has not uncovered an efficient solution yet; but that's just a factor one billion or so, therefore we can still hope for something... later on).
+",7,2012-10-06 13:12:34Z,128
+13,3,"
+Other people are speaking in absolutes (in theory). Yes, if attacker has access to the host OS, then your VM can no longer be considered secure, in theory. However, to do this in practice, it requires some non-standard hacking work, which implies this is a targeted attack against YOU, because there will be plenty of other VMs that will not be encrypted and would be far easier targets than your VM. Full disk encryption in the cloud will protect you in the crowd of other VMs, but if you are targeted specifically, you're dead. There is no absolutely secure system, just different difficulties in accessing it. Disk encryption increases the difficulty. If you want better security, run your own host, but only if you are competent, otherwise it could be worse.
+",4,2012-10-06 14:30:43Z,129
+13,4,"
+Your problem here is the same old one- an attacker who has access to the physical box, or in this case the host, can gain access to your VM. 
+This is one of the risks you need to take into account if you outsource things- you use your contract with the provider to give you the assurance you need. 
+",2,2012-10-06 13:08:18Z,99
+13,5,"
+Split your data across many VM's, hosted by different hosts (and providers, if possible) so data from single VM are useless. Of course that could kill usability and/or performance. Very rough idea.
+",0,2012-10-09 19:03:05Z,130
+13,6,"
+Use full disk encryption if you can, where you can. Full disk encryption will only mature, and precludes physical attack, which is time off in security work for the real issues with logical access. 
+By physical attack, I mean from the VM BIOS, keystroke loggers. Also would protect the drive from being mounted from elsewhere if the surrounding infra was stolen and taken off line, as opposed to actively being attacked. I think that particular threat model sounds major enough to me for it to swing the decision to use FDE if possible and if you have covered off any bigger security issues.
+",0,2013-10-17 21:08:00Z,131
+13,7,"
+I believe protecting VM in a remount host is not easy. The best that you need to do as follows:
+First: 
+Establish mutual trust between you and the visited host.
+Second: 
+Add verification tools within your VM to detect abnormal behaviors in the Visited host.
+Third: 
+Add protection mechanisms to  protect the most sensitive data that VM deals with. 
+You might need to put ""VM Obfuscation "" under your consideration.
+Thanks 
+",-1,2014-01-31 21:36:47Z,132
+14,1,"
+The most sensible approach is to assume you cant rely on their privacy - it isn't their responsibility, although there are some services whose selling point is securing this data.
+If you take that stance, as long as you encrypt all data before it goes to the cloud you can be safe (decide on what level of encryption you need in order to be safe)
+This approach gives you a very practical backup, just make sure you protect your encryption keys.
+",16,2012-04-25 14:08:35Z,99
+14,2,"
+I would say no its not suitable for storing criticial information,
+From the sound of their terms Google essentially owns everyting you upload as well as anything derivitive of your data as well.
+Here is an excerpt from the verge.com explaining the differences of the 3 major players, notice Google is very liberal with what they can do with your data.
+Dropbox
+https://www.dropbox.com/terms
+""By using our Services you provide us with information, files, and folders that you submit to Dropbox (together, ""your stuff""). You retain full ownership to your stuff. We don’t claim any ownership to any of it. These Terms do not grant us any rights to your stuff or intellectual property except for the limited rights that are needed to run the Services, as explained below.""
+SkyDrive
+http://windows.microsoft.com/en-US/windows-live/microsoft-service-agreement?SignedIn=1
+""Except for material that we license to you, we don't claim ownership of the content you provide on the service. Your content remains your content. We also don't control, verify, or endorse the content that you and others make available on the service.""
+Google Drive
+http://www.google.com/intl/en/policies/terms/
+""You retain ownership of any intellectual property rights that you hold in that content. In short, what belongs to you stays yours.
+When you upload or otherwise submit content to our Services, you give Google (and those we work with) a worldwide license to use, host, store, reproduce, modify, create derivative works (such as those resulting from translations, adaptations or other changes we make so that your content works better with our Services), communicate, publish, publicly perform, publicly display and distribute such content.""
+",13,2012-04-25 15:48:19Z,135
+14,3,"
+Consider this from an Information Management or Information Assurance question rather than an Information Protection question. To the question if a service provider's level of security is ""safe"" (sufficient and appropriate), the answer is YES and NO - depending on the level of protection the specific information requires.
+My suggestion is you create three big categories of information, Public, Personal and Private. You can ask yourself how much damage would I be willing to endure if I lost ""personal"" information to help you decide if a specific item of information should go in ""private"" or not.  Private is the category where you need the most burdensome protections, and you don't want to put less valuable information in that category because those extra security measures cost you time, sometimes money, and generally some frustration.
+All private information should be stored encrypted. It does not matter if you store it on a local drive or a cloud service, presuming the encryption is the right type (for example AES with 256 bit keys) and the pass-phrase sufficiently complex and is kept private. Odds are your home network is far less protected than networks managed by Microsoft or Google.
+All personal information should be stored under the protection of network credentials by a service provider who publishes their security standards.  In the case of Microsoft, all of their SkyDrive infrastructure is now on their Windows Azure platform, which meats very stringent protections such as HIPPA.  Google, by contrast, is very upfront about scanning most information stored to target ads to you.
+If you want to store personal information you can use an enhanced service from Microsoft called Office365.  For $6 per month you get a privately segmented Exchange service for email and a full SharePoint (SkyDrive plus many extra features) that is designed to protect your information from being shared outside of your ""namespace"" (think of it as your domain name). Those Microsoft services have been reviewed in depth and (outside of government classified information which generally requires dedicated hardware), Office365 is approved for all highly regulated environments such as SOX, HIPPA, etc.
+If a piece of information is not Private and not Personal, it should be public and then any of the services should be safe for you. Microsoft is hyper-vigilant about not losing customer data as they spend billions of dollars on Windows Azure, so my opinion is they are safe as a backup location.
+Let me leave you with a way of thinking about information that was shared by a crusty old IT guy that knew (kids avert your eyes):
+Public is a picture of your best friend.
+Personal is a picture of your wife in lingerie.
+Private is a picture of your best friend with your wife in lingerie.
+How much you protect each level of information depends on how embarrassed you would be seeing the picture (document, etc.) on the cover of your local newspaper.
+",9,2012-09-25 20:05:14Z,138
+14,4,"
+My concern with any cloud service would be that one day you'll wake up and they'll be gone.
+-- so long as they're a backup, not primary storage, it's an ordinary risk.
+",5,2012-04-25 18:50:27Z,139
+14,5,"
+As others have mentioned, general-purpose cloud storage providers, like Microsoft, Google, Apple, and DropBox are not completely safe, since although they encrypt your files, they have copies of the keys (needed so they can index your files for search purposes).
+And as Rory points out, you can make this super-secure pretty easily: encrypt the backups yourself before putting them in the cloud. This is the best option.
+But there is also a middle-ground. There are some cloud storage providers who focus on security by not keeping copies of your encryption keys. SpiderOak are a popular one for backing up documents. Carbonite are also popular, and also offer an option to back up the whole of the machine (i.e. OS as well as documents.)
+",5,2012-04-27 14:37:12Z,141
+14,6,"
+Why not using a combination of truecrypt volume and those cloud storages! truecrypt for confidentiality and the cloud services for redundancy and backup
+",4,2012-04-25 18:42:11Z,142
+15,1,"
+If you are already settled on using Dropbox, then your only choice at the moment is to use a 3rd party program such as PGP (or free/open GPG) to first encrypt the file and place it into your drop box. I know you said you wanted to use public/private keys, but as an alternative, you could also use 7-zip to create secure archives with AES encryption based on a pre-shared key (password).
+If you have not yet decided on Dropbox, you can look at similar online storage systems such as SpiderOak, Cryptoheaven, Mozy or similar, which perform client-side encryption of the files prior to uploading them into the cloud. You control the encryption key, and therefore the storage providers cannot access the data. I am not sure whether you can import existing private or public keys into those solutions or not, however.
+",9,2011-12-30 16:01:21Z,148
+15,2,"
+I personally have this problem which I solved it myself.
+I created a program which works with GPG4Win, and encrypt all my files with my PGP Key. I can also specify which folder encrypt with which user key, quite good in my opinion.
+It is a 1 way sync + encrypt from my data folder to Skydrive folder (local), then Skydrive will sync to the SkyDrive Cloud. The best part is that this program does not store your PGP key, or any cloud account password.
+Experience it!
+Feel free to drop a visit @ http://successreality.blogspot.sg/2013/10/encrypt-sync-4-cloud.html
+",4,2013-10-30 14:55:00Z,149
+15,3,"
+True Crypt may suit your needs. It offers the ability to use  keyfiles to encrypt your files which can then be stored in your drop box and shared.  It also offers the ability to use tokens and smart cards to secure your files.  This lets your key be passed in an out of band manner.
+In my opinion the best feature of true crypt is the ability to create hidden volumes.  This creates what the creators of true crypt call plausible deniability.  This basically means that there is a second encrypted volume that appears to be comprised of nothing more than random data.  This is created inside of your encrypted file using using the free space at the end of the first volume. It is also worth noting that several different encryption  algorithms are available.  
+",2,2011-12-31 02:36:38Z,150
+15,4,"
+Give Wuala a shot.
+Data is encryted on the users device before uploaded to the cloud. It does not come with key-files but passwords. Maybe this is sufficient for you?
+",2,2013-02-04 16:51:45Z,152
+15,5,"
+You can try:
+AxCrypt by Axantum. It's free, but provides only AES-128 (not too hard). This tool may be suitable for you because it provides a portable version. Encryption and decryptionis done by two different programms (AxCrypt2Go and AxDecrypt respectively).
+SafeBox is a light tool, supporting asymmetric and symmetric enctryption. Has a clear interface and detailed instructions on the site. This tool has more strong encryption algorithms. Files can be shared via any channel that supports text, or wrapped up in a container. 
+",2,2017-09-20 11:26:40Z,153
+15,6,"
+ESecureDOX provides just about exactly what you're looking for. It's a cloud storage system run by a digital certificate authority, which means that each user is assigned a free digital certificate and PKI key set when they sign up, and each document is automatically encrypted by the storage system when you upload it to the cloud. Your document can only be accessed by your user account because of the technology behind the individual encryption (asymmetric PKI), so that the encryption code for each account would have to be separately compromised in order for any data to be compromised. And that's unlikely: the encryption that it uses would take 20 mainframe computers 20 years to brute force, according to NSA estimates. This opposed to something like dropbox, which only uses SSL encryption. What that  means is that if someone were to gain access to the blanket encryption that dropbox uses, every file on the system would be compromised.
+As far as your concerns about sharing a document, when you share a document through ESecureDOX, only the single document is decrypted by the system, and that's done in a way that whomever receives your document is unable to edit it. This allows the sharing of documents without the concern that they'll be tampered with, and without allowing access to any files besides the one you want to share.
+I apologize if this is overly dumbed down, but I just wanted to make sure that the advantages of the system were very clear. From the user interface ESecureDOX seems almost identical to already present cloud storage systems, but that's only because the PKI encryption and decryption happen behind the scenes. It can do that because the company that runs it is able to issue its own root certificates and integrate them into their storage solution without the user needing any technical knowledge of PKI or requiring them to keep track of their own keys.
+Edit: for full disclosure, I do work in marketing for the company that runs ESecureDOX, Image-X Enterprises. But I haven't misrepresented how the service works in any way, and I do believe in its advantages regardless of my affiliation with the product.
+",1,2015-04-29 21:49:01Z,154
+15,7,"
+Use an S3 bucket from AWS; server side you can have it encrypted and then to connect you can provision each other secure keys and use them for auditing and logging. With the use of Transmit you can add the bucket as a device in finder on OSX and treat it as a local drive which stores and pushes straight to the cloud. 
+http://aws.amazon.com/s3/
+It's the back end of dropbox, but it's dirt cheap and you can even choose the geographical region for your data centre.
+Edit; For the purpose of securing communication client side while integrating with an S3 bucket, you can use the S3 client side encryption mechanisms. 
+",0,2013-10-30 16:22:41Z,155
+15,8,"
+I created a small tool to do this. http://www.itsencrypted.com It uses the user's public key to encrypt a key file, which unlocks the encrypted file which is also in your Dropbox. Then later he'll use the program to download it directly and unencrypt it.
+",0,2013-11-10 18:56:52Z,157
+15,9,"
+Another good solution is Boxcryptor. It encrypts all your data before they are send to Dropbox (or other providers). Boxcryptor also allows you to share your data in a confidential way. Therefore it makes a public/private key pair for each user. When you want to share a file with a friend, Boxcryptor downloads the public key of your friend, encrypts the file and your friend receives and decrypts the file.
+",0,2013-11-10 20:02:19Z,159
+15,10,"
+A bit late to the game, but try Turtl. Uses client-side encryption and allows easy sharing/collaboration for both files and notes. Disclosure: I'm the founder.
+",0,2014-03-07 08:42:42Z,161
+15,11,"
+pCloud Transfer is also a good option. It is a simple system for securely transferring files between two parties. The files get temporarily stored in the ""cloud"" but you can be sure that they will be unreadable to anyone who doesn't know the password you have to provide your recipient with. It's free and requires no registration to use it. I've been using for some time now and I'm really happy with it.
+",0,2014-07-30 07:02:09Z,162
+15,12,"
+Even though this is an old question, it's on the first page of search results. Here are some updated free and low-cost options for 2017. 
+
+SendThisFile. FREE forever. No file size limits, no credit card required, no software to install. All transfers include our comprehensive encryption and security, creating end-to-end 128-bit encrypted file transfers, and you won't have to configure a single setting. We use SAS70 type II / SSAE16 compliant data centers to ensure that private data is protected. It is the industry gold standard for the robust delivery and security of data. https://www.sendthisfile.com/
+SpiderOak protects your group messaging, file sharing, and file backups with end-to-end encryption to keep you safe from privacy intrusions, ransomware, and data loss.
+It keeps your uploaded material safe and private. They can’t even see what you upload, because you are the sole holder of the keys to unlock the material. The only downside is that it is a complicated for a new user, as it does have a steep learning curve.
+100GB storage: $5 per month.
+https://spideroak.com/one/ 
+
+",0,2017-10-06 12:32:02Z,151
+16,1,"
+At 16-core GPU maximum, I'd build my own, unless oclHashcat can distribute work loads (at first look it doesn't seem like it does). That is assuming this thing is going to pound passwords all day most days. If you can scale it more (or want to run a lot in parallel) or wont use it all day long, pay for it by the hour.
+
+Now, after some sketching and brain storming we concluded that GPU is the best way to go (contrary to CPU or rainbow tables).
+
+I'd argue that you should probably download and archive some rainbow tables anyway, though it's less likely they'll come in handy, a lot of poorly written software still runs silly stuff like MD5, which will crack a stupid amount of time faster on a rainbow table. Multi-pronged approach for multiple environments.
+Barebones EC2 GPU cloud will run you about $7+k on metal, depending on RAM/CPU/Disk requirements:
+http://www.google.com/products/catalog?q=1026GT-TF-FM209&um=1&ie=UTF-8&tbm=shop&cid=16863135665868024811&sa=X&ei=4_HDTsPIFcff0QHjh7XmDg&ved=0CDoQ8wIwAQ
+http://aws.amazon.com/hpc-applications/
+
+Cluster GPU Quadruple Extra Large
+33.5 EC2 Compute Units (2 x Intel Xeon X5570, quad-core “Nehalem” architecture)
+22 GB of memory
+2 x NVIDIA Tesla ""Fermi"" M2050 GPUs 1690
+GB of instance storage 64-bit platform I/O Performance: Very High (10
+Gigabit Ethernet. Full-bisection bandwidth with Placement Groups) API
+name: cg1.4xlarge
+
+",8,2011-11-16 17:21:47Z,165
+16,2,"
+This is a simple cost / benefit analysis, so it's a business question rather than a security one since you've already decided the merits of how to approach the security aspect. Write your code, benchmark it, and compare numbers in a spreadsheet.
+For the metal
+* Cost of metal
+* Cost per hour in terms of electric bill (assume under full load) 
+* Budget for parts replacement
+* Operations per second
+
+For the EC2
+* Amazon rate per hour
+* Operations per second
+
+Compare the numbers on a month by month or year by year basis. Pick the one that makes more sense based upon expected life. Front-loading cost, net present value, expected utilization, risk, etc are all accounting problems.
+",15,2011-11-16 16:49:19Z,170
+16,3,"
+This link about GPUs and EC2 password cracking gives you much of the information you are looking for:
+http://erratasec.blogspot.com/2011/06/password-cracking-mining-and-gpus.html
+The upshot is this. Radeon GPUs are about 3 times faster than equivalent nVidia GPUs for password cracking. But, EC2 uses nVidia GPUs, because they are better at most other GPU tasks. Moreover, EC2 doesn't just use nVidia GPUs, but the expensive ""Tesla"" versions. You can buy a $250 Radeon GPU with the same password cracking performance of a $10,000 Tesla system. Whether your buy it or rent it from Amazon, it just doesn't make sense.
+Because GPUs can make you password cracking 20 times faster than a normal CPU, there is a great benefit to using one of them. But, because there are decreasing marginal returns, there isn't a lot of benefit to investing a lot of money in GPU number crunching.
+The upshot is that it's worthy spending $500 for two Radeon 6850 cards and sticking them in your desktop for use with oclhashcat, but not worth spending more.
+",3,2011-11-17 16:59:29Z,171
+16,4,"
+Did you try the new GPU rainbow tables from freerainbowtables.com ? 
+You don't even need a supercomputer / cloud to check the hashes. 
+You could donate to the freerainbowtables.com project some hardware and request your custom rainbow tables. (they have over 2000 machines, in their distributed project that generate rainbow tables on the CPU as well as the GPU).
+For salted hashes I would go with an array of fpga cracking machines.
+I suggest you post this question on the forum ( http://freerainbowtables.com/phpBB3/ ), there are a few tech freaks like Sc00bz, that would provide a very insightful answer. 
+",3,2011-11-22 13:42:18Z,173
+16,5,"
+It is about risk management and cost/benefit analysis. The more risk that you are willing to take, the less it will cost you to run your application. There are some basic and somewhat obvious threats that could disrupt or compromise your application's operations:
+
+Physical security risk
+
+This refers to the physical security threats to your application's infrastructure, such as unauthorized physical access to hardware, natural disasters, power outages, network disruptions, terrorism, etc. 
+
+IT security risk
+
+IT administrators require physical access to the  hardware, as well virtual access the operating systems running on the hardware. IT administrators will require such access to servers, network equipment, power distribution circuits, monitoring software, etc. There are many security and operational risks associated with having so many different hands on your hardware and software systems.
+
+Technical failure risks
+
+The hardware and software can and will fail from technical reasons and these are everyday problems. When it comes to GPU computing, you will want to have a large cluster of GPUs (as many as you can get). But the more servers you are running, the higher the odds of a hardware failure randomly occurring.
+For example, a network card or power supply could burn out. Or a memory leak could crash a server.  
+A more subtle but also common problem is electromagnetic interference from the cosmic background radiation that can cause memory corruption.
+
+Capacity risk
+
+As your computational requirements fluctuate, you might have a sudden need to increase the scale up by adding capacity to your GPU cluster (i.e. ingadd more GPUs). There is a risk that your infrastructure will not be able to scale up with your application's requirements.
+
+
+To help understand the situation, let me give you three examples of different GPU cluster setups with different cost/benefit profiles:
+
+Tier 4 private data center
+
+You build an underground bunker in a friendly sovereign country with strong privacy laws, in region of the planet that is safe from common natural disasters
+Your data center is  physically guarded by surveillance systems, and armed security professionals
+Bio-metric security access systems in every server rack in the data center ensure that only authorized personnel can ever physically access particular hardware
+You have two redundant mains power circuits coming from power generation plants on the grid to the data center
+Each power mains circuit is backed by a UPS backup power supply and a backup generator (you have contracts with fuel supply companies to guarantee a supply of fuel to run the generators over an extended period of time)
+Each device (server, switch, etc) in your data center has dual redundant power supplies, with each power supply connected to a separate mains circuit
+The data center is connected to the outside world through multiple, redundant fiber optic links to backbone telecom carriers
+The local network in your data center connecting the servers is fully redundant, with multiple, bound network interface cards in each server, connected to multiple, redundant switches, firewalls, etc.
+The local network in your data center connecting the servers is fully redundant, with multiple, bound network interface cards in each server, connected to multiple, redundant switches, firewalls, etc.
+Virtualization technology is used to run Operating Systems in Virtual Machines interconnected through Virtual LANs, to protect against physical hardware failures. The physical servers are configured as a Virtual Machine cluster, so that virtual machines can be seamlessly moved from one physical machine to another. 
+You only use server hardware with Error Correcting Code (ECC) memory, to protect against electro-magnetic interference from cosmic background radiation. For GPUs, this means that you must use NVIDIA's expensive Tesla series of cards which have ECC memory. The less expensive gaming cards do not have ECC memory so they are prone to data corruption.
+You have a 24/7 Security Operations Center, doing things like monitoring network traffic and server activity to detect and respond to intrusion threats
+You have a 24/7 Network Operations Center, monitoring and maintaining the status and health of systems, etc
+You have redundant cooling systems for the data center
+Air filtering and air quality monitoring systems are in place to avoid dust from entering the hardware
+Fire detection, fire alarm and fire suppression systems with dry suppression agents are in place
+Water pipes and other water systems are avoided - no water near the servers
+You keep spare hardware components on-hand in case they need to be replaced
+There is plenty of spare rack space, power and cooling capacity to scale up your data center if required
+All aspects of the data center are continuously audited by an internal audit team
+For added security redundancy, you build one or more similar secondary data center underground bunkers in a different countries and split your cluster across multiple regions. You use Global Server Load Balancing and Failover technology to seamless run your application across multiple data centers.
+This is least risky but the most costly solution
+Note that there are many other things involved in building a Tier 4 data center (see http://www.adc.com/Attachment/1270711929361/102264AE.pdf)
+
+Third-party data center
+
+Instead of building your own data center, you could co-locate your data in a third-party data center. Co-location in a Tier 4 data center facility would be very expensive (especially if you are co-locating in multiple redundant, data centers), but not as expensive as building and owning your own facility. This is less secure that owning your own private data center, but also less costly. 
+You still own your own and run your own hardware that is co-located in the racks. You can secure them yourself and you can upgrade the hardware whenever you need to. There are many Tesla GPU server options available on the market from the different hardware vendors, like IBM, Dell, HP, etc.
+
+Cloud based solution (e.g. Amazon EC2)
+
+You do not have any physical control over the hardware and server virtualization systems. All of your servers are virtual machines running in Amazon's data center. Your application's security is at the mercy of Amazon and its employees.
+You can setup a Virtual Private Network within Amazon for additional security. You can also run your own physical connections to Amazon's EC2 data centers.
+Amazon offers three types of GPU instances: Spot instances, On-Demand instances and Reserved Instances. Spot instances are the cheapest, but you are not guaranteed capacity - you might bid on 10 GPUs in the spot market and only get 2, and you might lose your GPUs if the spot price exceeds your maximum bid. On-Demand instances are more expensive but cost a fixed rate and you can run them as long as you need to, but capacity is not guaranteed. Reserved instances are the most expensive and require paying an annual reservation fee for each server that you want to reserve, but this guarantees that you will always have access to the number of servers that you require.
+The Amazon EC2 cloud is distributed across multiple geographic locations. This allows you to have multiple, redundant data centers 
+You don't have the buy and maintain your own hardware, and you pay for metered usage by the hour which can be very cost efficient if your have large fluctuations in your computational demands. If you need 100 GPUs for a few days out of the year, then wit would be much more cost efficient to use the cloud than to purchase and run your own hardware all year round.
+Amazon only offers the NVIDIA Tesla C2050 Fermi GPUs. There are more GPU hardware options available if you own your own hardware, including the new Kepler GPUs from NVIDIA that are not yet available on Amazon
+Renting Amazon GPUs is very cheap if you go with spot instances (these typically cost 60 cents per hour, with no upfront fee). But if you need reserved instances then the cost rise dramatically to around $5.00 per hour on average.
+Working with a cloud like Amazon is more complicated than any other solution. It requires you to spend a lot of time learning on tangential issues about how the Amazon cloud works instead of spending time figuring out how to use GPUs to solve your actual application.
+
+Build your own low-cost, high performance GPU supercomputer in your basement
+
+Let's say that most of the risks I've talked about are not not worth mitigating for you. You are willing to put a GPU cluster in your basement to save on the data center real estate costs, and you are willing to accept risks, such as the of a pipe bursting and flooding your basement ""data center""
+Your application is not mission-critical, it does not require 24/7 guaranteed uptime.  If a natural disaster befalls your house then you will probably be worried about bigger things than the security of your GPUs. 
+You don't even care about electro-magnetic interference from cosmic background radiation. If your memory gets corrupted and a GPU hangs then you can just reboot the server (and you have a cluster of GPUs anyway, so losing one or two is not a big deal). You can use the latest NVIDIA GeForce Kepler based gaming cards that are  cheaper and faster in single precision that the Tesla cards offered in Amazon. You are such a risk taker that you are willing to do all your computing in single precision instead of double precision, to take advantage of the cheaper gaming cards. So you can buy a high end gaming GPU from an OEM for $400 per card, instead of buying a Tesla GPU from NVIDIA for $2,500 per card and your $400 GPUs will be significantly faster than the more expensive Tesla GPUs, meaning you can buy more GPUs with your budget.
+You can take a page out of the Google playbook ... instead of buying fancy servers from companies like IBM or Dell, you can build your own bare-bones, ultra low-cost GPU servers. This means you can buy even more GPUs with your budget. For example, you can skip all the bells and whistles like a case for the server, dual power supplies, hard drives, etc. Since your servers won't have any cases they will be easier to cool. You can also build your server with an ultra low-cost, low-power CPU (instead of spending money on big, expensive multi-core Intel CPUs that you won't use anyway since you are using GPUs), and instead spend money on more GPUs instead of useless CPUs. You can run everything on Linux to completely avoid software licensing fees, leaving you with more money to spend on GPU hardware.
+This is not a very secure solution at all. However, this will get you hands-down the fast GPU supercomputer per dollar that you spend. This is your biggest bang for the buck if you're not worried about running a data center in your basement. And it is the easiest environment to maintain and develop on, there is no complicated cloud technology or security hindrances.
+
+
+CONCLUSION:
+For a password cracking machine, I would recommend going with Amazon EC2 if you plan to use large numbers of GPUs for small amounts of time. If you expect that you will only need to crack passwords once in a while, but when you do need to crack a password then you immediately want as many GPUs as you can get, then I would recommend that you go with Amazon EC2 spot or on-demand instances. However, if you plan to be cracking passwords 24/7, i.e. maximizing your utilization of your infrastructure, then I would enthusiastically recommend the DIY route of building a GPU cluster in your basement (just be sure that you have enough power capacity or you will trip a circuit). I should also say that the DIY route is much more fun.
+",3,2012-04-05 06:54:18Z,174
+16,6,"
+You need to run the numbers; however, what are your time constraints?  
+As a consulting firm, you might end up with a client that wants to see results by tomorrow. The only way to scale that large is to use Amazon. Building your software so you can scale out to a thousand nodes is the only way you can do that (without owning all that hardware).  
+Using 1000 nodes for 1 day is the same cost as 100 nodes for 10 days, but you'll have the results a lot faster.  
+",3,2011-11-16 19:29:46Z,108
+16,7,"
+Brute force password cracking depends on the algorithm in use.  For example are you trying to break a SHA1, SHA2 or BCRYPT password?  Or is the underlying algorithm SCrypt?
+It is not possible (as far as I know) to GPU accelerate a SCrypt based password hash, and only CPU optimizations are available due to the additional demands on RAM with the cryptography.
+Next, are there libraries that support what you need to do?  OpenCL is popular, but performs differently on NVidia GPUs vs AMD GPUs.  In addition, you may get better performance with vendor-specific APIs.
+Finally, know that each video card performs differently and a $700 NVIDIA card is feature rich but not too efficient in SHA2 hashing.  A similar AMD video card will outperform an NVIDA card for SHA2 hashing by about 40% or more depending on the card.
+If you choose to use the Amazon GPU cluster, know that the only OS is CentOS and you will have to have python skills (or similar) to get your code up and running.  It may not be worth it in the long run since the GPU farm offered by Amazon includes old NVidia cards that are good for general math offloading, but not efficient for password hashing.
+",0,2013-01-02 15:20:59Z,175
+17,1,"
+Figure out the cost level where you start getting uncomfortable.
+Calculate the GB that would need to be transferred to reach that cost level.
+See if you think an attacker will be willing to spend that much effort to hurt you for that amount of money.
+Every time I run this calculation I end up thinking that if somebody hated me that much, they could certainly find an easier way to hurt me.
+For example, a million downloads of your 2MB document is going to cost you about $240 in data transfer charges plus $1 in request charges.  To create this cost to you, the attacker is going to have to download 2,000 GB (2TB).  That's weeks of completely filling up a 10Mbps line.  Just for a measly $240 impact.
+Amazon generally doesn't discuss publicly all of the security measures they have in place to stop DOS, DDOS, and other attacks against their customers.  In one whitepaper, Amazon says: ""Proprietary DDoS mitigation techniques are used.""  Of course, it's not always easy to differentiate between a DDOS and a popular resource :-)
+You can read more about Amazon Web Services security on their site:
+
+http://aws.amazon.com/security/
+
+",23,2011-11-02 03:04:12Z,181
+17,2,"
+Agree with Eric.
+Another point: DOS/DDOS are nasty attacks that relatively easy to make and hard to protect on application level.
+Think about what other option you have.
+Let’s say you will go to some other hosting provider and will get same attack, will it be better or worse?
+With Amazon at least you can be sure that you will continue to have service and it’s not going to crash under DOS.
+Other thing that you may want to check is if you can make your document size smaller (use pdf and not word, change image quality etc.)
+",9,2011-11-02 06:13:06Z,182
+17,3,"
+Although S3 don't allow you to set a cap on costs, there's nothing to stop you setting a cap yourself.
+Add into your application soft limits which alert you if you are going well above your historical high points, and hard limits set at a reasonable level loss. That way you get to decide what is reasonable and what isn't, according to your budget.
+",6,2011-11-02 13:23:39Z,183
+17,4,"
+In order to monitor your costs more than once a month you can enable what is called Bucket Logging. With this enabled you get the equivalent of web server access logs for your bucket delivered to you. You can then keep track of how many bytes have been transferred and by whom so there are no surprises at the end of the month.
+",6,2011-11-03 15:37:04Z,184
+17,5,"
+You can add logging to your account, and then monitor the logs for activity spikes. 
+Still, though, wish that Amazon had some sort of limits on S3. When I set up a client with their own private S3 account, this is a small problem - users can generate public URLs to say some funny cat video.... - But this has never actually happened.
+Another thing you can do is to set up the account with a credit card that has a low credit limit. (Don't use the platinum card).
+I have had some small MB sized assets in the public on S3 for a few years, and the bill on them is always microscopic. 
+",1,2011-11-10 14:13:01Z,186
+18,1,"
+PCI compliance is a bit complicated. Firstly, with shared hosting, you need the provider you're on to meet all their relevant requirements. See Has anyone achieved PCI compliance on AWS?
+Second, whoever has a terminal that is processing cards is responsible being complaint. It sounds like in this circumstance, you're not the processor and don't have an agreement with a credit card company. In that sense, you don't need to be compliant (HUGE caveat following)
+However, the person with the terminal does need to be compliant, and everything they use in the process of handling cards (including you as a 3rd party) needs to achieve compliance. Compliance requires active review -- the depth of which depending on the volume of transactions handled.
+Most critically, I wonder what circumstance you're in that you would be storing credit card numbers and not actually processing them.
+PCI compliance has to do with volume of transactions processed. Smaller volume shops don't have to worry about a lot. Large volume companies are only PCI compliant if they meet all the standards specified and they are signed off on by a PCI council approved auditor. VISA, for example, specifies those as anyone handling 6 million transactions a year.
+There's a guide for merchants at https://www.pcisecuritystandards.org/merchants/how_to_be_compliant.php
+",6,2011-08-20 03:15:41Z,170
+18,2,"
+Absolutely Positively Not
+Storing card details is only approved for certain setups, far more advanced than this. 
+Doing this as described would not only be not PCI complaint it would be illegal in many countries under various privacy and commerce laws (many of which defer to the PCI SSC for policy and regulation.)
+Furthermore it's almost certainly a server breach of the MSA to process payments through a terminal which were obtained in this way. Such a breach may be governed by a remedy of fine or legal action.
+",4,2011-08-21 04:29:25Z,189
+18,3,"
+Its not ideal,  and to be honest it sounds like you are violating OWASP a9.  The checkout process is meaningless,  the problem is spilling your authentication token (THE COOKIE) over plain text. 
+",2,2011-08-20 18:58:30Z,190
+18,4,"
+If you are taking the CC info and then running it through a terminal does that mean you are storing the CVC/CVV? You are not allowed to store that after authorization for ANY reason under the PCI DSS. 
+",2,2011-08-21 02:56:24Z,191
+18,5,"
+It'd complicated, but in short, this setup would not be compliant.  For a start, based on the limited information provided, you are storing the card data in an internet facing zone, rather than an internal system.  There are numerous other things wrong with this setup (management interfaces, key management for encryption etc), but the data storage is a glaring one.
+There are also additional requirements for shared hosting providers that would need to be validated.  Under PCI, shared hosting is not really appropriatefor anything other than a merchant page that then redirects to a compliant payment gateway.  Why is your client not doing this?  
+",1,2011-09-07 22:20:28Z,192
+18,6,"
+All good answers. PCI says if you are storing credit card data in any form you need at the very least an ASV to scan your system for vulnerabilities. If you get to a level 1 or 2 (based on your transaction level) you will need a QSA to do it. The bottom line is if you are storing credit card data in any fashion you are a risk to everyone. You can do it but the costs to validate your systems could be prohibitive, depending on the volume you are doing.
+",1,2012-03-09 17:34:40Z,193
+18,7,"
+Unfortunately, as previously stated, the answer is ""No""
+To achieve full PCI compliance you need to fulfill many, very specific, requirements. 
+Full list can be found here: 
+https://www.pcisecuritystandards.org/documents/pci_dss_v2.pdf
+Some of these requirements deal with the way you manage your servers, other talk about internal role distribution and so on... 
+For example section 9.1.1 states:
+""Use video cameras and/or access control mechanisms to monitor individual physical access to sensitive areas. Review collected data and correlate with other entries. Store for at least three months, unless otherwise 
+restricted by law."" [this obviously talks about serves access]
+I`m choose to focus on this section to show that PCI complicancy is not a ""purely technical"" issue.
+Having said that, on a technical site, you probably will want to take notice of section 6.6 that calls for one of the following :
+
+Reviewing public-facing web applications via manual or automated
+application vulnerability security assessment tools or  methods, at
+least annually and after any change. 
+Installing a web-application-firewall in front of public-facing web applications.
+
+This is probably the most demanding section in the whole bill as it requires you to either have a WAF in place or to perform routine checks after (and this is important) EVERY CHANGE made to your web applications.
+In other words - pure nightmare...
+This section is what drives many SMB website owners away from PCI DDS, and into an arms of a 3rd party billing providers, as the setup and maintenance costs are simply just too high. (WAF will cost thousands of dollars,even before maintenance costs, and routine checks after every change are not an option, and even if it is - it comes with an even greater accumulative cost) 
+Recently a affordable solution to this issue was made available via Cloud-based PCI compliant WAF.
+The idea here is that of ""shared-usage"" and ""economy of scale"". In this scenario, WAF protection is distributed via Cloud to a community of users (websites) and each member community gets full WAF features and updates but needs to pays only a fraction of the full price.
+This cuts heavily on initial setup/purchase costs and also eliminates all additional maintenance costs (as a centered security team operates and updates the WAF for all Cloud users.) 
+Also this provides full standardization and promises a very high upkeep quality (very important in an ever-changing security landscape but not achievable without a dedicated security person/team)
+(disclaimer - I work for the company which provides this solution)
+",1,2012-07-17 07:42:54Z,194
+19,1,"
 This may not be the answer you will be happy with but how about abstaining from having any undesirable data inside your phone in the first place and instead using the right tool for the job? 
 According to Wikipedia:
 
@@ -421,8 +954,8 @@ to use it as a ""red herring"" - if police asks you to give them your phone you 
 I mean, not long ago mobile phones didn't even have the ability to store pictures, videos, files, etc. 
 Are you willing to put your life in danger simply because you want to have some files on your phone?
 Tough times require tough decisions.
-",335,2018-09-24 18:47:56Z,82
-9,2,"
+",335,2018-09-24 18:47:56Z,206
+19,2,"
 Get a phone which doesn't support Android apps.
 Why are so many of the answers complex? And not just complex, fragile and suspicious and downright dangerous to the questioner? 
 You want to use your phone to send messages and make calls, right? You don't want this app installed, right?
@@ -430,8 +963,8 @@ Say hello to your new phone:
 
 Good luck getting an Android app running on this. 
 It's probably not illegal to have an old phone.
-",177,2018-09-26 11:47:30Z,85
-9,3,"
+",177,2018-09-26 11:47:30Z,209
+19,3,"
 This is a tricky one.  It goes without saying, but it's also a dangerous one.  Attempting to circumvent these restrictions and getting caught doing so will potentially cause a lot of legal trouble.  If they throw people in jail for refusing to install the app, I wouldn't want to figure out what they do to people circumventing the app restrictions.  It is especially relevant because even experts in tech security have gotten caught by their governments despite extensive safeguards (the founder of Silk Road is a great example and is now serving a life sentence).  Granted, evading this app is most likely a much less serious ""crime"", but the Chinese government isn't exactly known for lenience here.  So while I would like to answer your question, please don't take this as me suggesting that you actually do any of this.  I consider myself a tech-expert, but I still wouldn't do it.
 Still, to answer your question, you have a few options.  I won't bother mentioning the ""Get a second phone"" option because you've already ruled that out.
 1. Virtual Machine/Dual Boot
@@ -458,23 +991,23 @@ They may have root-checking in the app itself, which will cause you problems
 
 Actually, that's it
 I was trying for a longer list but that is really what it all boils down to.  Short of not carrying around a phone or purchasing a separate one, these are about your only options.  For reference, I haven't gone into details about the server spoofing because I think you're necessarily going to go out and do it.  If anything, I've gone through it because it gives opportunity to talk through the risks in more detail, and those should make it clear that there are a lot of risks.  Even if you find a solution from someone, they have to deal with all of these same risks (or ones like it).  Right now this app sounds like it is poorly executed and easily fooled, but depending on how much the Chinese government decides it cares, that could change very quickly.  At that point in time not getting caught basically turns into a cat-and-mouse game with the Chinese government, and that isn't realistically something that someone can continue to win for an extended period of time.  There are a lot of risks, so tread lightly.
-",79,2018-09-24 18:55:17Z,90
-9,4,"
+",79,2018-09-24 18:55:17Z,214
+19,4,"
 They can execute code on your device while they have physical access to it. And you can't refuse it. I'm sorry to say that but you are basically doomed. There's no way to trust this device anymore. That's part of the 10 immutable laws of security. In your case the rules #1, #2, #3, #6 and #10 are applicable.
 But when you act like you don't trust the device you could raise their suspicion. Maybe. Because nobody knows what they are actually doing with the collected data. Maybe nothing at all. In the ""best"" case it's primary for spreading FUD.
 But when they are actually using the data it's easy for them to spot burner phones and all kind of tampering. As far as I know you only get a SIM card by identifying with your ID. Since the spyware reads identifying information like IMEI and IMSI they can simple compare the collected data from the phones with the purchase records. They can combine this with behavior tracking based on metadata collected on the phone (Which apps are used and how often, how long the screen is on etc.) and the mobile network (usage of data, location based on cell tower etc). Since they can do that on a large scale, they can spot strange usage patterns by your usage history or how a ""average"" user is behaving. Of course there's a vast amount of ambiguity and such in this data but they have the ultimate interpretational sovereignty.
 You must also keep in mind that you need to keep your measures working all of the time because it could always happen that you get stopped on the street again.
 I'd like to emphasize on rule #10. You are basically trying to solve a social problem with technology - just as your government does.
-",54,2018-09-24 21:51:43Z,92
-9,5,"
+",54,2018-09-24 21:51:43Z,216
+19,5,"
 Use a custom ROM (two, to be correct).
 Android phones can have more than one ROM installed, and you choose one or the other. So install two copies.
 On the clean ROM you install the spyware, anything not dangerous, games, whatever you feel clean. On the secure ROM you install things you don't want anyone to know about.
 Keep the clean ROM running almost all the time, specially when you are out of home. Boot on the secure ROM only when you really need.
 You will need to keep a secure mindset too, to have awareness of what ROM you are using and what content you can create or access. That is the main point of failure. Using a different keyboard on each ROM, or different OS languages can help: Chinese on the clean, English on the secure, for example.
 But first you must weight the risk/reward of doing so. If the risk of getting caught plus the mental effort to keep activities and files containerized is worth the benefits of bypassing the spyware, do it. Don't do otherwise.
-",28,2018-09-24 20:42:44Z,96
-9,6,"
+",28,2018-09-24 20:42:44Z,219
+19,6,"
 I'd recommend you just go with it. The Chinese police doesn't just stop any random person in the street and asks for their phone. They stop Uyghur.
 This happens for reasons which are somewhere in between ""mitigate a real threat"" and ""Woah, no go, dude"", but whatever it is, it's what the government does, so it's legal and ""right"". No benefit of doubt, and no assumption of innocence, no Sir. By Western standards, it's kind of unthinkable, but you cannot draw to the same standards there.
 So the situation is that you are easily identified as Uyghur, both from looking at your face, and from the fact that police knows. They know who you are and where you live. And sure they know whether you've been stopped before. Again, you're not being stopped at random. You're stopped because you are already a well-identified target, on their screen.
@@ -483,8 +1016,8 @@ You can bet that police keeps a list of people where the spyware has been instal
 Insofar, it is kind of unwise to try and circumvent (and risking being caught) what police wants. From their point of view, you are a possible criminal, and a possible terrorist. By trying to circumvent the measures you prove that you are a criminal.
 The surveillance happens on the base that if you have nothing to hide, then you need not bother if they're watching you. Again, by Western standards, this stance would in no way be acceptable. But whatever, in China it's perfectly acceptable.
 I wouldn't want to risk disappearing in a detention camp if I was you. Rather, let them have their spyware, and simply don't do anything that isn't opportune to the system.
-",15,2018-09-25 16:46:31Z,98
-9,7,"
+",15,2018-09-25 16:46:31Z,221
+19,7,"
 First of all, I think you should search for solutions that are already implemented by other people. For instance, what do other people in your case do to prevent the spying activities?
 One possible solution would be to have a man-in-the-middle implementation analyzing the information that is being sent, altering it, and sending it to the same server and port the spyware is trying to connect to.
 I read a bit about the functionality of the app, and the information it gathers is, and I quote from the Wikipedia source you provided:
@@ -495,16 +1028,16 @@ Hence, after doing some tests with a packet sniffer tool and clearly understandi
 You should also take into consideration any kind of validation processes that the spyware has implemented so you do not alter them. More specifically, the data that is in the HTTP packets’ headers and that is sent from the spyware app to the server to gracefully initiate an upload.
 Of course this is theoretical, but it is a realistic thing to do. Also, you probably will require knowledge of Android programming (mostly in C or Java) and IT.
 This approach is stealthy and will not require an uninstall of the spyware app. There is always a risk, but in this case, depending on the data that is actually spoofed, the risk is minimal.
-",11,2018-09-24 15:43:41Z,101
-9,8,"
+",11,2018-09-24 15:43:41Z,224
+19,8,"
 Due to the nature of the spyware, they will be able to detect any mitigation techniques which will make you a person of interest to them.
 I know you said you can't afford two phones but it really is the best advice - why not clean and refurb an older phone if you have one around?
 A burner phone doesn't need to be anything special and even better if it isn't a smartphone.
-",9,2018-09-24 13:41:15Z,106
-9,9,"
+",9,2018-09-24 13:41:15Z,229
+19,9,"
 One idea is to think of your phone as a networking device and nothing more.  If you carry a secondary ""tablet"", that is NOT a phone, you can tether through your phone, and use a VPN on the tablet to protect your data.  Now you can hand out your phone to be inspected as all of your actual important data and work is on your tablet which is clearly not a cellphone.  If traditional hotspotting is too dangerous, you may want to consider alternative methods such as using a USB2Go cable or bluetooth pairing. If hotspotting is detected or blocked, you might also be able to use an app like PDANet to bypass those restrictions.
-",8,2018-09-25 13:52:59Z,108
-9,10,"
+",8,2018-09-25 13:52:59Z,231
+19,10,"
 Disclaimer: I live in North America.
 
 Knowing that I may be forced to install it sooner or later, what are my options to prepare against it?
@@ -536,8 +1069,8 @@ Proof: In the last few months people whom have a lot of contact with children (C
 Moral of the story: If you are poor and unsophisticated don't fight the rich, powerful, intelligent army trying to do something that they can find someone to back their actions to prevent you from doing it.
 If you can't afford a second phone and contract that's a hint that you couldn't afford trouble in the first place, and the fine.
 In your country they are upfront about it and demanding because objections fall on deaf ears. It's not much different in North America, just that they are sneaky to avoid complaints and only focus on major infractions so people don't suspect that they can see the lessor consequential things just as easily.
-",4,2018-09-30 13:09:39Z,110
-9,11,"
+",4,2018-09-30 13:09:39Z,233
+19,11,"
 While other answers do provide useful insights, my alternative would be to use the phone as you normally would but isolate the app access to data
 One method has been suggested by rooting the device, installing Xposed and corresponding modules of Xprivacy / XPrivacyLua. While I personally use this, rooting the device, managing additional risks due to unlocked bootloader and malicious apps gaining root access is yet another challenge - IMO beyond the scope of average user and hence easy alternative approach below
 There is an open source app called Shelter that does two things
@@ -552,17 +1085,17 @@ Run “Big Brother” apps inside the isolated profile so they cannot access you
 
 (Emphasis supplied) 
 I am currently using this, in addition to XprivacyLua. For more details see WhatsApp: How to isolate contacts and photos - Privacy concerns 
-",3,2018-10-01 09:03:49Z,112
-9,12,"
+",3,2018-10-01 09:03:49Z,235
+19,12,"
 For a rooted phone (without you will have a hard time to stop the app from doing what it is doing), you can use AFWall+ to prevent the app from phoning home and XPrivacy.
 XPrivacy on Android up to 6 is better than XPrivacyLua (Android 6 and newer), because the old version can block more different things.
 This setup works best, if you can install the app voluntary at a time nobody is watching you configuring the security solutions. If you can only get the app when a policeman stops you, it is a bit harder to hide the security apps.
-",2,2018-09-26 09:49:13Z,113
-9,13,"
+",2,2018-09-26 09:49:13Z,236
+19,13,"
 I wouldn't be shocked if there isn't a fake version somewhere--looks exactly real but doesn't actually spy.  Unless the police are actually checking functionality in some fashion this would stop them.
 As others have said, though, getting caught fooling the cops would not be a good thing!
-",2,2018-09-29 02:59:38Z,114
-9,14,"
+",2,2018-09-29 02:59:38Z,237
+19,14,"
 There are a lot of great answers, but most of them give solutions that are beyond the ability of the average Android user.
 I would like to offer a compromise between absolute privacy and getting spied upon.
 I assume that your government has other means of acquiring the IMEI and phone metadata. You can stop the app from acquiring other information by denying it permission for:
@@ -584,19 +1117,19 @@ However, this means that you install the app before police stops you and makes y
 Risks
 You should be aware that if the police does a deeper investigation, turned off permissions would be evidence that you have willfully tampered with the spyware. You should calculate if this risk is worthy.
 This will also be a useful method of stopping other spyware (such as your flashlight app that requires contact information) from breaching your privacy.
-",1,2018-10-02 04:29:12Z,115
-9,15,"
+",1,2018-10-02 04:29:12Z,238
+19,15,"
 You can simply resolve the servers it attempts to connect to back to localhost. 
 This can be accomplished by modifying the /etc/hosts file on your device if you have root. 
 Alternatively, you can use a local VPN which doesn't require root, such as this. 
-",0,2018-09-25 21:42:49Z,116
-9,16,"
+",0,2018-09-25 21:42:49Z,239
+19,16,"
 Based on your question I cannot be sure whether you are a Chinese resident, or someon who is planning to visit (for instance a tourist).
 It was already mentioned earlier that so far it seems that only certain minority citizens people are targeted (and if they were to start targeting foreigners that news is sure to spread very quickly).
 Regardless of what I think about that, the following bit may actually help most tourists:
 The google play store is currently blocked in China, so though it is easy to overcome, this likely means that you will not be able to get the app through the standard procedure.
-",0,2018-09-27 14:53:24Z,117
-9,17,"
+",0,2018-09-27 14:53:24Z,240
+19,17,"
 (radically edited) 
 I had proposed that one idea to consider was that
 
@@ -606,11 +1139,11 @@ For example, ask the phone vendor, :""Hi.  My phone is working really slow and k
 However, I've been informed (see comments below) that even if this led to it being documented that someone else had removed the spyware, the person would likely still get in deep trouble when it was noticed that the spyware was no longer installed.   It sounds like the answer to the question, ""Is there any excuse for not having the spyware installed that would be considered valid?"" is 'NO!'  So it wouldn't matter whether the factory reset is more effective at wiping the system than the spyware is at staying installed.  I would say don't risk it, especially if you think you'd make a high-value target.  
 Sadly, the software is effective at repressing dissidents and dissent even if technically it is 100% defective.  
 So my answer is that secretly helping to evangelize, build or crowdfund efforts to make it not work or prove it doesn't work well or to break it or make the phone to appear broken when spies try to install spyware would be better than a more direct approach, which would paint a target on your back.  Good luck, and may the force be with you.
-",-5,2018-09-25 00:03:02Z,120
-9,18,"
+",-5,2018-09-25 00:03:02Z,243
+19,18,"
 I agree with Doomgoose. Get a burner phone for this. Alternatively, get an app called Orbot (it's Tor for Android) which can get you a bit of the privacy you so desire by encrypting your online activities. Another alternative is adding a VPN on top of the equation.
-",-15,2018-09-24 15:12:23Z,122
-10,1,"
+",-15,2018-09-24 15:12:23Z,245
+20,1,"
 
 That way the hacker won't know if they have got the login details correct or not.
 
@@ -618,19 +1151,19 @@ If the information presented after login has no relationship to the person who t
 But, in order to show information which looks like it fits the user, considerable effort could be needed. It also needs to be created specifically for each user and show some true information about the user so it does not look fake but not too much so no important information is leaked. 
 You cannot expect your provider to do this for you but you might try to do this yourself in many cases, i.e. add another email account, another facebook account etc. 
 ",66,2018-06-01 12:58:38Z,66
-10,2,"
+20,2,"
 The concept you're describing is called Plausible Deniability and methods to provide it have indeed been implemented in some software, VeraCrypt being one example.
 One problem with implementing it in websites, as you suggest, is that it's very hard for the website developer to come up with fake data that is realistic enough to fool an attacker while not giving away any sensitive data about the user. In encryption software like VeraCrypt, that task is shifted to the user, who is obviously in a much better position to do that.
-",50,2018-06-01 12:58:54Z,135
-10,3,"
+",50,2018-06-01 12:58:54Z,258
+20,3,"
 Because hackers don't attack login forms
 The flaw is that you assume hackers get into accounts by brute-forcing credentials against remote services. But that's futile anyway.
 Any website with decent security (the ones without decent security wouldn't care about your idea either) will have a limit imposed on how many failed login attempts can be made in a certain timeframe per IP address, usually something like 5 failed attempts every 6 hours. If security is a bit stronger, accounts might also need action from the owner after a number of failed attempts, and/or the owner might be notified of failed login attempts or even all logins from new devices.
 So while brute-force attacks may well be feasible against plain data (such as password hashes exposed in a breach), they are nowhere near feasible against any service with even a bit of security.
 For attackers, it is thus much easier to go phishing, or better yet set up a genuine free service themselves and work on the assumption of password reuse:
 
-",31,2018-06-02 04:07:43Z,138
-10,4,"
+",31,2018-06-02 04:07:43Z,261
+20,4,"
 I have never heard of any service or device implementing this either.
 The case where an attacker is present and forcing you to login is pretty unlikely. They are more likely to just take your $1000 iPhone and run.
 However, it is very plausible for this to happen if the ""attacker"" is a security guard/TSA officer at an airport security checkpoint. Especially if you are in a foreign country. (There was a PHENOMENAL Defcon talk on this subject a few years back.)
@@ -668,32 +1201,32 @@ You act surprised, and ask them to give you the laptop so you can attempt to log
 You: ""Those darn kids, I told them NOT to change the password! I'm sorry, they were only supposed to use that account for their stupid video games!""
 The airport security confer with each other, and then let you go on your way. You safely return to Eurasia without having the confidential information on your laptop compromised.
 
-",14,2018-06-01 21:45:19Z,143
-10,5,"
+",14,2018-06-01 21:45:19Z,266
+20,5,"
 It's not exactly the context you had in mind but there are in fact systems which implemented this idea. I used to work at a (somewhat sensitive) facility where each employee had two codes to disable the alarm system: The regular one and a duress code. If you used the duress code, the system would be disabled so as to not put you in danger but a silent alarm would go off at the monitoring centre. I am reading on Wikipedia that this was also considered for bank ATM in the US but ultimately ruled out.
 Another similar concept is the “honeypot“. Some of them might in fact accept any credentials or serve dummy data when attacked, to be able to record what an attacker does next or otherwise exploit the situation (e.g. capture the payload of a worm).
 As to why it's not more common in consumer products, online services, etc. there is simply a trade-off between the benefits (how likely a particular attack is, whether it would effectively deter criminals or just prompt them to slightly alter their technique) and the costs (more complex systems to develop, maintain and certify - which also means increased attack surface that could afford an attacker with an actual entry point, bandwidth and operating costs to serve the dummy data to all botnets constantly attacking online services, effort to create credible dummy data to fool more sophisticated attacks).
-",13,2018-06-02 09:20:20Z,139
-10,6,"
+",13,2018-06-02 09:20:20Z,262
+20,6,"
 This is called 'Deception Technology' in the cyber world where the solution deceives cyber foes (attackers) with turn-key decoys (traps) that “imitate” your true assets. Hundreds or thousands of traps can be deployed with little effort, creating a virtual mine field for cyber attacks, alerting you to any malicious activity with actionable intelligence immediately. The traps would carry login details, dummy data, dummy system, etc to deceive the attacker by intimating like actual system.
 Deception technology is an emerging category of cyber security defense. Deception technology products can detect, analyze, and defend against zero-day 
  (where the attack type/procedure is not known before) and advanced attacks, often in real time. They are automated, accurate, and provide insight into malicious activity within internal networks which may be unseen by other types of cyber defense. Deception technology enables a more proactive security posture by seeking to deceive the attackers, detect them and then defeat them, allowing the enterprise to return to normal operations.
 You may refer below link for some solution providers:
 https://www.firecompass.com/blog/top-5-emerging-deception-technology-vendors-at-rsa-conference-2017/
-",5,2018-06-03 16:32:45Z,145
-10,7,"
+",5,2018-06-03 16:32:45Z,268
+20,7,"
 This has been done in the past, rather successfully, but depends a lot on what the system is. 
 At one point it was not uncommon for paid access websites to auto detect when an account was logging in from too many IP addresses or with other suspicious patterns and redirect those users to a version of the site that was primarily ads and affiliate links to other sites. If done well the sharing of stolen login credentials could become a revenue center. 
 There are also websites that direct users to different versions based on IP address or other criteria; the simplest version of this is targeted advertising. 
 For shell access it's possible to direct a login to a chrooted jail that has only a small section of disk and specially provisioned binaries, which may not necessarily be the same as the general system. 
-",2,2018-06-02 05:33:46Z,146
-10,8,"
+",2,2018-06-02 05:33:46Z,269
+20,8,"
 First off, I wouldn't call the attacker in this scenario a hacker. A hacker is trying to get around the security that the website offers, in your scenario the attacker doesn't care how secure your services are, he cares how easily the user is intimidated and possibly what to do with the body afterwards.
 Secondly, alternate credentials that change your access has been done, but if it does more than present a restricted view of the truth, is a lot of work and of limited utility.
 The reason it is of limited utility, is because your users know about it,  you must presume that any attacker knows about it as well.  Suppose you did this for an ATM card so that it showed a balance that was less than a hundred dollars in order to limit your loss. Either the attacker asks for both (in which case the victim has at best a 50% chance of not loosing more) or simply includes as part of his demands that it produces more than that -- ""if I don't get at least 200 you're dead"".
 It's not totally useless, but is only effective against an ignorant attacker.  Relying upon the attacker not knowing something is called security through obscurity, aka ""they got it"".
-",2,2018-06-02 12:16:20Z,147
-10,9,"
+",2,2018-06-02 12:16:20Z,270
+20,9,"
 For web and  a remote attack, as many folks here stated before, appart from the difficulty of creating fake user's content  , there is the problem of : how do you know it's a compromised login?
 I mean, if you assume there is some sort of suspicious activity , like a brute-force attack, you can just block the login for that IP and maybe for that account itself for a while (until the real owner somehow validates its identity)
 The only usefull cases are forced logins, that's another story and a pretty cleaver idea. Here is the implementation I imagine for a social network:
@@ -704,16 +1237,16 @@ When there is a forced login going on, like you jelous gf or bf extorting you to
 BUT Its  not a perfect solution either. The attacker probably would know you and, if it's your crazy ex  for instance, she may just check her chatlog with you and will know you just logged on the bogus account. 
 This is specially relevant because it will be a public  well known feature of the platform you are , so anybody who forces you would be able to check wheter are you or not.
 For banks or other sites, it's a pretty good idea.
-",1,2018-06-02 19:10:47Z,130
-10,10,"
+",1,2018-06-02 19:10:47Z,253
+20,10,"
 The problem is that your users have to know about it, thus you must presume that any attacker knows about it as well. 
-",-1,2018-06-02 12:53:22Z,148
-10,11,"
+",-1,2018-06-02 12:53:22Z,271
+20,11,"
 To me, this sounds as if you were inviting the attacker to dance with you. 
 ""Hey attacker, you want to hack my website? Well here is a fake login web site for you!""
 You certainly do not want to invite the attacker to dance with you because he might find it amusing and challenging which would give him even more motivation to try to hack into your website.
-",-2,2018-06-04 15:22:26Z,150
-11,1,"
+",-2,2018-06-04 15:22:26Z,273
+21,1,"
 Let's go through the process of what actually happened:
 
 Telegram requires a cell phone number to be linked in order to create an account. 
@@ -741,29 +1274,29 @@ If I am at risk, what do I need to do to prevent any theft of my information, pa
 ""At risk"" is a heavy word in this situation. They just want a Telegram account; I find it likely they just moved on to one of the other 50 people they PMed while talking to you. 
 
 Just keep an eye open for ""strange things"" (like hacking attempts to other accounts etc.), research yourself with that phone number and see if what you can find needs changing. 
-",108,2018-03-29 16:41:00Z,153
-11,2,"
+",108,2018-03-29 16:41:00Z,276
+21,2,"
 It could easily have led to a scam. The request was to get access to Telegram using your phone number. 
 Works just like Whatsaap, when you register, you enter your number and a code is sent to your phone. 
 This could easily be removed by re-registering Telegram on your phone where it would repeat the process but make the other user using it unusable. 
 You may not use Telegram but some of your contacts may use it, and may try to contact you because they see you on the app. They may be conned in the process as they could think its you. You were clever to think twice but next time avoid giving your number so freely.
-",16,2018-03-29 20:49:58Z,156
-11,3,"
+",16,2018-03-29 20:49:58Z,279
+21,3,"
 There's also the risk of targeted attacks to your smartphone by having your number (e.g. Android or iOS vulnerabilities) through MMS or SMS. But the risk is low.
 If changing your number is not to burdensome, you might want to change it.
 And kudos on your quick thinking!
-",6,2018-03-29 18:32:21Z,161
-11,4,"
+",6,2018-03-29 18:32:21Z,284
+21,4,"
 Contrary to what one of the other answers said, I wouldn't change your number over this. Most of the nuisance stuff from having your number comes from bulk data collection services who resell it. This girl, whomever she is, just wanted to create an account for potentially negative purposes and thought you were a useful patsy (props for having some common sense to not feed her what she wanted). I seriously doubt she'll contact you again, or even share your number with anyone.
 Had you given in, I suspect she would have strung you along and tried to get you to do other unwise things (you'd be amazed what people will do for a female voice and a pretty picture, not having met the person).
 ",5,2018-03-30 12:21:00Z,13
-11,5,"
+21,5,"
 I understood her intention i.e she wants to open a telegram account with your number. Telegram is a good app to maintain privacy but remember criminals also use telegram to maintain their privacy. Hence why she wants to do such a thing so that no one can discover her identity.
 Note: Telegram is encrypted so what I mean by identity is her location.
 You are completely safe because you didn't give her the code. As I earlier said, telegram is best for maintaining security, privacy.
 But next time don't give your number to an unknown person :)
-",2,2018-03-31 21:08:59Z,162
-12,1,"
+",2,2018-03-31 21:08:59Z,285
+22,1,"
 Unless you can come up with some other explanation of how this happend, it sounds like your phone has been infected by some malware. It's impossible for us to say if the infection was the result of something the factory did or something you did. Either way, you should be very concerned. I'd recommend the following course of action:
 
 Make a backup of any data you have on the phone. (The backup could be infected, see this question, but if you have no earlier backup you either have to take the risk or lose your data.)
@@ -772,21 +1305,21 @@ Change any passwords that has been stored on or entered on the device.
 
 While you are only seeing one app, it might just be a symptom of a deeper infection.  Just removing the strange chinese app may not be enough.
 ",103,2018-03-27 17:13:16Z,9
-12,2,"
+22,2,"
 I would be very concerned. One thing I have learnt about security, in all the years I have been trying to understand it, is that if you didn't put something there, somebody else did, and if you don't know what it is doing then the only thing to do is reset, reinstall, and be happy with everything. If you don't know why that software is there, be assured, somebody put it there for a reason and it may be a good reason but it isn't your good reason so if that phone was mine I would save all my data, and only my data, and completely factory reset it.
-",31,2018-03-27 18:32:02Z,167
-12,3,"
+",31,2018-03-27 18:32:02Z,290
+22,3,"
 Yes, and be concerned about more than your phone. 
 I can’t imagine a situation where an app was installed without your pin/password. without them first jail-breaking or otherwise significantly compromising your phone's OS. I think the only safe assumption is that anything your phone had access to, they also had access to. 
 So any account your phone has access to is suspect. Particularly any email account you have setup. Look for password reset emails, check your sent items etc. If you had any kind of financial app ( bank etc) check for odd transactions etc.
 If that all looks fine,  I’d follow the advice of others in terms of resetting the phone, but also go beyond the phone and reset all your important passwords etc.
-",22,2018-03-28 02:29:18Z,169
-12,4,"
+",22,2018-03-28 02:29:18Z,292
+22,4,"
 The most concerning point is that the repair shop employee claims not to know anything about it.
 The app may or may not be okay. If someone in the repair shop installs a new app, i.e. for testing if installing works again, this can be a problem, but doesn't have to be.
 But if they tell you they do not know about it, either it was some malware installed it, or they are lying to you. And either way you cannot trust the phone anymore not to be infected with something which should concern you.
-",11,2018-03-28 08:50:23Z,113
-12,5,"
+",11,2018-03-28 08:50:23Z,236
+22,5,"
 
 when the guy in store suggested to just delete it I did it without thinking. Here's the link to icon I found that looks the same, I suppose it's UC Browser. As I mentioned, everything was in Chinese, including name of the app. – Rafi Rosa
 
@@ -797,44 +1330,216 @@ I have done a complete factory reset of my phone and changed all passwords that 
 
 I believe you did well. Even if it was just an app that the repair guy decided to use for testing, he might have done a lot more than just installing and using the browser. Not being honest/upfront about what they really did when they just needed to repair a battery is certainly not professional.
 A factory reset and passwords change should be safe enough regarding your data. If the store does not have ways to profit from replacing other hardware in your phone, you won't notice any difference. However, if you need to be completely sure about its integrity perhaps a certified Apple store may perform a check and tell you what was really changed (not sure if they do this though).
-",10,2018-03-29 09:23:21Z,172
-12,6,"
+",10,2018-03-29 09:23:21Z,295
+22,6,"
 I didn't see this addressed in the previous answers, so I thought I'd add:
 If you are going to surrender control of your device, you should perform a backup and a factory reset beforehand. You should reset it again and then restore your backup when returned. It only takes a few seconds to copy your files or install malware.
 It is too late in this case, but the mystery about ""what happened"" applies every time it leaves your control---not just this time because you noticed something wrong. Intruders usually try to avoid detection, so a good intrusion would be unnoticeable.
-",6,2018-03-29 18:37:49Z,173
-12,7,"
+",6,2018-03-29 18:37:49Z,296
+22,7,"
 As already stated, anything done to your phone while out of your sight is definitely cause for concern and probably worth restoring from backup, as well as resetting passwords / 2FA for anything tied to that phone.
 However, the exact way this icon got on your home screen would say a lot about how bad of a breach may be involved and how concerned to be. I can think of 2 options not already discussed:
 
 An employee installed the app, but removed it from your list of purchased apps. You could check your purchase history in iTunes for hidden purchases to verify whether this has happened, even for a free app.
 The icon was not actually an installed iOS App, but a bookmarked website / Progressive Web App that was pinned to the Home Screen for some reason to help with diagnostics. You could potentially verify this by checking your Safari history for any activity during the time your phone was at the shop. Clearing the history/cookies would erase the tracks for this, but if that's what happened then the 'app' itself isn't really a cause for alarm.
 
-",4,2018-03-28 20:47:56Z,168
-12,8,"
+",4,2018-03-28 20:47:56Z,291
+22,8,"
 Yes you should be concerned. 
 Do a factory reset. 
 If you have backed up your iPhone since before the app, your in luck. If you didn't, less great but still preferable to wipe it clean and start over.
-",2,2018-03-28 01:50:05Z,174
-12,9,"
+",2,2018-03-28 01:50:05Z,297
+22,9,"
 if you gave access to the phone to the store, the new app might not be in the list of your purchased apps, simply because an employee in the store logged off, and installed it with their user.
 Nonetheless, I would still handle the phone and passwords used/cached there as potentially compromised.
 However, as mentioned in my first paragraph, the app installation might be just routine, and someone forgot to delete it.  
-",1,2018-03-30 02:04:04Z,175
-12,10,"
+",1,2018-03-30 02:04:04Z,298
+22,10,"
 I would recommend you to replace your phone instead of resetting it. The store has had the access to the phone's hardware and firmware and could have replaced them with malicious counterparts in addition to installing this app.
-",0,2018-03-31 16:12:23Z,176
-13,1,"
+",0,2018-03-31 16:12:23Z,299
+23,1,"
+They will most likely be able to see an itemised bill showing who you called and when. They will also be able to see mobile data usage.
+If the phone is enrolled in the organisations mobile management system, they may be able to monitor and control app usage as well as monitor and control internet traffic.
+UPDATE: In a worst case scenario they could potentially install full monitoring and install things like key loggers, this is very unlikely however. Additionally, depending on what part of the world you live in, there are restrictions on what they can legally collect, especially without consent.  
+The best thing to do is ask your company what you can and can’t use the phone for. If it is a large organisation they should have a security policy and an acceptable use policy.
+",33,2017-07-28 10:32:03Z,301
+23,2,"
+In addition to the other points that have been made, many websites use an SMS message to your mobile phone as a form of two-factor authentication, even though the best practice nowadays is not to do that. So they could at any time divert messages to your number to themselves, and use that to take over your Internet accounts, even accounts that you never use with the phone. 
+",5,2017-07-28 14:42:27Z,249
+23,3,"
+My thoughts about having a company-managed phone or a company-paid contract, and your company Exchange. I include relevant information for iPhone devices (since the amount control varies across mobile platforms).
+Phone
+If you are using Exchange ActiveSync to access your company email/contact/calendar, note that ith ActiveSync, your company can:
+
+Configure a Mobile Phone for Synchronization
+Disable a Mobile Phone for Exchange ActiveSync
+Enable a Device for Exchange ActiveSync
+View a List of Devices for a User
+Configure Device Password Locking
+Recover a Device Password
+Perform a Remote Wipe on a Mobile Phone
+Install SSL Certificates on a Windows Mobile Phone
+Configure Mobile Phones to Synchronize with Exchange Server
+
+Apple and Google also have similar centralised management options. There may be other 3rd party services or software that perform similar tasks.
+If your phone has been set up with Google G Suite, your company can:
+
+Automatically synchronize email, calendars, and contacts with users’ devices.
+Turn on or off features, such as lock screen widgets, Siri, My Photo Stream, Handoff, and iCloud Photo Sharing.
+Protect your organization’s managed data by controlling which apps can be used to open documents and attachments.
+Control Apple® iCloud® backup and sync, and turn on backup encryption.
+Apply device-management controls, such as account wipe, encryption, and screen lock.
+Keep work data secure with G Suite apps, such as Gmail, Google Drive, and Calendar. For details, see Get mobile apps for iOS devices. 
+
+If your company was using Apple Device Enrolment, they can access, amongst other things:
+
+Global network proxy for HTTP
+Allow iMessage, Game Center, iBooks Store, AirDrop, Find My Friends
+Allow removal of apps
+Allow user-generated content in Siri
+Allow manual installation of configuration files
+Allow conﬁguring restrictions
+Allow pairing to computers for content sync
+Allow account modification
+Allow cellular data settings modification
+Allow Erase All Content and Settings
+Restrict AirPlay connections with whitelist and optional connection passcodes
+Enable Siri Profanity Filter
+Single App Mode
+Accessibility settings
+
+Note that a remote backup includes a lot of your phone information (installed apps, etc). I'm almost certain your company could access this information if they wanted to.
+Contract
+This depends on whether your employer simply pays for your contract or they are the contract owners and therefore have access to the mobile operator online tools.
+If they own the contract, they can definitely access the detailed list of phone calls (including numbers, time and duration). They may also be able to access your Internet data pattern usage (which may reveal some of your habits).
+I know of no provider (Europe / Spain) that allows customers to access a detailed list of websites visited, or IPs accessed, but I might be wrong here. I doubt this since it would require your phone provider to do deep packet inspection and maintain quite expensive log and data mining facilities... it is definitely doable but I never heard of this.
+General info
+Anyone using their phone to access their company resources (even simply checking mail via POP3/IMAP) is usually revealing their approximate geographic position to their company in a periodic fashion.
+If you use your company proxy or VPN to access any of their resources, note that your Internet traffic or browser behavior may be being forwarded through your company servers, which would allow them to track which sites you visit (and the content if those sites don't use HTTPS).
+If your company has installed custom certificates on your phone, they could potentially also view any HTTPS traffic if you are using their proxy.
+TL;DR
+In summary, I'd recommend you to:
+
+Find out if your phone has been enrolled to a remote management system.
+Check what kind of information your phone company provides to their (business) customers about their contracts.
+Check if your company has installed any extra software, proxy/vpn settings or  certificates on your phone (in case you handed your phone to them at any time OR allowed them remote administration).
+
+",5,2017-07-28 14:39:45Z,228
+23,4,"
+The holder of a contract can almost always see the activity on that contract, that would be numbers called and very possibly the internet usage as well, that is the sites you visit and how much data you have used going to them. In most parts of the world your employer has the right to monitor your activities on business supplied services, and many use that right. Some industries are regulated and have an obligation to monitor what you do, and in these cases your calls may be recorded and your internet traffic actually saved so your actions can be reconstructed - this is a rare case. 
+If you control your actual device then they can't see what you are doing on it, however you cannot assume that anything you do on your company phone is private as the connections it makes will give them a great deal of information. You could use TOR, but personally if you do things you really want to keep private then you're better off getting your own contract for your phone. 
+",2,2017-07-28 10:40:09Z,101
+23,5,"
+There are two levels of access (okay, make it three), depending on the carrier-offered options (with ""offered"" meaning ""offered to your employer"").
+
+Certainly all billable traffic gets forwarded to your employer, so:
+
+numbers called and, almost surely but not necessarily, calls received even when not actually billable.
+SMS/MMS sent (but not their contents)
+network traffic statistics (i.e., volume in gigabytes, but not its contents).
+
+The SIM could route your traffic to a private MPLS group and have it analysed/filtered. How much or how little, it depends on lots of factors. Potentially everything (except for HTTPS encryption, and even then, barring MitM attacks) could be accessible with you being none the wiser. This also includes SMS/MMS contents. Your employer must not simply pay your navigation, he must supply a tailored SIM.
+More simply, all the traffic could be routed through a dedicated VPN, no matter what the device settings are. So your navigation effectively happens from a device inside your employer's company. Same rules apply as for #2, but this situation might be apparent through tracerouting or simply checking your apparent source IP address and/or comparing the internal device IP address (e.g. 10.123.45.6) and what appears to a third-party site such as WhatIsMyIp.com (e.g. $IP_IN_YOUR_EMPLOYER_NETWORK). This can be done even with your own SIM inside.
+
+I strongly agree with @TheJulyPlot's answer: ask your employer
+a. What is permissible on that device,
+b. Whether private (i.e. third-party VPN) navigation is allowed.
+If the answer to (b.) is a NO, then you should purchase a second device or look into a dual-SIM device -- but, first, ask whether that is permissible. I had a position once where I was not allowed to bring my own phone - or any other kind of electronic gadget, including my non-networked PDA (!) - inside the premises. You don't want to shell out good money for a device you then can't use.
+Final note (especially for case #3): in some circumstances you might be getting flak not just for something you did but for something that was sent to you. So consider who you give (or already gave) that phone number to. ""Moving"" your own SIM with number inside your employer's accounts could backfire spectacularly if they objected to some SMS sent by an Overly Attached Girlfriend or similar.
+",1,2017-07-29 13:12:37Z,0
+24,1,"
+Users should not hash their passwords before sending it to a website. If the user hashes and sends the hashes credentials, the hash is acting exactly like a password and actually defeating the purpose of hashing. If an attacker steals your password hashes, they can just send those to your server to login.
+You might want to read about Pass the hash attacks.
+You must hash server side.
+",7,2016-10-11 01:21:41Z,306
+24,2,"
+
+When a user logs into their account on my server, should they send
+  their raw data to me, and then I bcrypt compare them, or are they
+  supposed to hash and and I directly compare?
+
+You take the data they send you, hash it using the unique salt stored in your database next to their username, and compare that to the salted-hashed password stored in your database next to their username. This is an absolute MUST for security.
+It's fine if they hash their password before sending it to you (assuming they always do that; probably because the client does it automatically). This is a nice step if you are trying to protect your password-reusing users, but the hashed-before-it-gets-sent-to-the-server password is really just acting as a pseudo-randomly-generated password.
+
+I ask this because someone posted about hashing on mobiles being slow. It would make send to take load off of the server, and make sense about the slowing down brute forcing, and also protect the user from snooping.
+
+Hashes aren't ""slow"" by any definition for users. They take a very small fraction of a second. Unless you're getting hundreds of login attempts per minute you shouldn't need to worry about the server load from hashing passwords.
+Hashing the password on the mobile doesn't do anything for the security of this account (all it does is keep the original password from being transmitted over the wire, which is only terribly useful if the wire can be intercepted and the user is sharing passwords between services (in which case the user's other accounts are now compromised). If the user isn't reusing passwords and the wire can be intercepted then it doesn't matter if the original password or a hashed version is being sent, because what is being sent is what's used to authenticate the user to this server).
+When we talk about a hash being used to slow down brute forcing, it's with the assumption that the attacker stole your database (containing the salts and hashed passwords) and is now trying to hash common passwords against each of the salts and looking for matches. A hash that's slow because it's happening on a mobile doesn't do anything to protect the user, since the attacker will undoubtedly be using faster hardware. A slower hashing algorithm and/or one with more rounds of hashing means the attacker has to wait a tiny tiny bit longer for each crack attempt. So a slow hash that takes, say, 0.0001 second instead of 0.00001 seconds would mean they could only try one-tenth as many hashes in a given amount of time. Note that if you hash the user's password at the client and then again on the server, that's just adding one round to the overall hash time (presumably the attacker grabbed a copy of the client code and has noticed that the passwords get hashed before being submitted and has written their attack code to take that step, too).
+
+If I were to do this, wouldn't I run into the exact same problem -
+  slow experience for mobile users, if so is it something that is just
+  expected as part of logging in. Also, wouldn't the user generate a
+  random hash which wouldn't match the one stored in my database?
+
+The hashing on the mobile side is still pretty fast, like I said, so it shouldn't have a noticeable delay for the user.
+The hashed password becomes the password used to access your server, so to your server it just looks like everyone is really good at generating random passwords. But that's why you still need to hash the ""password"" they sent you with a salt (and that will match what you've stored in your database) because otherwise once someone gets your database they can just directly send those hashes to you (bypassing the hash function in the client) to authenticate to your server.
+",1,2016-10-11 05:15:27Z,307
+24,3,"
+This probably is a duplicate question. But I seem to keep seeing people recommend hashing passwords client-side while ignoring the true complexity of the issue and the near impossibility that anyone other than an information security scientist is going to get it right.
+Bottom line, if you're making a web or mobile app, use HTTPS, configure it correctly and hash passwords on the server. Use bcrypt or scrypt, or if it's the easiest library for you to use, use pbkdf2. Those libraries are well designed. You're not going to invent better. BUT; if you use them to hash the password on the client, then send the hash, then you just made the hash your password. And if you're a mobile app developer, don't you dare set the flag in your HTTPS setup that tells it to skip checking the certificate chain.
+It's dang complicated
+Occasionally people mention using nonces, etc. Pass-the-hash, challenge-response authentication is nothing new. And various half-baked pass-the-hash schemes have been broken more than once. Consider Microsoft Lan Manager: LM, NTLM and NTLM with session security are all broken. NTLMv2 is apparently still secure, but it's the fourth in the chain. Microsoft has a few resources to throw at the problem. You're going to do better on your own? Kerberos is an example of a solidly secure authentication and authorization system with a lot of science behind it, which generates tickets and applies nonces and passes those around instead of transmitting the passwords.
+But Kerberos is quite complex, and relies on computers having trust relationships with each other, and on computer clocks being in sync. It's complicated.
+Half-baked attempts to pull off something similar between a web browser and web server, unless you're using the actual Kerberos protocol supplied by a competent, well-vetted vendor, are bound to end in tears.
+Security is complicated, subtle and hard.
+HTTPS is pretty darn good
+Perfect? Maybe not, but current versions aren't broken. If the server is using a strong certificate (2048 bit key) and strong cryptography (TLS 1.x or greater), it's pretty darn solid. Sending your password via HTTPS is not the same as passing it in plain text.
+Users should not use the same password for multiple sites
+Really, seriously, if they do, it's ultimately on them. They've been warned so many times now. Even the Today Show anchors know not to use the same password on multiple sites now, for crying out loud.
+Don't make the hash the actual password, believing you have implemented security
+If you just hash the password on the client side and store that value in the database for comparison, then the hash itself is the password. Period.
+Are you going to build a full challenge-response pass-the-hash system using nonces, and do it without introducing fatal bugs? Do you really have the time, budget and expertise for that?
+There may still be a benefit for the user to hash their password before sending it. If the hash is intercepted, the attacker couldn't use it to log in to OTHER sites.
+However; if that is done, and you don't have the chops to create the actual equivalent of Kerberos or NTLMv2 just for your app, it should be done completely independent of anything the server does or expects.
+The server must compute the hash
+Given all the preceding, the server still needs to hash whatever is passed to it (call it a hash, call it a password, same thing in this context), with salt that is stored on the server, completely blind to anything the client is doing. 
+In other words, if the client is sending a hash, great, but the server doesn't know or care. It's just a password.
+You're not trying to prove that the client knows the hash value. You're trying to prove that the client knows the original secret (aka ""the password"").
+So the server hashes the incoming password fresh each time, using salt that is stored on the server, and compares the computed hash to the stored hash. If they match, authentication has succeeded. Otherwise, authentication fails.
+So very many things can go wrong if you try to be clever
+You're going to get it wrong. You just are.
+Imagine this example:
+
+Your client hashes passwords
+Your server stores said hashed passwords
+Attacker social engineers your CEO and steals your account database
+Attacker has a database full of passwords, not hashes, but actual passwords to actual accounts on your system.
+
+Part of my point, I guess, is that the very question ""Should I hash on the client or the server"" belies the true complexity of the issue and far too many answers either fail to address the complexity at all, or gloss over it in ways that make a system less safe, not safer.
+",1,2016-10-11 06:05:48Z,57
+24,4,"
+Preferably both should be done, for different purposes.
+
+The user hashes their password with a salt specific to the website, to prevent the (possibly hacked or misconfigured) server stealing their password if it is too similar to the user's password on other websites.
+If you want better security, you can let the user hash their password more times, in case the server is hacked and the hacker was listening to the communication, and doesn't want announce the fact it is hacked.
+The server hashes the password with a salt before saving to or comparing with the database. So it won't be too disastrous if the database file is stolen.
+In addition, someone could hash the password using a slow algorithm, the earliest the possible, to slow down brute-forcing if the user is using a weak password.
+
+But in practise, web browsers don't have the support to do 1 and 2 right. And for 1, even if a service doesn't use web login, it doesn't help much if only one service is doing that. So usually only 3 and sometimes 4 is implemented.
+The user could use password management softwares to do 1. But most people don't. So sometimes we think 3 is also mitigating the problem 1 could solve. That may lead to some confusion.
+For your question, it makes sense to move 4 to the client side. But 3 on the server side should be considered more important, and shouldn't be removed. In this case you are going to hash the password using a slow algorithm on the client side, and hash the result again using a fast algorithm on the server side. But I guess most services just don't use an algorithm which is that slow that is worth the hassle.
+",0,2016-10-11 04:26:13Z,308
+24,5,"
+Already answered on StackOverflow. You want hash passwords on the client device because you want to touch the user's password as little as possible. 
+1) If the user ever complains about being hacked you can be confident that your server didn't give up the user's password, because your server never sees the user password.
+2) You want to minimize the amount of time that a user's password spends on any storage device- yours or theirs. If you copy the plaintext to your device then their password exists in your memory and disks. You want to avoid this.
+3) Transport security isn't perfect, so if you transmit the user's password you're making them vulnerable in the event of a compromise. If you hash on the client side then you ensure that a man-in-the-middle will only ever get hashes. This is enough to allow the attacker to break into your server, but your user is protected in the (common) event that they re-use their password on multiple sites and services.
+4) You can address Stoud's concern by reversible-hashing the user's hash while in transport. 
+5) Then hash it again once it gets to your server. 
+https://stackoverflow.com/questions/3391242/should-i-hash-the-password-before-sending-it-to-the-server-side
+",-2,2016-10-11 03:17:40Z,303
+25,1,"
 It might improve security but it's a very strange way of doing things.
 What you are suggesting is to start with an image with ""unnecessary"" software installed and remove some of the stuff you don't need (bash, echo,...). This does not only risk breaking things, it also increases container size because the base layer with the unnecessary tools is still shipped.
 A better approach is to start with a minimal image. Not alpine, that's still a full os. The more minimal approach is to use a base image that only contains the required language runtime like googles distoless images https://github.com/GoogleCloudPlatform/distroless . For static binaries, you can even start with an empty image.
 That way you get an image that is as small as possible and does not provide the ""attack surface"" of bash.
-",6,2018-03-22 13:59:51Z,177
-13,2,"
+",6,2018-03-22 13:59:51Z,309
+25,2,"
 You shouldn't remove bash or any executables that exists in the base image. A lot of executables are interlinked, and removing one executables may cause other apparently unrelated executables to fail to run correctly on some corner case. Instead you should use a base image that doesn't contain anything that you don't really need. alpine makes a great minimalist base image, weighing at 5MB, it contains just the most useful stuffs and nothing more.
 If you know that your application doesn't use any external binary or shell, or if you know exactly which external binary you will be needing, you may want to consider compiling into a statically linked binary and then basing your container of the scratch image.
-",1,2018-03-22 10:53:34Z,178
-13,3,"
+",1,2018-03-22 10:53:34Z,310
+25,3,"
 The answer is: it depends. Removing bash and all other interpreters reduces the attack surface of the container. The same applies to e.g. compilers, nc, wget, ...
 The real question is: is this the best way to spend the money?
 E.g.
@@ -845,36 +1550,215 @@ Troubleshooting gets way more difficult
 ....
 
 A better way to spend the money might be to harden the application itself by investing in other security measures like regular penetration tests, security monitoring, automated patching, ...
-",0,2018-03-22 11:15:18Z,179
-13,4,"
+",0,2018-03-22 11:15:18Z,311
+25,4,"
 It depends to what extent you are following the Container philosophy. If you don't need it, you should avoid using anything not strictly necessary. You should define and refer to everything you need in the Dockerfile, and the entrypoint of a web server should be the apache (or any other web server you are using) binary itself.
 But more importantly, take into account that many binaries (as ls, find, etc.) are linked to the base image layer of the container, so you should leave them untouched, or make a more custom base image. Any ubuntu, debian, etc., base image will have this binaries, and tampering the base image is not recommended.
 It would be a much more secure approach to define an isolated network for databases, or other backend entities, leaving just the port you are exposing to the world as attack surface.
 Obviously, hardening the machine you into what you are containerizing your services is critical.
 I would not worry much because of these binaries. I would worry much more about securing the access to the Docker commands to avoid invoking these binaries during the container runtime.
-",0,2018-03-22 10:17:05Z,181
-13,5,"
+",0,2018-03-22 10:17:05Z,313
+25,5,"
 I wanted to add some more resources to the answers so far. In general, it's considered best practice for an OS container image to be as basic as it can possibly be. Removing unneeded shells is just a start. There are multiple hardened OS images out there specifically for a secure container deployment, but there are also many other things to consider, like lowest possible privileges, Read-Only file systems, and much more.
 This page: https://access.redhat.com/articles/2958461 Has multiple links to many good articles. Dan Walsh's Red-Hat blog is also very good for deep level information. https://rhelblog.redhat.com/author/dan-walsh/
 This page has lots more that is directly helpful to this question in the sense of practices even more useful than removing un-needed applications: https://access.redhat.com/blogs/766093/posts/2334141
 And here is a hardened OS for containers. Full disclosure: I haven't used it though, our Systems Engineering worked with my security team to build a gold image for us on our cloud deployment. It's more of an example: https://coreos.com/os/docs/latest/
-",0,2018-03-23 01:37:46Z,182
-14,1,"
+",0,2018-03-23 01:37:46Z,314
+26,1,"
+XSS is a form of code injection, i.e. the attacker manages to inject its own malicious code (usually JavaScript) into trusted code (HTML, CSS, JavaScript) provided by the site. It is similar to SQLi in that it is caused by dynamically constructed code, i.e. SQL statements, HTML pages etc.
+But while there are established techniques to solve SQLi (i.e. use parameter binding) it is even harder with XSS. To defend against XSS every user controlled input must be properly escaped, which is much harder than it sounds:
+
+Escaping rules depend on the context, i.e. HTML, HTML attribute, XHTML, URL, script, CSS contexts all have different escaping rules.
+These contexts can be nested, i.e. something like <a href=javascript:XXX> is a JavaScript context inside a URL context inside a HTML attribute.
+On top of that you have encoding rules for characters (UTF-8, UTF-7, latin1, ...) which again can be context specific.
+The context and encoding need to be known when constructing the output: while most template engines support proper HTML escaping they are often not aware of the  surrounding context and thus cannot apply the context specific escaping rules.
+On top of that browsers can behave slightly different regarding escaping or encoding.
+Apart from that you'll often find in grown code with no proper separation of logic and presentation that HTML fragments gets stored in the database and it is not always clear to the developer if a specific value is HTML clean already or need to be escaped.
+
+And while there are some simple ways to protect against XSS by design (especially Content-Security-Policy) these only work with the newest browsers, have to explicitly enabled by the developer and are often only effective after large (and expensive) changes to the code (like removing inline script). 
+But still, there is a good chance to do it right if you have developers with the proper knowledge and are able to start from scratch using modern toolkits which already take care of XSS. Unfortunately in many cases there is legacy code which just needs to be kept working on. And development is usually done by developers which are not aware of XSS at all or don't know all the pitfalls. 
+And as long as web development is done in environments very sensitive to cost and time the chances are low that this will change. The aim in this environment is to make the code working at all in a short time and with small costs. Companies usually compete by features and time to market and not by who as the most secure product. And XSS protection currently just means additional costs with no obvious benefit for many managers.
+",32,2016-07-07 11:54:36Z,66
+26,2,"
+It seems easy, but is hard
+First of all, the attack surface is huge. You need to deal with XSS if you want to display user input in HTML anywhere. This is something almost all sites do, unless they are built purely in static HTML.
+Combine this with that fact that while XSS might seem easy to deal with, it is not. The OWASP XSS prevention cheat sheet is 4 000 words long. You need quite a large sheet to fit all that text in. 
+The complexity arise because XSS works differently in different contexts. You need to do one thing if you are inserting untrusted data in JavaScript, one thing if you insert into attribute values, another thing if you insert between tags, etc. OWASP lists six different contexts that all need different rules, plus a number of contexts where you should never insert data.
+Meanwhile developers are always searching for panacheas and silver bullets. They want to deletage all the hard work to a single sanitize() function that they can always call on untrusted data, call it a day, and go on with the real programming. But while many such functions have been coded, none of them work.
+Let me repeat: XSS might seem easy to deal with, but it is not. The main danger lies in the first part of that sentence, not the second. The percieved simplicity encourage developers to make their own home brewed solutions - their own personalized sanitize() functions, filled with generalisations, incomplete black lists, and faulty assumptions. You filtered out javascript: in URL's, but did you think about vbscript:? Or javaSCripT   :? You encoded quotes, but did you remember to actualy enclose the attribute value in quotes? And what about character encodings?
+The situation is quite similar to SQLi. Everybody kept looking for the one sanitation function to rule them all, be it named addslashes, mysql_escape_string or mysql_real_escape_string. It's cargo cult security, where people think it is enough to ritually call the right function to appease the Gods, instead of actually embracing the complexity of the problem. 
+So the danger is not that developers are blissfully unaware of XSS. It is that they think that they got the situation under control, because hey, I programmed a function for it.
+But why is it hard?
+The web suffers from the problem that structure (HTML), presentation (CSS) and dynamics (JavaScript) are all mixed into long strings of text we put in .html files. That means that are many boundaries you can cross to move from one context to another.
+Again, this is the same as with SQLi. There you mix instructions and parameter values in one string. To stop SQLi, we figured out that we have to separate the two completely and never mix them - i.e. use parametrised queries. 
+The solution for XSS is similar:
+
+Separate the scripts from the HTML.
+Turn off inline scripts in the HTML.
+
+We created an easy way to do the second part - Content Security Policy. All you need to do is to set a HTTP header. But the first part is hard. For an old web app a complete rewrite might be easier than to surgically disentangle the scripting from the HTML. So then it is easier to just rely on that magic sanitize() and hope for the best.
+But the good news are that newer apps often are developed after stricter principles the use of CSP possible, and almost all browsers support it now. I'm not saying we are going to get the percentage of vulnerable sites down to 0%, but I am hopeful that it will fall a lot from 60% in the coming years.
+
+TL;DR: This turned into a rather long rant. Not sure if there is much useful information in here - just read Steffen Ullrichs great answear if you want a clear analysis.
+",22,2016-07-07 13:07:29Z,9
+26,3,"
+My set of opinion on security and XSS:
+
+Rule of programming: You can't know everything. Sooner or later you are going to make a mistake.
+Rule of programmer: A programmer works 12h a day: 3 is discussing with other programmers random things, 3 is thinking at other things, 3 is discussing on what it should code, 3 it's programming .... projects are made for 12h a day of almost non stop programing.
+XSS is simple. And there are a lot of inputs waiting for XSS.
+Security still comes last and most of the time is seen as a deficient.
+
+",7,2016-07-07 11:31:39Z,322
+26,4,"
+As mentioned in the answer to a similar post of yours (SQL injection is 17 years old. Why is it still around?):
+
+There is no general fix for SQLi because there is no fix for human stupidity
+
+Developers sometimes get lazy or careless and that causes them to not check the application they are developing. 
+Another popular reason is that the developers aren't aware that there is a security issue. They never went through any security training and so they don't know what is a potential security threat and whats not. And for company's that don't understand that a penetration test is important this lack of security knowledge is a potential threat by itself. 
+Simple security issues such as SQLI and XSS will only be fixed when a company decided to spend time on code review and testing. Until then you have 65% of all websites globally suffering from the XSS vulnerability.
+",6,2016-07-07 11:31:46Z,321
+26,1,"
+Consider this a very, very, very short description. The answer to your question can encompass an entire set of books.
+Security is about risk management. Making something secure is about lowering risk. The lowering of risk goes together with putting controls into place, each control may have a certain price and can mitigate a certain risk, by lowering the likelihood a vulnerability can have a negative impact on your assets. Assets in this context can be anything a company considers valuable, this includes systems, applications, but also people, infrastructure etc...
+A and B are both valid, except A would probably depend on cost. Security costs money and it doesn't make sense to spend loads of money to secure an asset if the security costs more than the asset is worth. If the value of an asset increases over time it may make sense to ""make it more secure"" over time by spending more on extra controls.
+",1,2016-03-20 12:39:51Z,116
+26,2,"
+Risk management is the key to answering this deceptively simple question. To make data (or a device) perfectly secure, one would have to erase all knowledge of it. Destroying the data/device to make it secure makes it unavailable, violating the CIA triad cited by @SilverlightFox. By using the Enigma encryption device, the Nazi made it vulnerable. 
+As long as the future (and life) is uncertain, ""as secure as possible"" is a never ending and fruitless task. So making something more secure is more to the issue of securing something. However, that raises the question: how much more secure does the data (device) need to be? How much more effort and ingenuity is appropriate to ""secure the asset?"" 
+This reminds me of the following joke:
+
+Two men are walking through a forest.  Suddenly, they see a bear
+  running towards them.  They turn and start running away.  But then one
+  of them stops, takes some running shoes from his bag, and starts
+  putting the on.
+          “What are you doing?” says the other man.  “Do you think you will run fast than the bear with those?”
+          “I don’t have to run faster than the bear,” he says.  “I just have to run faster than you.”
+
+So ""how much security is enough"" depends on the context. That's why most homes have key locks and banks go to the trouble of installing vaults. The impact of a breach on the former - though quite personal to the homeowner - is likely less costly in total that the impact to the bank. Thanks to the measures banks take to protect the contents of their vaults (steel, alarms, guards, etc), homeowners pay banks to hold their valuables in a lock box rather than replicate the bank's security measures for their homes. The exception that proves the point is the visibly wealthy homeowner who declines to put all her valuables into the bank vault. What is the point of valuable paintings, sculpture, and jewelry if you can't enjoy it?
+So how does one decide how much effort or money spent on security is enough? One tool is Annualized loss expectancy. In short, ALE is the cost (tangible and intangible) of a loss times the probability that incident will occur in a year. If the bank has $10,000 in the vault and there is a 10 percent chance of getting successfully robbed, the bank should no more (or less) than $1,000 to protect the vault. Bruce Schneier points out that the calculation get complicated and messy very quickly. 
+Another approach is return on security investment (ROSI). Mirroring the business principle of return on investment, The cost of a bad thing happening is called risk exposure. A security solution mitigates that risk by some percentage. Multiplying the exposure by the percentage mitigated gives the expected return. Thus ROSI is used to identify the appropriate expenditure on securing an asset. However ROSI is not without its detractors, notable among them Bruce Schneier. 
+Andrew Jauquith's Security Metrics is another worthy read on the subject. Jaquith writes on p 33 ""...practitioners of ALE suffer from a near-complete inability to reliably estimate probabilities [of occurrence] or losses."" You can read his clear and cogent alternatives to ALE and ROI. 
+",1,2016-03-20 16:45:58Z,326
+26,3,"
+Both are applicable.
+Securing something means reducing the risks associated with running such a network, system or application.
+In information security the risks are often in the CIA triad - Confidentiality, Integrity and Availability. For example, an application may have a security vulnerability that affects the confidentiality of data. Securing the application against this risk would involve remediating the security vulnerability or removing the threat. However, it is not usually possible to achieve the latter. It may not be practical to make this vulnerability ""as secure as possible"", however the risk can be mitigated to a level that is acceptable by the business, so often the action that is taken is to make it ""more secure"".
+",0,2016-03-20 12:43:27Z,327
+26,4,"
+Security usually refers to secure sharing, meaning techniques of sharing certain information only with the people you want to share it with.  If you do not have anything to share, then it is easy to be secure, just do not give anyone any information about yourself.  However, that approach is quite impractical, as living and doing business require sharing certain information: financial information with business partners, medical information with doctors, identification information with business partners and government, personal information with friends and family, etc.
+Usually when people talk about a 'lack of security' they are referring to a demonstrated vulnerability and usually a sever vulnerability.  In some sense, hackers, cons, fraudsters, and thieves are always testing your security, both electronic and physical.  Most of the time you, your computers, and your life are okay, you loose no information to the wrong person, and we call this 'secure'.  At other times, there is a problem, such as a break and entry in your home, or perhaps a data breach on your computer.  In this case we call this a security problem.
+The process of recovering a secure situation after a breach involves risk analysis and vulnerability repair.  If you are interested in legal action, then forensics comes into play.  Fixing the security holes is fundamentally different than getting justice which involves law enforcement.  Most computer security professionals focus on fixing security holes first, and forensics second.  Although, during the vulnerability analysis phase, there is a certain amount of forensics used to discover the vulnerability, but usually it does not pass the standard used in a court of law.
+",0,2016-03-20 15:07:32Z,328
+26,5,"
+In terms of cryptography, secure means not broken. And broken means, there is a method to decrypt better than brute force.
+And as you know, brute force is the method of desperation where you need to try all possible keys. 
+",0,2016-03-20 16:17:23Z,329
+27,1,"
+If you are attempting to be compliant and/or avoid the breach notification rule under HIPAA in the United States, then obfuscating data relationships within your database will not help you at all.
+Under HIPAA, if data is encrypted you need not notify patients/insurance providers/etc about the breach.  However, encrypted means that it was encrypted using a FIPS 140-2 compliant cipher and only this encrypted data was obtained by the third party.
+On a database, you can make use of tools such as transparent database encryption, or third-party encryption suites.  This would mean if someone got a copy of the database, it would be FIPS 140-2 compliantly encrypted, and thus not triggering breach notifications or other consequences under HIPAA. 
+However, simply having a hard to understand database is covered nowhere under HIPAA, and security-by-obscurity doesn't win you any points on a CMS audit...even if you explain obscurity is a ""compensating control"" for a HIPAA requirement.
+Also while security typically means keeping unauthorized individuals out, the next worst thing to be able to happen to an organization keeping PHI data is losing that data.  Having a DB with complex relationships makes it easy to lose that data, and integrity of your data should be considered a security concern when dealing with HIPAA.
+Note that transparent database encryption or other on-line encryption methods will do little against the online compromise of the database, e.g. through SQL injection.  If someone gets a DB dump by running SELECT * statements, this data wouldn't be encrypted.  For this, youl'l need to secure/segment your database users and also look into best practices for securing the frontend web application. 
+In short, encrypt the database somehow; but DB encryption should only be a small part of a larger HIPAA compliance strategy.  Security by obscurity, however, should not be any part of your security strategy. 
+",4,2015-11-03 18:39:01Z,339
+27,2,"
+You asked for best, let me start by qualifying my answer as best in a sense that it is my best effort to allow you to make your own choice perhaps with more confidence. Since 'best' can be quite subjective, and I am not the all powerful knower of things, I'm quite sure another best answer can be found.
+I also want to quote AviD's Rule of Usability:
+
+Security at the expense of usability comes at the expense of security.
+
+(While there is no direct connection to this, I do want to point to it if only to make mention that if you break usability, then all is for naught)
+My first thought is ""Oh no, your entire DB is stolen!"". I would hope that your first priority is to prevent this (I don't know if you're actually worried about this or if it's just planning for a worst case scenario). Then make every necessary effort to hide all required data. Any additional data that you can hide without a noticeable performance hit is gravy.
+I've done a very small amount of HIPAA in my time and have found some rules to be perhaps intentionally vague. I assume this is to allow new techniques to be used without having to change the rules or something to that effect.
+In short, if obfuscating ids is required in your situation, then you must do that (requirements are requirements), if not, then you can do that if you feel the difficulty and performance hit is tolerable. Follow the requirements first. Go above and beyond where it makes sense.
+In your case, it seems as though it doesn't make sense to go to all that extra trouble only to make future maintenance that much more difficult. It might be a better use of time to focus on securing the DB itself while maintaining encryption/obfuscation only on the required fields. You can obfuscate ids all you want, but if the DB is easily stolen, then what is the point?
+PS: I'm not a lawyer, nor do I play one on TV. Make sure you check HIPAA requirements yourself if you are in fact dealing with HIPAA.
+",3,2015-11-03 15:29:47Z,340
+27,3,"
+This is ultimately a terrible idea, and will cost you in terms of data integrity.  Data relationships that are obscured are data relationships that will become corrupted, and unreliable.  It doesn't even make you more secure.  Obscurity protects only from the mildest of curiosity.  Look at the long history of cracked obscured systems for evidence of this.
+This approach will lead to lost appointments, possibly appointments made with the wrong doctor, and a generally unreliable system.
+In general, these sorts of requirements (HIPPA, PCI, etc) are written by non-technologists, and are up for broad interpretation.  
+Ask the person driving the requirement if he/she is willing to sacrifice the integrity and reliability of the system for security through obscurity.  That's essentially what's being asked for.  My guess is someone is interpreting HIPPA is a very narrow way if they're asking for crazy things like ""obscuring database table IDs"".
+My general advice is find someone with expertise in interpretting HIPPA requirements of what you can actually do rather than someone trying to interpret it in the most restrictive sense possible. 
+",3,2015-11-03 15:45:34Z,26
+27,4,"
+Just started looking into HIPPA compliance for an upcoming application I'm building, and from what I see you're taking the rules/regulations a little overboard. As far as obfuscating your data goes, one of the main requirements is protecting your Electronic Protected Health Information or (ePHI) This includes stuff like Names, SSI numbers, or private or patient sensitive data. One of your internal Id's in your database wouldn't fall under this category, and trying to obfuscate that would just create a whole world of problems for you while not accomplishing anything. For example, if some data breach were to happen and they see that Id 5 is tied to id 8, it would not mean much to anyone without some other personal data, which would be encrypted.
+Again I may not be the best source since I am just learning about HIPPA compliance also, but I know a good amount about PCI compliance and they seem pretty similar. 
+",2,2017-01-17 21:43:14Z,341
+27,5,"
+I agree with the others: this is bad practice, from every POV, including design, audit, recovery, security, performance.  The list goes on.
+If a hacker gets into the database, the game is over.  It doesn't matter if you obfuscated data, it will be a matter of time before that can be de-obfuscated.
+RDBMS these days allow column-based permissions, and so, using real keys to join to other tables will allow standard SQL queries to be used, without the overhead to de-obfuscate.  Moreover, your auditors will appreciate the attention to ability to scale, upgrade, troubleshoot, and still maintain integrity and security.
+Having said that, some vendors, like Microsoft and Oracle, maybe others, have stepped up and allowed very focused encryption.  Keys are stored in a separate system, and access to columns are protected.  Microsoft SQL Server, for example, uses TDE (transparent data encryption) and extensible key management (EKM) to do just this.  Therefore, your table structures don't change, and you don't compromise the overhead of joins with obfuscation, et al.  So, while you might have a doctor and a patient, you won't necessarily know the names or other details of either, since TDE can allow encryption of these fields.
+RDBMS systems also allow for encryption of the entire database, to handle instances where the database itself is stolen.
+In short, don't obfuscate the keys to the data.  Rather, encrypt the data that is sensitive.  You can look at like this: Don't obfuscate the metadata; rather, only encrypt the data.  Think of the keys and foreign keys as metadata.
+Be careful, too, not to fall victim to the practice of placing strong security on the front door, all the while leaving the back door unlocked: your transaction logs, error logs, application, application logs, backup systems, and people who are trusted to have access to this data and applications are all sources for leaks, so, shore up permissions, and be careful what you log, and what you do with those logs.
+Once you apply these principles, it becomes less important to obfuscate keys.
+",0,2017-01-18 15:30:59Z,342
+28,1,"
+
+Is there such a thing? 
+
+Absolutely.  Feeding malicious input to a parser is one of the most common ways of creating an exploit (and, for a JPEG, ""decompression"" is ""parsing"").
+
+Is this description based on some real exploit?
+
+It might be based on the Microsoft Windows GDI+ buffer overflow vulnerability:
+
+There is a buffer overflow vulnerability in the way the JPEG parsing
+  component of GDI+ (Gdiplus.dll) handles malformed JPEG images. By
+  introducing a specially crafted JPEG file to the vulnerable component,
+  a remote attacker could trigger a buffer overflow condition.
+...
+A remote, unauthenticated attacker could potentially execute arbitrary
+  code on a vulnerable system by introducing a specially crafted JPEG
+  file. This malicious JPEG image may be introduced to the system via a
+  malicious web page, HTML email, or an email attachment.
+
+.
+
+This was published in December 2006.
+
+The GDI+ JPEG parsing vulnerability was published in September 2004.
+
+Is it sensible to say ""the operating system"" was decompressing the image to render it?
+
+Sure; in this case, it was a system library that required an OS vendor patch to correct it.  Often such libraries are used by multiple software packages, making them part of the operating system rather than application-specific.
+In actuality, ""the email application invoked a system library to parse a JPEG,"" but ""the operating system"" is close enough for a novel.
+",177,2015-08-26 19:10:55Z,35
+28,2,"
+Agreeing with others to say yes this is totally possible, but also to add an interesting anecdote:
+Joshua Drake (@jduck), discovered a bug based on a very similar concept (images being interpreted by the OS) which ended up being named ""Stagefright"", and affected a ridiculous number of Android devices.
+He also discovered a similar image based bug in libpng that would cause certain devices to crash. He tweeted an example of the exploit basically saying ""Hey, check out this cool malicious PNG I made, it'll probably crash your device"", without realising that twitter had added automatic rendering of inline images. Needless to say a lot of his followers started having their machines crash the instant the browser tried to load the image thumbnail in their feed.
+",47,2015-08-27 03:18:34Z,347
+28,3,"
+Unrealistic? There was recent critical bug in font definition parsing: https://technet.microsoft.com/en-us/library/security/ms15-078.aspx and libjpeg changenotes are full of security advisories. Parsing files[1] is hard: overflows, underflows, out of bounds access. Recently there were many fuzzing tools developed for semi-automatic detection of input that can cause crash.
+[1] or network packets, XML or even SQL queries.
+",10,2015-08-27 15:48:14Z,351
+28,4,"
+As others have pointed out, such attacks usually exploit buffer overflows.
+Regarding the nuts-and-bolts of how, it's called a stack-smashing attack. It involves corrupting the call stack, and overwriting an address to legitimate code to be executed with an address to attacker-supplied code, which gets executed instead.
+You can find details at insecure.org/stf/smashstack.html.
+",1,2015-08-30 19:42:25Z,352
+28,1,"
 You can't.
 To securely send information over an unsecure channel, you need encryption. 
 Symmetric encryption is out, because you would first need to transport the key, which you can't do securely over an unsecure channel[*].
 That leaves you with public key cryptography. You could of course roll your own, but you don't want to be a Dave, so that's out, which leaves you with HTTPS.
 [*] You can of course try to use a secure channel to exchange the key, for example physical exchange of a key. Then you can use secret key crypto, like Kerberos.
-",109,2018-11-09 14:08:48Z,187
-14,2,"
+",109,2018-11-09 14:08:48Z,332
+28,2,"
 TLS is really the only way to do it.
 But what if I encrypt it with JavaScript?
 The attacker can change the JavaScript you send to the client, or simply inject their own JavaScript that logs all information entered.
 Then I'll use CSP and SRI to prevent the addition of scripts and the modification of my own scripts.
 Glad you're using modern tools to help protect your site, but SRI in a non-secure context really only protects against the compromise of an external resource. An attacker can simply modify the CSP headers and SRI tags.
 There's really no way to do this without using encryption from the beginning, and the only standard way to do that is to use TLS.
-",45,2018-11-09 14:09:52Z,97
-14,3,"
+",45,2018-11-09 14:09:52Z,220
+28,3,"
 While I agree that you should use HTTPS, you can make it even more secure by using the Salted Challenge Response Authentication Mechanism (SCRAM, see RFC 5802) for the actual authentication exchange.
 It's not trivial to implement, but the gist of it is that, rather than send the password to the server, you send proof to the server that you know the password. Since deriving the proof uses a nonce from the client and server, it's not something that can be reused by an attacker (like sending the hash itself would be).
 This has a few added benefits to using HTTPS with the basic authentication you describe:
@@ -884,8 +1768,8 @@ If there is a bug in the HTTPS implementation (think Heartbleed), attackers stil
 If, for some reason, you can't use HTTPS, this is better than sending the password in the clear. An attacker will not be able to guess your password based on the exchange. That said, you should still use HTTPS, because defense in depth is better.
 
 Please note that this is only secure if the client is able to perform the SCRAM computations without downloading code from the server. You could provide a fat client, or users may be able to write their own code that they control. Downloading the SCRAM code over HTTP would give an attacker an opportunity to modify the SCRAM code to send the password in cleartext, or otherwise expose it.
-",26,2018-11-09 18:01:00Z,189
-14,4,"
+",26,2018-11-09 18:01:00Z,358
+28,4,"
 You should definitely deploy TLS in this case.
 If you decide to try to invent a transport security system over HTTP, ultimately you're going to end up implementing a susbset of the TLS functionality anyway. There are many pitfalls to be aware of when designing and implementing such a system, which are further amplified when you choose to try to implement the system with a language that doesn't offer many safety features.
 Even if you did implement a correct implementation of a cryptographic protocol in JavaScript (which is already a big challenge) you can't rely upon that implementation being resistant to timing attacks, and the whole thing breaks if someone has scripts disabled (e.g. with NoScript).
@@ -894,13 +1778,13 @@ As a general rule you should choose the implementation that consists of the most
 A substantial number of the problems (in application security) are caused by buggy software, which occurs because vendors keep adding more and more features to their programs, which inevitably means more code and thus more bugs.
 
 ",7,2018-11-09 18:31:24Z,21
-14,5,"
+28,5,"
 
 Do I need to implement some encryption algorithm like RSA public key encryption?
 
 If you're considering trying that, you may as well just go the full mile and use HTTPS. Since you don't seem to be an expert, ""rolling your own"" encryption will undoubtedly have misimplementations that render it insecure. 
-",6,2018-11-09 16:03:34Z,192
-14,6,"
+",6,2018-11-09 16:03:34Z,361
+28,6,"
 There is actually a way to authenticate a user over an insecure connection: Secure Remote Password (SRP) protocol. SRP is specifically designed to allow a client to authenticate itself to a server without a Man-in-the-Middle attacker being able to capture the client's password, or even replay the authentication to later impersonate the client, whether the authentication succeeded or not. Furthermore, successful authentication with SRP creates a shared secret key that both the client and the server know, but a MitM does not. This secret key could be used for symmetric encryption and/or HMACs.
 However, there are a number of limitations of SRP:
 
@@ -909,8 +1793,8 @@ Although it is safe to attempt an SRP login with an untrusted server (that is, i
 Although successful authentication via SRP generates a secure shared secret key, the code to actually use this key in a web app would need to be loaded from a server, and an attacker could tamper with that code to steal the symmetric key and make changes to the requests and responses.
 
 In other words, while SRP can be useful in situations where you have a trusted client that doesn't need to download its code over the insecure connection and also you have some other secure way to register the user(s), SRP is not suitable for a web application. Web apps always download their code from the server, so if the connection to the server isn't secure, a MitM (or other network attacker, for example somebody spoofing DNS) can inject malicious code into the web app and there's nothing that you, the victim, can do about it. Once that code is there, it can capture any password or other data you enter, steal any key that is generated, and tamper with any requests you send or responses you receive without you even knowing.
-",2,2018-11-10 10:42:20Z,193
-14,7,"
+",2,2018-11-10 10:42:20Z,362
+28,7,"
 It is actually quite possible.
 Password has to be hashed on the client side, but not with a static function. The following method uses two steps, and is inspired by the Digest access authentication:
 NOTE: The server keeps a HMAC of the Password and the corresponding Key (Digest);
@@ -922,13 +1806,13 @@ Server calculates: HMAC( Digest, Nonce ) and compares it to the received value.
 This protects you against replay.
 The main interest I see is not a protection against eavesdropping, but to be completely sure that the plaintext password will not be store on the server, not even in a system log (see Twitter or GitHub).
 Note: HMAC can be replaced by PBKDF2.
-",2,2018-11-10 09:38:45Z,195
-14,8,"
+",2,2018-11-10 09:38:45Z,364
+28,8,"
 It is certainly possible to send a password securely using HTTP. There is even a standard for it. It's called HTTP-Digest and it's defined in RFC 7616. It's been a part of the HTTP spec for quite a while. It was originally designed to use only the MD5 message-digest (""hashing"") algorithm, but later revisions of the standard allow the client and server to negotiate which algorithm to use.
 Unfortunately, there are many problems with HTTP-digest and the most glaring of them is that the server needs to have the password in cleartext. So while it's possible to communicate passwords securely using HTTP, it's not possible to securely-store passwords on the server while using it. So basically, it's not useful.
 As others have said, it would be better to implement TLS because it solves multiple problems all at the same time, and it's fairly forward-compatible.
-",1,2018-11-10 22:51:55Z,196
-14,9,"
+",1,2018-11-10 22:51:55Z,365
+28,9,"
 As others have said TLS! TLS! TLS! (and with decent key length too)
 But if you have to to use HTTP and any server to implement, is this for programmatic use or human use?
 If for human use, are you looking at basic authentication or form-based? And are your uses able to apply a little logic E.g. not for joe public to use.
@@ -940,28 +1824,28 @@ Some other 2-factor auth like SMS (not without it's own issues).
 A simple challenge/response mechanism to obfuscate the password, for example the  page displays two numbers on it in the text (not blatantly labelled either), user has to start password with a simple calculation such as difference between the two numbers added to each digit of a PIN, maybe with random stuff before and/or and after, eg 98634572dkkgdld. Changing the challenge numbers should stop replay attacks that aren't tried instantly, but if an attacker can capture enough attempts they may be able to work it out. You can't put any obfuscation logic in user-facing script either 'cos that'll be seen and if the scheme is too complex your users will hate you even more.
 
 I'd still so with TLS though, certificates are cheap (even free) these days so convoluted obfuscation schemes really have no reason to exist any more.
-",1,2018-11-12 21:55:03Z,197
-14,10,"
+",1,2018-11-12 21:55:03Z,366
+28,10,"
 An alternative would be to set up a secure VPN to the destination server, and perform a HTTP login from there. A malicious man in the middle will therefore have to break the encryption on the VPN channel in order to attack the connection and retrieve the passwords. 
 However, in terms of end user usability, it's still not as good as HTTPS, since it requires them to setup and use a different channel with a different set of credentials. 
-",-3,2018-11-09 23:17:20Z,199
-14,11,"
+",-3,2018-11-09 23:17:20Z,368
+28,11,"
 You need the recipient to send you his key. You can't randomly send someone encrypted info without them first providing you with their personal public key.
-",-4,2018-11-11 01:58:52Z,200
-15,1,"
+",-4,2018-11-11 01:58:52Z,369
+29,1,"
 Welcome to the internet! This is the normal situation, business as usual.
 You don't have to do anything, but to harden your website. Probes like that occurs all the time, on every site, day and night. Some people call that ""voluntary pen testing.""
 Depending on your site, there are some tools that you can use to help you keep those kinds of probes out of the site. Wordpress sites have a couple plugins (you can search for Security plugins on the plugins directory), and I believe the other popular platforms out there will have equivalent plugins.
 Other tool I usually employ is fail2ban. It can parse your webserver log files, and react accordingly.
-",67,2018-11-05 14:08:39Z,96
-15,2,"
+",67,2018-11-05 14:08:39Z,219
+29,2,"
 The first step outside of immediately looking to a solution is to conduct a pentest of your own site and be actually aware of what weaknesses there are in your site. If you don't know what you are protecting, then how will you know to protect it?
 First, look at the infrastructure such as CMS. For example, if you are using Wordpress, then there are pentesting tools for Wordpress available both as apps and cmd tools. ie Wordfence , and I've used WPscan also.
 Second option is to look at tools like OWASP zaproxy and do an attack scan of your network and gain a list of vulnerabilities. Just a note that some of these could be false positives.
 Your findings may mirror what has already been found but I think knowing what the vulnerabilities are in your own site is useful.
 The next step is how you are finding out about these probes. If it was a manual check, you can also consider setting up some log collection system like NXLog 
-",5,2018-11-05 15:18:27Z,206
-15,3,"
+",5,2018-11-05 15:18:27Z,374
+29,3,"
 Work out what they are looking for, and ban their IP for a month or two if they try it on.  You might also dummy up some PHP to slow them down. 
 Do not refer them to other sites for huge downloads, and do not leave malware for them to find. 
 
@@ -971,14 +1855,14 @@ Look into Fail2Ban and DenyHosts for ideas.
 If you are actually running WP, harden it up with a security solution.
 Only allow access to admin tools and any database by exception, and this should almost never be from an Internet address, but something local with it's own Bastion-like protection.
 ",2,2018-11-06 02:09:45Z,12
-15,4,"
+29,4,"
 If I had a cent for every scan my website gets...
 Literally, if you check your logs, you will notice a constant stream of automated probes and attacks. When I consult clients (I work in information security), I call this ""background noise"". It is there and any attempt to do anything about it is more costly than just accepting that it's there. I would even go so far as to filter it out before you pipe the logfiles into your monitoring, alerting, SIEM, etc. systems.
 What you must do is keep your systems up-to-date and patched. Almost all of these attacks are using well-known and often quite old exploits. They are fishing for easy targets.
 What you should do is spend a little bit of time on hardening your system. Setting up permissions correctly, blocking unused ports, disabling unused software, running stuff under dedicated users, that kind of stuff.
 What you can do, especially for a private website with a local audience, is to block out broad IP ranges belonging to China, Russia, Europe and/or the USA, depending on where your audience isn't. The vast majority of attacks originate from these origins, and if you don't have anyone in, say, the USA who reads your webpage because your webpage is about your local dog club in Spain, you can reduce the noise just by blocking them out at the firewall. I write ""can"" because it doesn't make much of a difference, really, but it will reduce the noise in your log (it will also affect your Google ranking, but that's a different subject).
 ",0,2018-11-06 13:06:14Z,25
-15,5,"
+29,5,"
 
 Block the whole country
 Check ASN and it’s allocated IP range, and block that IP range.
@@ -986,3 +1870,227 @@ Fingerprint the attacker using a user agent or a JavaScript library and attach a
 
 Last but not least, secure your site and monitor attacks regularly.
 ",-5,2018-11-05 14:07:36Z,0
+30,1,"
+The server time is of little use to an attacker, generally, as long as it is accurate. In fact, what is being revealed is not the current time (after all, barring relativistic physics, time is consistent everywhere) so much as the exact difference between your server's notion of the current time and the actual current time. Note that, even if you do not explicitly reveal the time, there are often numerous ways to get the local server time anyway. For example, TLS embeds the current time in the handshake, web pages may show the last modified dates of dynamic pages, HTTP responses themselves may include the current time and date in response headers, etc.
+Knowing the exact clock skew of a server is only a problem in very specific threat models:
+
+Clock skew can be used in attacks to deanonymize Tor hidden services.
+Poorly-written applications may use server time to generate secret values.
+Environmental conditions of the RTC may be revealed in contrived situations.
+
+",84,2018-06-08 09:22:39Z,76
+30,2,"
+""Servlet"" sounds like you're already running a complex server there.
+There's a lot of ways that protocols leak server time. For example, HTTP has a popular header field for creation/modification time, and dynamically generated data would always have the current system time, if used properly.
+For TLS authentication reasons, you can even binary search to find an endpoint's date and time using expiring client certificates.
+This is a necessary evil – if you're doing TLS, your server needs to have a notion of time to know what's a valid key / cert and what not. If that's the case, this will very likely be an NTP-coordinated time. So, you really can't tell anything about the server that an attacker wouldn't already know – there's really only one ""correct"" time.
+If you're not doing TLS: leaking system time is probably not the first thing you should fix.
+Regarding security: Not quite sure you should expose yet another servlet just for devices to figure out world time. 
+
+To explain more, this end-point will be used by mobile apps to enhance their security (to avoid cheating by adjusting the device date).
+
+Red flag. You're depending on your client's unmodifiedness for security. Never do that. You simply can't trust anything happening on your user's devices. These are not your devices. They can simply hook up a debugger and modify notions of time in-memory of your process, no matter whether kept by the phone's OS or by your application. 
+",10,2018-06-08 09:24:02Z,385
+30,3,"
+The only thing that could really expose a security risk is the high-precision timers and performance counters. These could be used to precisely time how long some cryptographic process takes on the server, and from there infer secret data.
+Timing data to the milisecond or normal ""tick"" rate is unlikely to expose this.
+",2,2018-06-08 15:30:15Z,386
+30,4,"
+Knowing the server time is of little use for an attacker. So here you should find about possible side effects.
+
+is the protection for that servlet weaker (in any way) that the one of other servlets? What are the possible implications of the no need for authentication in term of DOS/DDOS attacks. It could matters if authentication was processed in other more secured servers. Is there any difference for reverse proxying?
+what are the risks for security flaws in that servlet? Has it followed the same quality insurance controls than the other servlets? What about its maintenance cycle?
+what about its servlet container?
+
+",1,2018-06-08 12:44:48Z,387
+30,5,"
+I would like to answer that by pointing out, what would follow from the assumption, that exposing the server time would in fact be a risk.
+It would mean that system administrators would have to set random times on their systems, because any server set to the correct time would be vulnerable, since a correct or near correct server time is just to easy to guess.
+It would also mean extreme development effort to translate a false setting to a correct time for use in every time related application. Every single file on the system would  have a wrong time stamp.
+In my experience you invite much more trouble by setting wrong server times, than you can expect with the correct setting. Some examples are mentioned in other answers, but you also have to consider distributed applications or clusters, where correct time settings are usually essential. Basically any time related information you store would be flawed.
+So if exposing your system time would be your biggest risk, you were in luck. But most likely there are many other concerns that you haven't paid enough attention to. See https://www.owasp.org/index.php/Main_Page for security related issues and best practices.
+",1,2018-06-08 22:44:07Z,388
+30,6,"
+Server time is not a secret. On the contrary, you are strongly encouraged to sync your time to an outside objective time source (such as an atomic clock exposed through a time server).
+Not being a secret has two consequences:
+
+you don't need to protect or hide it. You can safely assume that the attacker is capable of figuring out what the current time is.
+it should not have a function on anything that you do wish to protect or hide. For example, you should not derive any keys or secrets from the time. Any random functions you are using should be seeded not with the current time (still a lazy default in many), but with a better seed source.
+
+",0,2018-07-06 10:06:46Z,25
+31,1,"
+
+Is there any standard defense technique against it?
+
+As outlined in the other answers, bit errors when querying domain names may not be a realistic threat to your web application. But assuming they are, then Subresource Integrity (SRI) helps. 
+With SRI you're specifying a hash of the resource you're loading in an integrity attribute, like so:
+<script src=""http://www.example.org/script.js""
+    integrity=""sha256-DEC+zvj7g7TQNHduXs2G7b0IyOcJCTTBhRRzjoGi4Y4=""
+    crossorigin=""anonymous"">
+</script>
+
+From now on, it doesn't matter whether the script is fetched from a different domain due to a bit error (or modified by a MITM) because your browser will refuse to execute the script if the hash of its content doesn't match the integrity value. So when a bit error, or anything else, made the URL resolve to the attacker-controlled dxample.org instead, the only script they could successfully inject would be one matching the hash (that is, the script you intended to load anyway).
+The main use case for SRI is fetching scripts and stylesheets from potentially untrusted CDNs, but it works on any scenario where you want to ensure that the  requested resource is unmodified.
+Note that SRI is limited to script and link for now, but support for other  tags may come later:
+
+Note: A future revision of this specification is likely to include integrity support for all possible subresources, i.e., a, audio, embed, iframe, img, link, object, script, source, track, and video elements.
+
+(From the specification)
+(Also see this bug ticket)
+",131,2018-05-08 12:32:24Z,389
+31,2,"
+Your concern is very likely unfounded.
+First of all, you need to realize just how unlikely these memory malfunctions are. The person who wrote the above article logged requests to 32 clones of some of the most visited domains on the Internet over the course of 7 months. Those 52,317 hits had to be among hundreds of billions of requests. Unless you operate a website on the scale of Facebook, an attacker would have to be extremely lucky to even get just one unlucky victim on their bitsquatting domain.
+Then you have to note that memory errors cause several malfunctions. The author writes:
+
+These requests [...] show signs of several bit errors. 
+
+If the system of the victim is so broken that they can't even send a HTTP request without several bit errors, then any malware they download from it will likely not execute without errors either. It's a miracle it even managed to boot up in that condition.
+And regarding those cases where bit errors were found in ""web application caches, DNS resolvers, and a proxy server"" and thus affecting multiple users (some of them maybe unlucky enough to get enough of the malware in an executable state): In these situations, the HTTP response would come from a different server than the client requested. So when you use HTTPS-only (which I assume you do, or you would have far more serious attacks to worry about), then their signature won't check out and the browser will not download that resource. 
+And besides, HTTPS will also make it much less likely to get a successful connection when there is a system with broken RAM on the route. A single bit-flip in a TLS encrypted message will prevent the hash from checking out, so the receiver will reject it.
+tl;dr: stop worrying and set up HTTPS-only.
+",65,2018-05-08 13:56:54Z,71
+31,3,"
+I doubt about the article's dependability. While discussed at DEFCON and published as whitepaper, I have serious concerns about the experimental results.
+According to comment by @mootmoot, the author failed to determine deterministic programming errors from random fluctuations of bits.
+My concerning statement is
+
+During the logging period [Sept. 2010 / May 2011, ndr] there were a total of 52,317 bitsquat requests from 12,949 unique IP addresses
+
+No, the author only proved his squat domains were contacted, but likely failed to provide additional information
+
+What percentage of original CDN network does that traffic represent (this is verifiable in theory, but I don't have those figures)
+Occurrence of source referral domains
+
+The second is very important because it helps isolate deterministic programming failures from random fluctuation of bits.
+Consider the following example: if you find any entry to gbcdn.net (facebook squat) with referer https://facebook.com you likely have found a bitsquat.
+If on the contrary you find multiple entries from a poorly known webiste which you can inspect to find with a broken like button, then the problem is probably due to a programmer not copying/pasting the code correctly, or even a bit flip occurred in the programmer's IDE. Who knows...
+",20,2018-05-08 14:01:05Z,397
+31,4,"
+Disclaimer: I'm an employee of Emaze Networks S.p.A.
+One way to defend against this kind of attacks is to not allow attackers to register similar domain names.
+To achieve this you can register many bitsquatted/typosquatted domains together with your main domain name, but this is impossible to do with all bitquatting/typosquatting cases, since they can be billions (consider also unicode etc!).
+An alternative is to periodically monitor the domains registered, and if you find a suspicious domain you can check what it does and, if it seems to be a malicious site, you can report it to the registrar and ask them to pass the ownership of said domain to you.
+We have a small service, called Precog that does this, by aggregating registrar information from different sources and running various kind of queries to detect bitsquatting/typosquatting/punycode-squatting domains: you can register your brand, put some keywords and we will contact you if a suspicious domain is registered.
+Our tool takes into consideration 2nd level domains, obviously, but is also able to detect registration of many 3rd (or more) level domains, so we may be able to detect someone is going to use app1e.account.com to try and steal your apple credentials.
+
+I must add: I believe the biggest use case for attacks of this kind is not to ""get lucky"" to receive a request because somebody mistyped the domain, but to use the domain as a phishing domain. So people will register the site àpple.com and send tons of emails that look like Apple's emails and try to get some people to insert their credentials/credit card information on their page.
+",3,2018-05-08 18:40:25Z,277
+31,5,"
+Among all the answers, I am surprised I haven't seen a reference to Content Security Policy.
+It is basically a one-stop solution for white-listing allowed sources of content. A simple fix would be to only allow JavaScript from your current domain (www.example.com) and block everything else.
+",1,2018-05-11 15:18:49Z,401
+31,6,"
+Arminius's answer is great. You can also use a strong Content Security Policy as another line of defense against bit-squatting. 
+CSP is an HTTP header that allows you to craft a fine-grained whitelist of URIs that your website can communicate with. For example, you can tell the browser that you'll only allow JavaScript to come from example.org/js/file1.js, only allow images from example.com/imgs, and fonts from example.net. 
+For a bit-squatting attack to be successful they'd need to flip a bit in the HTTP header AND in the request. If an attacker can flip only one bit then your website will throw a lot of errors - regardless of which bit is flipped.
+",0,2018-05-11 15:16:16Z,402
+32,1,"
+Technically slightly, yes. But:
+
+It would be security by obscurity, which is a bad idea
+It does not boost confidence in your product
+It would be very easy to figure out what does what, it would only take a bit of time
+Google Translate, you can just use meaningless names, it would still not help much
+It would make maintenance harder
+It would make audits very hard, as the auditors may not understand the language
+
+All things considered, it is probably never worth it.
+",174,2018-04-30 14:03:35Z,406
+32,2,"
+It would not be appreciably more secure. Reverse engineers are often forced to work with systems that do not have any original names intact (production software often strips symbol names), so they get used to dealing with names that have been generated by a computer. An example, taken from Wikipedia, of a snippet of the kind of decompiled C code that is often seen:
+struct T1 *ebx;
+struct T1 {
+    int v0004;
+    int v0008;
+    int v000C;
+};
+ebx->v000C -= ebx->v0004 + ebx->v0008;
+
+People who are used to working with this kind of representation are not fooled by the usage of variables and such that are given irrelevant names. This is not specific to compiled code, and the use of C was just an example. Reverse engineers in general are used to understanding code that is not intuitive. It doesn't matter if you are using JavaScript, or Java, or C. It does not even matter if they are analyzing nothing but the communication with the API itself. Reverse engineers are not going to be fooled by the use of random or irrelevant variable or function names.
+",62,2018-05-01 06:05:43Z,76
+32,3,"
+Not really - all of the built-in functions will still be in English, so it wouldn't take much extra effort to work out what your variables are going to represent. It might slow someone down slightly, but given that people still manage to reverse-engineer code with single character variables all over the place, or which has been run through obfuscators, swapping the language used for variables and functions just means doing a find-replace once you've worked out what one of your variables is used for, then repeating until you have enough understanding.
+",35,2018-04-30 14:03:09Z,409
+32,4,"
+That is security through obscurity and will delay a dedicated attacker all of five minutes.
+If you want to confuse an attacker, naming things their opposite or something unrelated would have the same effect. So your ""create user"" function could be named ""BakeCake"". Now you can answer yourself how much security that gives you. Actually, this would be more secure, as it can't be defeated by simply using a dictionary.
+Yes, at first it would confuse, but one look at the system in operation and everything becomes crystal clear immediately.
+",21,2018-04-30 19:11:16Z,25
+32,5,"
+Your system MUST be secure by itself. If it relies on user-side javascript passing a parameter with the value ""open sesame"", you are doing it wrong.
+You should develop the program in the language that is more convenient for you (eg. based on your coder proficiency, consistency with your code base, or even with the terms that you are using).
+Other answers already pointed out how it doesn't really provide security. If you want to make a secure program, rather than concerning about potential hackers easily reading your code and learning a secret hole, you should probably care more about making it readable to the people auditing it.
+If there is a function parameter called nonce, and a comment saying how we are ensuring it is unique across the requests, yet it isn't sent on the request, you can be quite sure it is a slip-up. Actually, having that code easily readable will decrease the chances of that parameter being dropped/empty (after all, everything worked without it...), or if that really happens, make easier that another of your developers notices the problem.
+(Third parties could hint you about it, too. Probably, there will be more people having a casual look at it than ones actually trying to break it. A random attacker will most likely start by launching an automated tool and hoping it finds anything.)
+TL;DR: produce readable code. For the people that should deal with it. In case of doubt, you should prefer the one most people know about.
+",9,2018-05-01 21:15:38Z,14
+32,6,"
+It could even make things worse by making the system harder to maintain. 
+Take an extreme example inspired by history, and communicate between front and back ends in Navajo. When (not if) you need to patch the code you need to either:
+
+work with what to you is nonsense (with the extra chance of bugs/typos plus it takes longer to work on non-intuitive code), or 
+hire/keep programmers fluent in Navajo (a rare and potantially expensive skill combination, possibly impossible to find a contractor)
+
+",7,2018-05-01 14:08:36Z,413
+32,7,"
+I would also note that in most instances for javascript on the client side, the script as developed (with meaningful variable names etc) would be 'minified' in order to increase performance on the client (smaller file size to download). 
+As part of this, most variable names are reduced to single characters and as much whitespace as possible is stripped out.  This becomes just about as unreadable as anything else you might write.
+I would also note that chrome (for example) has methods that take a 'less human readable' file like this and 'pretty print' it, making it a lot easier to figure out what is going on.
+In short, the human language that you use to write your client side code really doesn't make a big difference.
+",5,2018-05-01 12:56:41Z,414
+32,8,"
+If the mass media are to be believed, then the majority of hackers are Russian, Chinese, North Korean, so they are already operating under the “handicap” of having to hack Western systems in a non-native language. Therefore unless you choose something incredibly obscure, like in the movie Windtalkers it won’t make any difference to them. But the extra effort for you means less time for you to find and fix bugs, so if anything this strategy would make your security weaker.
+",4,2018-05-03 21:36:22Z,415
+32,9,"
+Several responses have (rightly) pointed out that this is “security through obscurity”, which isn’t actually a form fo security. It is safest to assume that the attacker has fully annotated source code sitting in front of them while busily attacking away.
+Software is “secure” when knowing everything which can be known in advance of a request / transaction / session is public knowledge AND this has no impact on the actual security of the product.
+Source code must be assumed to be public knowledge, if only because disgruntled employees aren’t taken out back and shot when they are terminated. Or as is often said, “The only way for two people to keep a secret is if one of them is dead.” Thus any “special knowledge” which is being concealed by obfuscation of any sort must be assumed to have become “general knowledge” as soon as it is produced.
+Security, at its core, is nothing more than “saying what you do, and doing what you say.” Security analysis — code auditing and formal evaluation schemes, such as are conducted under the Common Criteria — requires that the mechanisms for performing an action are well-documented and that all transitions from one secure state to another secure state are only possible when all the requirements are satisfied. One risk with obfuscation of all sorts is that these requirements are obscured by clever coding — see the example of “create_user()” failing because it is “secretly” the “delete user” or “rename user” or something else method. For a real-world example of how hard such renaming is on the brain, there are on-line tests in which you must read the name of a color which is printed on the screen in a different color. For example, the word “RED” written in a blue font will result in some number of people saying “BLUE” instead of “RED”.
+",2,2018-05-03 21:47:01Z,416
+32,10,"
+It might be irrelevant. Consider the scenario where you're coding in (e.g.) Italian instead of English, but most of your customers are in Italy, naturally Italian-speaking hackers have a higher motivation/payoff from attacking you.
+In this scenario, coding in another language has either no effect or it can even make it easier to hack.
+",0,2018-05-01 05:15:32Z,418
+33,1,"
+/test and /Test are both hosted on example.com … so it's just a page redirect not a domain redirect … this is a non-issue.  
+People redirect like this all the time, for instance redirecting from HTTP to HTTPS is pretty much industry standard at this point.
+",30,2018-04-12 06:16:51Z,420
+33,2,"
+Implemented correctly, there are no issues with this.
+There are two things you should look out for (I assume that test is not static here, but user supplied, so you eg want to upper-case every path):
+
+Open Redirect: If your redirect is implemented incorrectly, it might be possible for an attacker to redirect outside of your domain, which could be used in phishing attacks
+CSRF: If your CSRF protection is only a simple referer check (which isn't recommended), and if you have state-changing GET requests (which also is not recommended), those may be possible to exploit, depending on your implementation of the redirect mechanism
+
+",18,2018-04-12 06:55:28Z,332
+33,3,"
+Redirecting users to different page or domain is a normal practice followed by many developers (even MNC's including FB, fb.com redirects to facebook.com). It's no harm if you try to redirect requests in a secure way.
+You might want to check OWASP Cheat Sheet for Unvalidated Redirects and Forwards (Also called Open Redirection). This document provides to secure ways to redirect URL in multiple programming languages.
+",8,2018-04-12 06:55:10Z,421
+33,4,"
+As far as hostname remains same and your user trust it. It should not be a problem.
+This sort of redirection are common across internet and help to provide a better user experience.
+
+For instance:
+you have a resource at https://testwebsite.com/Test but due to some typo or 
+   developer's mistake it is written as https://testwebsite.com/test. The redirection will help user to see an appropriate file instead of seeing a 404 file not found error or Internal server error. 
+
+",1,2018-04-12 09:48:47Z,422
+33,5,"
+
+Redirect within the same domain - no risk. (because your domain is trusted)
+Example: https://domain.com/login redirect to https://domain.com/dashboard
+Redirect to third party website is medium severity risk if you are leaking sensitive data like access_token, secret keys to the third party website.
+Example: https://domain.com/redirect_to_fb redirect user to https://fb.com
+Attacker controlled redirect leads to:
+a. Phishing https://domain.com/login?redirect_to=http://evil.com
+b. Cross Site Scripting (XSS) issue: https://domain.com/login?redirect_to=javascript:alert(document.cookie)
+c. Leaking tokens Example: https://domain.com/login?redirect_to=https://attackerdomain.com Example: https://r0rshark.github.io/2015/09/15/microsoft/
+d. Content Security Policy bypass
+e. Referrer check bypass
+f. URL whitelist bypass
+g. Angular ng-include bypass
+
+If an attacker is able to control the redirect then it's a serious issue.
+",-4,2018-04-12 10:07:09Z,424

@@ -41,7 +41,78 @@ So if an attacker gets access to the remote server at a later time, he still sho
 The technique discussed here, transparent runtime security, is claimed to make it ""difficult"", but it may still be computationally feasible.
 EDIT: Hardware based solutions are also ok.
 ",75,8,5,305 times,2016-05-03 09:46:37Z,/questions/122189/can-secrets-be-made-safe-in-memory,https://security.stackexchange.com/questions/122189/can-secrets-be-made-safe-in-memory
-9,"Police forcing me to install Jingwang spyware app, how to minimize impact?","
+9,What are some considerations before moving personal data to Google Drive?,"
+I am considering uploading some (all) of my digital personal data to Google Drive. I guess this would instantly grant access for NSA to my data. (Is that right?)
+Who would have access to my data on my gDrive? After deleting some files on the Drive, will they actually be deleted? 
+",88,47,8,"8,921 times",2014-07-07 08:16:48Z,/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive,https://security.stackexchange.com/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive
+10,How to mitigate SSL based DDoS attacks?,"
+as you probably know the problem with SSL based DDoS attacks is, that the traffic cannot be analysed and filtered by a DDoS mitigation service provider such as Prolexic, Akamai, Radware, etc. without having the key to decrypt the traffic. 
+I recently spoke with on of the above mentioned companies employees (Lets say company A) and they said that the only way is to use one of their products, wich is located in your network and its purpose is to deliver content via ssl and send all traffic in plaintext to the defense solution (same company, also internal network) which then in turn gives the filtered ""good traffic"" to your internal webservers.
+Other companies have the approach that you handout your ssl key to them, so they can decrypt and analyze your traffic and pass the clean traffic on to your servers.
+Company A stated, that the later is a absolute nogo and that it shouldn't even be considered. Problem is, their solution can only filter as much traffic as your infrastructure and their appliance can handle while cloud solutions have much higher capacities.
+So the question is, is there another way of mitigating SSL based DDoS attacks, is handing out your ssl key really that bad and why?
+I know that there already was a question on ""storing keys in the cloud - trusting the cloud provider vs. your own laptop, etc."" so I'm sorry if some of this is a duplicate, but the answers there didn't really answer my question.
+",97,5,5,"6,017 times",2015-07-23 11:09:17Z,/questions/45410/how-to-mitigate-ssl-based-ddos-attacks,https://security.stackexchange.com/questions/45410/how-to-mitigate-ssl-based-ddos-attacks
+11,Can I scan with nmap from cloud services? [closed],"
+Can i conduct nmap scanning from cloud services (i.e AWS)?  i am looking to do external scanning for my company and want to set up something that will be quick, efficient, and cheap. I dont want to stand up my own external box on my own.the cloud services would be ideal. I need to have powerful boxes to handle the workload. 
+",110,3,5,"3,825 times",2013-02-12 16:38:44Z,/questions/30786/can-i-scan-with-nmap-from-cloud-services,https://security.stackexchange.com/questions/30786/can-i-scan-with-nmap-from-cloud-services
+12,Building a Security Training Simulation environment,"
+My university is keen to build a security training simulation environment/platform and it will be a good learning experience for students. I Googled around to find out how it is built, but I only ended up with recommendations for a VirtualBox or VMWare lab environment been built using pwnOS, Metasploitable, etc...
+What I'm looking for is to build an environment with a couple of vulnerable systems and network setup such that that students won't cross/interfere each other's work. For instance, the system could create a private simulation for each student to practice their class labs, I think some refer this as 'sandboxing'.
+We are looking for something similar to Offensive Security training simulation or Hera Labs, another example is XNET from CERT, they have a very interesting training simulation for Forensics.
+If you could give us some direction on how the system is actually built and if there any open source application that we could use to build the system, otherwise an organization who can build it for us (keep in mind this is university budget) we would really appreciate your kind input.
+We are aware that Offensive Security offers this service but I need to get quotes from different vendors before can I proceed (at the end I prefer to build the system and might as well give it as project for the security lab students) 
+We are also aware it may require a couple of servers and OSs to build it, and we do have unused hardware.
+Thank you and Happy New Year
+",120,4,5,"5,433 times",2013-01-03 18:10:27Z,/questions/26384/building-a-security-training-simulation-environment,https://security.stackexchange.com/questions/26384/building-a-security-training-simulation-environment
+13,Encrypt Virtual Machine in the cloud,"
+I am no expert when it comes to security in virtualized environments.
+However a problem I always saw is: What happens if the host OS gets hacked and an attacker gains administrative privileges?
+How can I protect a VM in the (public) cloud against such threats? 
+As far as I know there do exist solutions like encrypting the storage layer or encrypting the VM's RAM. Unfortunately I never saw a tutorial describing how to apply those techniques. Are there instructions on how to do this without resorting to one of the providers' proprietary solutions?
+",125,10,7,"3,199 times",2012-10-06 13:02:25Z,/questions/21220/encrypt-virtual-machine-in-the-cloud,https://security.stackexchange.com/questions/21220/encrypt-virtual-machine-in-the-cloud
+14,It is safe to store photos and documents on skydrive / google cloud services?,"
+I have over 20GB of photos and documents stored on my hard disk without a backup. I'm thinking about saving all of them in a cloud service such as Microsoft Skydrive or google cloud, but I'm wondering if it is really safe... I mean, can I trust these services in privacy and responsibility just as if I was saving these files on an external hard drive? 
+",143,11,6,"27,540 times",2012-05-01 23:06:40Z,/questions/14159/it-is-safe-to-store-photos-and-documents-on-skydrive-google-cloud-services,https://security.stackexchange.com/questions/14159/it-is-safe-to-store-photos-and-documents-on-skydrive-google-cloud-services
+15,How can I share files with other individuals using the cloud in a secure way?,"
+I would like to use a dropbox because it is easy and convenient. 
+But I want to encrypt the files with the public key of the intended recipient, so he will be the only one who can access the data in the file. 
+I have not found an easy mechanism to encrypt the data before it is stored in the dropbox.
+Is there an easy way to do so or is there aleady a service that supports my wish?
+",144,11,12,"12,270 times",2013-10-31 07:52:57Z,/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way,https://security.stackexchange.com/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way
+16,GPU powered Password cracking machine - buy metal or cloud?,"
+As a IS consulting firm, we would like to have our very own password cracking machine.
+Great.
+Now, after some sketching and brain storming we concluded that GPU is the best way to go (contrary to CPU or rainbow tables).
+And the questions that we found hard to tackle was what is the best choice - can we buy just enough power from on-demand cloud service (amazon's is an immediate selection but if you have any recommendations, go ahead) or to buy ourselves a machine and build it with the appropriate hardware.
+btw, we are thinking on using oclHashcat-plus if it makes any difference.
+Suggestions on how to settle the debate?
+Maybe some completely different approach?
+Thanks in advance,
+",176,9,7,"6,240 times",2011-11-16 16:33:17Z,/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud,https://security.stackexchange.com/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud
+17,Risks with Amazon S3 and costs,"
+I have little security knowledge and looking at image hosting for a startup:
+Considering S3 doesn't allow you to set a cap on costs, how likely is it that someone could flood S3 with requests for my files and run up a considerable amount of money?
+Say I have a 2MB document, is it possible for someone to send millions of requests to that get file?
+From what I understand the costs for an end user requesting a file is:
+
+Request Pricing:
+GET and all other Requests †  $0.01 per 10,000 requests
+Data Transfer Pricing:
+Up to 10 TB / month   $0.120 per GB
+
+Does that pricing mean this is a non-issue?
+Does Amazon S3 have security measures in place to stop something like that happening?
+",187,15,5,"6,078 times",2011-11-02 02:18:51Z,/questions/8583/risks-with-amazon-s3-and-costs,https://security.stackexchange.com/questions/8583/risks-with-amazon-s3-and-costs
+18,Is this set-up PCI-Compliant?,"
+Question: Is there a way to store credit card information on a shared hosting server AND be PCI compliant?
+Here is the setup:
+1) SSL is being implemented for the whole checkout process and for the client's site's admin section.
+2) The credit card information is being stored on the server (a shared hosting plan) in a MYSQL database. It is encrypted.
+3) The client accesses a password protected admin panel and prints the credit card from her website.
+4) The client then manually runs the credit card info through a terminal and deletes this credit card info from the server.
+",196,8,7,"1,873 times",2011-09-05 13:25:51Z,/questions/6427/is-this-set-up-pci-compliant,https://security.stackexchange.com/questions/6427/is-this-set-up-pci-compliant
+19,"Police forcing me to install Jingwang spyware app, how to minimize impact?","
 Chinese police are forcing whole cities to install an Android spyware app Jingwang Weishi. They are stopping people in the street and detaining those who refuse to install it.
 Knowing that I may be forced to install it sooner or later, what are my options to prepare against it?
 Ideally:
@@ -51,13 +122,13 @@ without having it actually spy on me.
 
 The app is downloadable and documented. It basically sends the IMEI and other phone metadata, as well as file hashes, to a server. It also monitors messages sent via otherwise secure apps. I don't know whether it includes sophisticated anti-tempering features or not. 
 I can't afford two phones nor two contracts, so using a second phone is not a viable option for me.
-",103,507,18,"106,075 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
-10,Why don't websites and devices offer fake logins for hackers?,"
+",226,508,18,"106,081 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
+20,Why don't websites and devices offer fake logins for hackers?,"
 I was thinking about this earlier this morning and was wondering why websites and devices don't offer fake logins for hackers? What I mean by that is that if a hacker finds out some of your details and tries to log in to a website (for example) the website will show that you have successfully logged in but will show dummy data that is completely fake.
 That way the hacker won't know if they have got the login details correct or not. It will also protect people in a security situation. For instance, imagine a criminal has stolen someones phone and realises he can't access it. He then points a gun at the owner who then types in part of their details correct but some of them incorrectly. The device unlocks in fake mode, and the criminal then thinks they have access and they decide not to shoot the person because they have complied with their wishes. But the criminal never knows that what they see is just a fake login.
 Has anyone implemented something like this? It seems like quite a good idea to me.
-",151,62,11,"21,508 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
-11,I gave my cell number to a stranger on the internet. Have I fallen victim to a scam?,"
+",274,62,11,"21,508 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
+21,I gave my cell number to a stranger on the internet. Have I fallen victim to a scam?,"
 I was playing an online game and I came in contact with this user. She was listed as from the same country as me (Egypt). So when she asked me for my cell phone number, I gave it to her. I figured it was to add me on WhatsApp so we can chat or something.
 However, I instead received an SMS message (titled 'Telegram') with a number, and she asked me to tell her that number. I asked what it's for, she said that she's from Canada (not the country she listed on her avatar) and that she needs that code I received to connect with me, since I'm outside Canada.
 At the same time, I received a phone call (no number appeared on my screen) with an automated message. I hung up before hearing that message.
@@ -72,25 +143,83 @@ nothing else whatsoever)
 If I am at risk, what do I need to do to prevent any theft of my
 information, passwords, money, etc.?
 
-",152,75,5,"16,090 times",2018-03-30 11:09:02Z,/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s,https://security.stackexchange.com/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s
-12,"Should I be concerned about strange, new iPhone app appearing after repair?","
+",275,75,5,"16,090 times",2018-03-30 11:09:02Z,/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s,https://security.stackexchange.com/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s
+22,"Should I be concerned about strange, new iPhone app appearing after repair?","
 I had my iPhone battery replaced in a phone repair shop. After collecting it, I noticed that there is a strange new app installed, some ""Chinese"" web browser. It has no alphanumeric name and nothing in the interface was in English.
 I spoke with the technician who replaced the battery and he said that they didn't do anything with the phone, didn't even connect it to a PC.
 Should I be concerned? There's plenty of sensitive data on it.
 It has never been jailbroken, I never visited any suspicious sites on it and I didn't connect it to any PC other than my trusty laptop.
-",165,66,10,"18,722 times",2018-03-30 01:49:06Z,/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair,https://security.stackexchange.com/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair
-13,Should I remove bash from my Docker web app container?,"
+",288,66,10,"18,724 times",2018-03-30 01:49:06Z,/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair,https://security.stackexchange.com/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair
+23,Privacy: can my employer access sensitive information if they pay my mobile subscription? I bought the hardware myself,"
+I bought the mobile phone myself, but my employer paid the mobile subscription.
+What data can they see and what are potential privacy risks? As far as I know they see which numbers I called (only traditional calls, not via VoIP apps), but they don't see individual Internet traffic.
+I also use the iPhone for the company Microsoft Exchange Server server.
+",302,30,5,"5,635 times",2017-07-28 16:48:32Z,/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs,https://security.stackexchange.com/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs
+24,Are users meant to hash their passwords? [duplicate],"
+
+When a user logs into their account on my server, should they send their raw data to me, and then I bcrypt compare them, or are they supposed to hash and and I directly compare?
+I ask this because someone posted about hashing on mobiles being slow.
+It would make send to take load off of the server, and make sense about the slowing down brute forcing, and also protect the user from snooping.
+If I were to do this, wouldn't I run into the exact same problem - slow experience for mobile users, if so is it something that is just expected as part of logging in. Also, wouldn't the user generate a random hash which wouldn't match the one stored in my database?
+",304,0,5,152 times,2016-10-11 01:16:48Z,/questions/139388/are-users-meant-to-hash-their-passwords,https://security.stackexchange.com/questions/139388/are-users-meant-to-hash-their-passwords
+25,Should I remove bash from my Docker web app container?,"
 Suppose I am a dev and want to harden my web application environment. If my application does not make use of binaries like sh, ls, find, echo etc. should I just remove them from my image?
-",183,5,5,333 times,2018-03-22 06:25:22Z,/questions/182034/should-i-remove-bash-from-my-docker-web-app-container,https://security.stackexchange.com/questions/182034/should-i-remove-bash-from-my-docker-web-app-container
-14,How to secure passwords over HTTP?,"
+",315,5,5,333 times,2018-03-22 06:25:22Z,/questions/182034/should-i-remove-bash-from-my-docker-web-app-container,https://security.stackexchange.com/questions/182034/should-i-remove-bash-from-my-docker-web-app-container
+26,Why does XSS affect so many websites?,"
+According to an article I read 65% of all websites globally suffer from XSS. Why can't developers find and fix it?
+Please help me understand. I'm not from a security or tech background.
+",323,9,7,"4,933 times",2016-07-08 11:28:41Z,/questions/129447/why-does-xss-affect-so-many-websites,https://security.stackexchange.com/questions/129447/why-does-xss-affect-so-many-websites
+26,What does it mean to secure something in computer security? [closed],"
+Can someone provide a formal and simple definition of ""to secure something"" in information security?
+",324,-3,5,116 times,2016-03-24 14:49:48Z,/questions/118027/what-does-it-mean-to-secure-something-in-computer-security,https://security.stackexchange.com/questions/118027/what-does-it-mean-to-secure-something-in-computer-security
+27,Obfuscating IDs for greater security in DB?,"
+Original post: https://laracasts.com/discuss/channels/general-discussion/best-way-to-secure-healthcare-data-in-db
+I have a problem dealing with high secure/sensitive (healthcare) data. I know about encryption and I'm encrypting some of my fields.
+But what I have been told is to ""obfuscate IDs"" between tables.
+The idea is: even if someone gets the DB, he cannot see which doctor a patient had appointments with (basic example).
+But I'm googling and reading all over the place that it's not a very good practice (because it's harder to make joins, poor performance etc...).
+Is obfuscating IDs necessary? 
+",338,4,5,398 times,2017-01-17 22:06:58Z,/questions/104470/obfuscating-ids-for-greater-security-in-db,https://security.stackexchange.com/questions/104470/obfuscating-ids-for-greater-security-in-db
+28,Can simply decompressing a JPEG image trigger an exploit?,"
+The novel Daemon is frequently praised for being realistic in its portrayal rather than just mashing buzzwords.
+However, this struck me as unrealistic:
+
+Gragg's e-mail contained a poisoned JPEG of the brokerage logo. JPEGs were compressed image files. When the user viewed the e-mail, the operating system ran a decompression algorithm to render the graphic on-screen; it was this decompression algorithm that executed Gragg's malicious script and let him slip inside the user's system—granting him full access. There was a patch available for the decompression flaw, but older, rich folks typically had no clue about security patches.
+
+Is there such a thing? Is this description based on some real exploit?
+This was published in December 2006.
+Is it sensible to say ""the operating system"" was decompressing the image to render it? 
+
+Note this has nothing to do with security of PHP image uploading scripts.  I'm asking about the decoding process of displaying a JPEG, not scripts taking input from remote users, nor files misnamed as .jpeg.  The duplicate flagging I'm responding to looks poor even for a buzzword match; really nothing alike other than mentioning image files.
+",343,99,5,"14,197 times",2015-08-30 16:53:29Z,/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit,https://security.stackexchange.com/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit
+28,How to secure passwords over HTTP?,"
 Say my password is abc. I want to send it to the server over HTTP.
 I could send it in plaintext and let the server hash it and compare it to the entries in its database, but then anyone that can see traffic over that connection would see the password in plain text.
 So then I could hash it client-side and let the server just compare it without hashing since it's already hashed (or the server could even double hash, but no difference in this situation). But then again anyone that can see the traffic would see the password hashed, and then send the hashed password to the server and the server would accept it.
 How do I send passwords over HTTP? Do I need to implement some encryption algorithm like RSA public key encryption? Or is this impossible?
 The method should be usable in any browser.
-",201,25,11,"9,435 times",2018-11-13 14:42:35Z,/questions/197330/how-to-secure-passwords-over-http,https://security.stackexchange.com/questions/197330/how-to-secure-passwords-over-http
-15,"I detected someone probing my site for weaknesses, what can I do about it? [duplicate]","
+",370,25,11,"9,437 times",2018-11-13 14:42:35Z,/questions/197330/how-to-secure-passwords-over-http,https://security.stackexchange.com/questions/197330/how-to-secure-passwords-over-http
+29,"I detected someone probing my site for weaknesses, what can I do about it? [duplicate]","
 
 My site has been getting probed by a bunch of IPs from Morroco (trying to submit forms, trying out potential URLs, trying to execute scripts etc..), I have a strong suspicion it's the same person after observing the pattern of how they behave. Looking at the logs they don't seem to have found any vulnerabilities. I'm not sure what I should do about this other than keep observing. Blocking the IP doesn't seem useful since it seems to change. 
 Is there anything I can do about it at this point?  
-",210,27,5,"8,224 times",2018-11-05 14:00:28Z,/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it,https://security.stackexchange.com/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it
+",378,27,5,"8,226 times",2018-11-05 14:00:28Z,/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it,https://security.stackexchange.com/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it
+30,Is exposing the server time a security risk?,"
+If I create a servlet that would return the server time publicly (no need for authentication), would this be a security issue? I couldn't think of any issue with this, but somehow something tells me I could be wrong.
+To explain more, this end-point will be used by mobile apps to enhance their security (to avoid cheating by adjusting the device date).
+",382,57,6,"9,207 times",2018-06-08 09:15:11Z,/questions/187316/is-exposing-the-server-time-a-security-risk,https://security.stackexchange.com/questions/187316/is-exposing-the-server-time-a-security-risk
+31,How can I protect my website against bitsquatting?,"
+I've just read an article about bitsquatting (which refers to the registration of a domain name one bit different than a popular domain) and I'm concerned about how it could allow an attacker to load its own assets on my website.
+For example, if my website located at https://www.example.org/ loads a script file located at https://www.example.org/script.js, then an attacker could register dxample.org and host a malicious JS file, which would be downloaded and executed by some users of my website.
+Is there any standard defense technique against it?
+",379,83,6,"23,464 times",2018-05-08 21:29:48Z,/questions/185435/how-can-i-protect-my-website-against-bitsquatting,https://security.stackexchange.com/questions/185435/how-can-i-protect-my-website-against-bitsquatting
+32,Is it more secure to program a client-server system in a language other than English?,"
+I'm developing a system with communication via REST between front (JavaScript) and back end (Java/Spring) and this question popped up.
+Does it makes this system more secure to name variables, URLs, etc in a language other than English?
+I imagine it could because, since the most important programming languages are in English, it's likely most programmers know at least a bit of it. Naming our stuff in another language could make hacking more difficult because the attacker would have a harder time to understand what means and does what.
+I couldn't find results on Google because ""programming"" an ""language"" together makes it impossible to find results about the other meaning of ""language"".
+",411,43,10,"19,986 times",2018-05-01 07:09:12Z,/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng,https://security.stackexchange.com/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng
+33,How safe is redirecting to another site?,"
+Lets say I have a website at https://example.com/test. Whenever someone accesses this site, I want to just simply redirect them to https://example.com/Test.
+Are there any possible vulnerabilities here? Or is this method safe since all I am doing is redirecting from one secured site to another?
+",425,10,5,"4,164 times",2018-04-12 10:36:17Z,/questions/183509/how-safe-is-redirecting-to-another-site,https://security.stackexchange.com/questions/183509/how-safe-is-redirecting-to-another-site
