@@ -2,6 +2,9 @@ from flaskscraper import db
 from flaskscraper.models import User, Question, Answer, Comment
 import csv
 
+db.drop_all()
+db.create_all()
+
 with open('scraper-files/users.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:

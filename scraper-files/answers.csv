@@ -1,150 +1,34 @@
 Post ID,Answer ID,Answer,Vote Score,Date,User ID
 1,1,"
-If the issue is that you don't want any device to impersonate others, the problem is simple, and already solved. Just look at every single online service that have users and don't want one user to access data belonging to other user: authentication. 
-You must use TLS, this is the first point. Without TLS you are building a castle on the sand.
-Second: have a sign-up routine that your devices will follow when they connect for the first time and don't have a key pair yet: generate a new one, send to the server. Any time later that the device sends anything, it need to sign the data with its key, so the server knows it's legit. 
-An attacker will only be able to impersonate devices he owns, or can physically access, and there's no way around this. But they cannot impersonate any other, even with access to your database. 
-",1,2018-10-14 02:05:35Z,2
-1,2,"
-
-More specifically, how do I protect the data that is sent to and from the remote server?
-
-I'm not sure if I properly understood your question. But I understand the above part that you just want to protect the data in transit between client and server. In this case HTTPS (or plain TLS) is enough. This will automatically use different encryption keys for different TLS sessions (where TLS session will have the same lifetime as the TCP connection unless session resume is used)  so the risk you imagine of having the same encryption key on all devices does not exist.
-But HTTPS or TLS will not protect against somebody who has physical access to the device and intercepts the data there before encryption and after decryption. It only protects the data in transit. 
-",1,2018-10-13 19:59:56Z,3
-2,1,"
-Yes, you still need a firewall on your end. In the case of a DoS/DDoS, your connection would potentially be flooded to the point where your devices would not be able to establish the IPSEC tunnel and would therefore not function [properly].  If the firewall only exists on the cloud side, that does nothing for your service at your house/office.
-A DoS/DDoS attack will probably not be stoppable no matter what equipment you have since it's happening at the connection level.  Typically with a DoS/DDoS you deal with it further and further up the path as close to the source as can be.  For example, you call your ISP so they can block it from getting to you, then they call their provider to have them block it before it gets to them, and so on.  It can only be blocked so much before someone is left to take the hit but that's usually at the backbone level where they have more than enough bandwidth to deal with it until it is dealt with by other means (like finding the people causing it and stopping the attack).
-",1,2018-09-01 12:19:33Z,4
-2,2,"
-Since you've mentioned it's a closed network (connected through IPSEC), instead of deploying firewall and other traditional VPN (IPSEC) networks for your IoT network, you may try to implement SDP (Software defined perimeter) solutions.
-You may refer details through wiki: https://en.wikipedia.org/wiki/Software_Defined_Perimeter
-Or refer working group : https://cloudsecurityalliance.org/group/software-defined-perimeter/#_overview
-This could be an alternative to traditional approaches and there are commercial solutions available to try out : https://www.perimeter81.com/software-defined-perimeter-enterprise
-",1,2018-09-03 02:35:16Z,5
-3,1,"
-IoT covers a broad range of devices and use cases, like at home the router, smart light bulbs, smart thermostat, maybe smart locks etc. And even more cases can be found in the industry where sensors or data collection systems are everywhere.
-Given the broad range of devices they have some things in common: they have some firmware which might have bugs or missing features and thus need to get updates. And they need to communicate with other systems to receive and/or provide collected data.
-And this is where certificates (or other trusted containers for a public key) help: 
-
-It is essential in most use cases that the device only runs authorized firmware, i.e. no firmware which can be used to destroy the IoT device or even attack connected machines, sensors or other devices in the network. Digital signatures using certificates are typically used to provide such authorization. 
-In order to protect the data in transit encryption is usually required. This requires that the client knows that it transmits the data to the correct server. Certificates are typically used for this server authentication, for example in protocols like TLS. Alternatively the client does not trust the server it is directly talking to at all, but instead encrypts the data so that only the ultimate recipient can decrypt these. In this case the client can use protocols like PGP, S/MIME or similar to encrypt the data for the final recipients by having the recipients certificate.
-Often it is also necessary that the recipient of some data knows for sure which device is sending/creating the data to make sure that it does not get fake data from unauthorized devices.  Again certificates are used for this: either in the form of client certificates within mutual authentication in protocols like TLS. Or by digitally signing the data using a device specific certificate.
-
-
-Or also for encrypting communication?
-
-Certificates use public key (asymmetric) cryptography, i.e. RSA or ECC. This kind of cryptography is not suitable to encrypt large amounts of data. Instead symmetric cryptography is used for this (i.e. AES and similar). Certificates still play an important role in encryption in that they are used to protect the symmetric keys used for encryption, for example  in the key exchange in TLS or to encrypt the symmetric key with the recipients public key in protocols like PGP or S/MIME.
-
-I am assuming that sensors etc are too small to get certificates and use them? 
-
-Public key cryptography as the central part of certificate is not that resource intensive as one might think. It is for example already implemented in smart cards or TPM chips which means that it can probably be implemented also in most IoT devices which are capable enough to do some kind of network communication. The usual use cases for public key cryptography within IoT require only the occasional creation or verification of digital signatures or encryption of small data, which means that speed of the operation is usually not that critical.  
-",2,2018-06-24 08:27:45Z,3
-3,2,"
-I'd say that certificates are an important part of the security of an IoT devices, not the most important. 
-Think of an IoT device use case? Is it a connected Light Bulb? Then is the web site that the App connects to control the bulb more important to protect than the bulb itself (which uses Zigbee)? Or is it an open platform that has a web app running on it? then make sure the OWASP Top Ten is being used to harden the app. 
-IoT Security falls in to a multitude of areas Device, Communication and Cloud. Putting one above the other is not a good strategy. 
-",0,2018-06-21 21:41:55Z,8
-3,3,"
-The question is certainly very broad; it's a bit like asking ""what devices can use an internet connection?""
-We should first establish why we need certificates.
-Secure Communication
-With a valid certificate, a device can verify the identity of a remote host. Combined with encryption of communications, you can be reasonably sure that nobody is tampering with or reading your messages.
-Signature Validation
-Firmware updates are usually signed by the manufacturer. Devices only accept an update if they can verify its signature. They check the signature against a certificate installed by the manufacturer.
-So, broadly speaking, any device that communicates or updates can make use of certificates, because public-key cryptography is fundamental to keeping these things secure.
-",0,2018-06-23 22:26:15Z,9
-4,1,"
-Popular IoT botnets and attacks:
-
-Linux.Aidra 
-Bashlite 
-Mirai 
-Linux/IRCTelnet
-Linux.Wifatch
-Hajime
-Brickerbot
-
-Reference: Radware Blog
-",0,2018-04-23 09:42:32Z,11
-4,2,"
-The truth is that IoT is a new trend, a new surface with a lot of possibilities, and one of the most popular IoT botnets is Mirai, here is a brief description of it:
-
-Mirai (Japanese for ""the future"", 未来) is a malware that turns
-  networked devices running Linux into remotely controlled ""bots"" that
-  can be used as part of a botnet in large-scale network attacks. It
-  primarily targets online consumer devices such as IP cameras and home
-  routers. The Mirai botnet was first found in August 2016 by
-  MalwareMustDie, a whitehat malware research group, and has been
-  used in some of the largest and most disruptive distributed denial of
-  service (DDoS) attacks, including an attack on 20 September 2016 on
-  computer security journalist Brian Krebs's web site, an attack on
-  French web host OVH, and the October 2016 Dyn cyberattack.
-  According to a leaked chat log between Anna-senpai and Robert Coelho,
-  Mirai was named after the 2011 TV anime series Mirai Nikki.
-
-If you want to check the source code, here it is. Also you can check this report from Arbor Networks about IoT DDoS Attacks for further information.
-Hope it helps.
-",0,2018-04-23 09:41:17Z,12
-5,1,"
-The most common vulnerability is no security at all. Many brands just:
-
-put a completely insecure web server onto their devices. 
-put plain-text hard-coded passwords into their code for ""maintenance access"".
-standard issues such as buffer overflow.
-the firmware update functionality is often vulnurable
-signature of an update was in past verified to be a valid signature, but the certificate itself was not checked for validity. So any self signed certificate provided access.
-
-For best practices, try to keep your code simple and authenticate everything. There will probably be no need to include something like a web server in a camera and it brings many vulnerabilities. Also remember, that users may not ever update your firmware, so keeping bugs to a minimum by making the device simplistic is a good idea. 
-PS: Also authenticate using something like HMAC, as your connection will most likely not be secure. You should avoid sending passwords.
-PPS: If you want some sort of developer access, use public key cryptography and always include an option to turn it off.
-",2,2018-04-20 08:37:59Z,15
-5,2,"
-Peter's answer is good and covers most of the problems. The typical end-user must be taken into consideration, too. The problem with IoT devices is that many of them does something that is not perceived as data processing by the end-user. Therefore, they might be used just like the item before its new smart version, leaving default password as is.
-As a developer using common default password for every device isn't a good practice. Better alternatives include:
-
-using a random password shown to the user at initial setup
-forcing user to pick own password during initial setup
-using default passwords calculated from e.g. device S/N and/or MAC address using complex algorithm. Such password can be printed on a label outside the device and it would survive resets and firmware upgrades.
-
-",1,2018-04-20 09:39:58Z,17
-6,1,"
-Only reason you need the additional JWT is if there are going to be different claims and identities being used with the devices that require seperate privileges.
-Now as this is IoT do you have a way to revocate and update certificates? Are you able to handle all the required certificate operations?
-",0,2018-02-07 21:04:59Z,19
-6,2,"
-Let me explain with example: suppose you are using device provisioning service from Azure, it requires 509 certificate. But to get signed certificate we need key/pair to be generated on the device. so KEY plays important role and loosing it is risk. So we need to design in such a way that key is possessed based on request/demand. so to request or demand, we can initiate the trust by using JWT :) so this helps to secure the design 
-",0,2018-08-08 07:58:11Z,20
-7,1,"
 If your devices need Internet access, use a three router Y-configuration to separate your 'ordinary' (home/work) network from the one containing your IOT devices.
 There are plenty of resources about that on the Internet.
 This article goes in-depth describing the disadvantages of simpler configurations, leading up to the Y concept. The author even has a walkthrough showing how he set this up for himself.
 Note: Many modern router devices let you mimic this configuration with one box only, but talking about three physical ones makes you understand it better. You may even have some old routers laying around that you now have a purpose for.
-",1,2018-02-05 20:59:37Z,21
-7,2,"
+",1,2018-02-05 20:59:37Z,0
+1,2,"
 You start by not giving them access to the Internet.  If your Intranet of Things devices have no direct contact with the outside world (eg. your IoT sprinkler controller is firewalled off from the Internet and needs to go through a proxy when requesting a weather forecast), it becomes much harder for an attacker to do anything.  If there's no connection whatsoever, any attacker needs to be physically present.
-",2,2018-02-02 22:42:21Z,24
-7,3,"
+",2,2018-02-02 22:42:21Z,3
+1,3,"
 You didn't mention the first rule of IoT security. Change the admin password. If possible make it complex. I have witnessed hundreds, if not thousands, of penetration attempts and most of them are attempting to compromise some form of administration account with guessable passwords. 
 Another thing that you can do is register it with a directory. You may have AD available to you but there are also dozens of online cloud versions available too.
 If you are going to have multiple devices this can simplify any administrative
 activities as well.
-",1,2018-02-05 17:36:33Z,25
-7,4,"
+",1,2018-02-05 17:36:33Z,4
+1,4,"
 IoT is a loaded term.  I'm going to assume the topic is about ""How to keep self-configured IoT devices secure"" and disregard cloud-based IoT devices.
 The best way to learn about securing IoT devices is to learn how generic security works.  IoT devices are by definition, internet connected devices.  They are no different than computers, servers, network printers, routers, switches, etc.  They face all the same problems that those devices face when it comes to security.
 You can find a ton of information on how to secure network infrastructure online.  There are many other resources as well, such as academic classes.
 I personally, run a firewall on my router that segments my network and white-list locations I access it from.
 To disregard my disregard, cloud-IoT devices are at the mercy of their cloud services.
-",1,2018-02-05 20:10:00Z,23
-7,5,"
+",1,2018-02-05 20:10:00Z,2
+1,5,"
 
 Lastly as an importart part of the threat model is physical security, because if I put a sensor outside with a solar panel to power it, how do I stop mischievous kids or crooks from destroying or stealing the technology?
 
 You, essentially, have to build a better mouse trap. Consider your physical security situation - is the street side of your house safe, but kids out of view of the streets will wreck things? Perhaps the opposite is true - position the sensors within view of the street (or vice versa). Next, consider replace-ability - is this a cheap sensor or a $150 weather station type deal? Consider pairing down the features of outdoor sensors to lower the cost of replacement. If it takes you five minutes and five dollars to replace the sensor, who cares if it's broken or stolen every three months. Thirdly, consider hardening - is your sensor on the top of a 30 ft roof? Is it resistant to a baseball or rock? Do you need to walk up to it and wail on it with a golf club for a few minutes to break it? Can you make it that resistant? 
 All security is about making compromise ""not worth it"" for the attacker. It's hard to overcome the ""worth it"" factor for teenagers - the destruction itself is the reward, and making a harder target makes the destruction more fun. You'll have to think critically about what you need to do to make the sensors unlikely to be damaged, or make them easier to replace when damage occurs.
-",1,2018-02-05 20:34:31Z,26
-8,1,"
+",1,2018-02-05 20:34:31Z,5
+2,1,"
 Be very, very careful. It's not KRACK that is the problem, it is a lax attitude to security and privacy in general. So called ""smart"" consumer products can often be hijacked, accessed from the internet, or monitored. As a customer, it is hard to know if any specific product is safe or not.
 The Norwegian Consumer Council has been on the case for a while, and produced a few horror stories. From a report, aptly titled #ToyFail, on three ""smart"" dolls:
 
@@ -168,15 +52,15 @@ And the FBI agrees:
 Smart toys and entertainment devices for children are increasingly incorporating technologies that learn and tailor their behaviours based on user interactions. These features could put the privacy and safety of children at risk due to the large amount of personal information that may be unwittingly disclosed.
 
 So unless you have a real need (other than ""this is cool"") for these kinds of products, I would say that your best approach is to simply stay away from them.
-",92,2017-10-31 15:13:39Z,30
-8,2,"
+",92,2017-10-31 15:13:39Z,9
+2,2,"
 It really depends on your threat model.  I wouldn't be particularly worried about a particular sexual predator in your local area having the technical skills necessary to utilize Krack to inject voice into the toy. Unless it uses the vulnerable Linux driver, the key clearing won't work and the partial nature of the compromise for a general reset would make voice injection nearly impossible.  
 Similarly, as a client device, it doesn't offer a whole lot of security risk other than possibly as a listening device, depending on if it is always on or activated by pushing a button.  Krack wouldn't make it usable as an entry point in to your network directly, so I don't see it as a particularly riskier device than any other IOT device.
 As always in security, it comes down to your risk aversion though.  Personally, if I thought it would be valuable to my child (who is also 3) I don't think I would consider the local security implications as a reason not to get it for my home environment.  I'd be more concerned about the controls and security on the web side.  
 My main concern for IOT devices isn't the local compromise so much as the web connected remote compromise.  The chances of a sufficiently skilled and motivated malicious individual in your direct proximity is pretty low.  The chances of a motivated and malicious user on the Internet trying to remotely access the IOT device is significantly higher and it's important to understand what holes the devices punch in your network protections.
 Also, as Michael was kind enough to point out, the interests of such a broad hacker are much less likely to be concerned with your privacy and much more likely to either be interested in attacks on your other computers or on the computational capabilities of the device as an attack bot.
-",15,2017-10-31 15:04:35Z,32
-8,3,"
+",15,2017-10-31 15:04:35Z,11
+2,3,"
 Welcome to the Internet of Things(IoT). This is a... thing. Therefore, it can be assimilated
 
 Mirai is a type of malware that automatically finds Internet of Things devices to infect and conscripts them into a botnet—a group of computing devices that can be centrally controlled.
@@ -192,122 +76,44 @@ A maker of Internet-connected stuffed animal toys has exposed more than 2 millio
 The account data was left in a publicly available database that wasn't protected by a password or placed behind a firewall, according to a blog post published Monday by Troy Hunt, maintainter of the Have I Been Pwned?, breach-notification website. He said searches using the Shodan computer search engine and other evidence indicated that, since December 25 and January 8, the customer data was accessed multiple times by multiple parties, including criminals who ultimately held the data for ransom. The recordings were available on an Amazon-hosted service that required no authorization to access.
 
 I'm going to be honest. These things are scary powerful in what they can do. Even if it doesn't expose your messaging, it could still be used for something malicious like a DDOS attack. If I were you, I'd pass on anything like this unless there's something explicit about security.
-",12,2017-10-31 18:09:50Z,34
-8,4,"
+",12,2017-10-31 18:09:50Z,13
+2,4,"
 This is pretty much the same kind of toy as CloudPets. Those were toys that allowed talking with the children (toy) by using a mobile app. The security was terrible. It turned out that both the user details and the pet recordings were available on databases with no password. And the company didn't even answer to the mails alerting them of the vulnerabilities.
 You can view about this terrifying story on Troy Hunt blog: https://www.troyhunt.com/data-from-connected-cloudpets-teddy-bears-leaked-and-ransomed-exposing-kids-voice-messages/
 Now, Talkies may actually have made the right choices (it's hard to do so many things wrong as CloudPets did!), but this showcases the level of security of this sector.
 So no, I wouldn't trust this toy with my kids data. Not to mention how the toy itself could be compromised (eg. like Hello Barbie).
 In fact, Germany went so far to ban the internet connected Cayla dolls over fears they could be exploited to target children: https://www.telegraph.co.uk/news/2017/02/17/germany-bans-internet-connected-dolls-fears-hackers-could-target/
-",6,2017-11-01 17:29:50Z,35
-8,5,"
+",6,2017-11-01 17:29:50Z,14
+2,5,"
 Internet-enabled anything poses a risk.  As a rule, security is an expense and consumers as a whole really don't consider product security when making purchasing decisions.  For example, there was a thread on Reddit recently about a couple who got divorced and she didn't change the password on the Nest thermostat.  So while she was out, he would crank up the air conditioning or heat and cause massive utility bills.  We also know of baby monitors that have been used to listen in on neighbors without their consent.  I've attended IT security demos of internet-connected light switches, showing how easy it was to attack them.
 krack is important, definitely, but when compared to a non-existent security posture is irrelevant.  Quite simply, if someone is concerned about security, I'd suggest not purchasing networkable anything unless they can identify a need for it to have a network connection and they have the skills to properly secure both it and their network.
 WRT your trusted circle of phones: how often would you plan on managing that list?  What is the means to join that trusted circle?  Do you know when your friends sell their phones back so you can decommission them from your circle? (If your answer is not ""no"" to the last one, you're probably not being realistic with yourself.)
 Encourage creativity.  Build skills.  Get the kid a bunch of building blocks or a train.  Get a Spirograph.  Play cards/games with them.  Find something that they will play with for hours that doesn't require your constant attention.  
-",4,2017-10-31 17:22:04Z,36
-8,6,"
+",4,2017-10-31 17:22:04Z,15
+2,6,"
 This puts the ""IOT"" in ""IDIOT!"".
 Most of the companies that make these have no clue how to prevent hackers from taking them over, sometimes programming comically stupid/obvious exploits into them.
 The KRACK exploit might be irrelevant half the time since most of these manufacturers wouldn't figure out how to implement some form of encryption.
 Any type of internet-enabled voice recording is potentially creepy and downright dangerous invasion of privacy. These devices likely use the cloud for sound processing and storage considering they are almost certainly based on low-grade ARM chips and minimal cheap flash storage at most.
 Even if the device is properly made, there's no similar guarantee on the cloud app it uses. You'd be surprised how often researchers happen to stumble on valuable leftover data in the cloud that the previous user of a logical machine instance failed to clean up.
-",2,2017-11-01 04:44:14Z,37
-9,1,"
-The design requirements of your system are not fully clear to me. But I will assume in the following that you have full control over the setup and that this setup has only the following requirements:
-
-secure connection between devices and central management server
-central management must be able to send commands to devices at any time
-IP address for the devices are dynamic and not known to the management server up front, i.e. the device must somehow announce itself to the server initially.
-
-There are several options to implement this, like
-
-Create a VPN between the devices and the management system. This can be done for example with IPSec or OpenVPN and with some variations with SSH too. Within this VPN the devices can have a fixed private IP address thus addressing a device from the server is no problem. And TLS is not needed since the VPN already protects the connections against attackers outside the VPN.
-Create a TLS connection from the device to the management system which requires only a certificate on the side of the management system. This TLS connection can then be used with a custom protocol to communicate between server and client. Depending on the setup and restrictions because of firewalls it might be useful to not create a simple TLS connection directly on top of TCP but use secure WebSockets for the bidirectional connection. Still, only a certificate on the server side is needed which is trusted by the client.
-
-These setups are similar in that the secure connection (i.e. VPN tunnel or TLS) is initiated from the client, since the client IP address is dynamic and the management system has a static IP or at least a static hostname. It might be useful to add some authentication of the client to this because you don't want that some attacker connects to your management system.
-One way would be to create your own PKI with your own CA and issue a unique certificate for each device. The subject of this certificate can be some device-id which you can use to identify the device. These client side certificates could be used for authentication in the VPN or as client certificates in the TLS connection. And, if a certificate got compromised (i.e. someone hacked the device) you can simply centrally block access with this certificate in your management system.
-",2,2017-10-26 16:56:35Z,3
-9,2,"
-
-There are hundreds of such devices not having host-name and their IP is not static. So SSL certificates may not be possible here???
-
-Remember: before trying to figure out any security solutions, start with determining your threat profile.  What attacks are you trying to prevent?
-I would guess that one of the major ones is to prevent an attacker from pretending to be the control server and successfully sending commands to the controllers.  For this, then, you want the devices to be able to authenticate the server, and that requires a certificate on the server side, not on the devices - either a traditional HTTPS (or HTTPS-like, if you're using a different protocol) setup if the clients initiate a connection to the server, or a client-side certificate if the server is initiating a connection to the devices.
-",1,2017-10-26 17:16:29Z,41
-9,3,"
-
-There are hundreds of such devices not having host-name and their IP
-  is not static. So SSL certificates may not be possible here???.
-
-SSL client authentication certificates can be issued without a DNS resolvable name or fixed IP addresses.  The server does not have to be configured to use DNS to verify them.
-As Stephan suggested, standing up your own PKI for this system seems like the right approach.  Unless your organization already has their own PKI, this can be as simple* as using OpenSSL to generate your own self-signed certificate, then using that CA certificate to sign all your server and client certificates.  You'll have to install the custom CA certificate as a Trusted Root certificate in each of the servers and clients.  (If these are part of a closed ecosystem, consider removing any trusted root certificates that the clients don't need.)
-You will probably have an inventory of the devices as part of running your organization.  Whatever ID is assigned to them, that would probably be appropriate to set in the DN of the certificates.  But you certainly don't have to do that either, especially if you don't want to put your internal name on your certificates.  Instead, you can pre-generate a large pile of certificates in advance, and hand them out to new clients when they register with you.  Then keep track of the certificate ID and the client ID it was issued to, and use that relationship for granting client permissions.  This keeps your issuing CA safely offline from the system that registers your clients.
-If your organization has a PKI already, consult with them.  They should assign an Organizational Unit reserved strictly to your devices.  You can then have your server verify the client certificates have the OU valid only for your devices.  That way, other groups in your org won't be able to issue certificates to rogue/unknown devices.
-Remember, once devices are out in the field they can possibly be stolen, tampered with, and/or disassembled.  Don't place any more trust in the client certificates than you need to.  Don't allow these same device certificates to grant administrative permissions on the server.  And if a device goes missing, invalidate its certificate quickly.
-* I apologize for using the word ""simple"" in conjunction with PKI.
-",1,2017-10-26 18:06:17Z,42
-10,1,"
-UPnP can safely be disabled. If a service needs a port punched it’ll tell you. 
-In regards to MITM and altered firmwares: it’s a Wild West our there. Some manufacturers have secure signed images severed on secure servers, some just flash whatever random binary they find over HTTP. You really won’t be MITM’d be your ISP hopefully so that’s not an issue however these unsigned and insecure firmware devices can be compromised from an adjacent compromised device. So if you’re already breached you may be in for an even bigger headache where your only real option is likely to bin the device. If the device is your fridge I’m sorry. 
-This same principle also applies to all outgoing connections as well if there is some vulnerability in how it handles the responding data. If either the server is compromised or an adjacent device is compromised then an insecure and vulnerable device could be hijacked.
-What’s your best bet? Probably keeping them from accessing the wider internet. When that’s not possible, use client isolation so that hijacked devices can’t infect your other devices. Really your best bet is to use as few IOT devices since you really have very little control or access to the configuration.
-",0,2017-10-22 19:28:06Z,43
-10,2,"
-
-What (network) attack vectors need to be considered?
-
-All of them. Well, most of them, unless you happen to control the launch codes for nuclear missiles.
-While sitting behind a masquerading router with no port forwarding, external attackers can't connect directly into the IOT target, the IOT target may make frequent client connections out to the internet. Many devices are explicitly design to behave like a server but using polling or long lasting client connections to a broker service with the end result that they are no different than a server. There are even ways for it communicate with the outside world without having to make a connection externally (e.g. DNS smuggling). 
-
-would need to make active connections
-
-What is an ""active"" connection? I presume you mean a client connection.
-
-never seem to mention what possible side-effects this might have
-
-Because even when the role of the device is well defined (not the case in your question) the way it operates is not. The insecurity of IOT devices arises from multiple causes:
-
-device not designed to operate securely
-behaviour of device not documented
-device deployed in a context other than that which it was designed for
-users ignoring the documentation which is available when deploying the device
-
-
-Do these [IOT device client] connections pose a threat?
-
-Potentially yes. There are well known patterns for protecting against the third-party attacker model - but the reason people get excited about IOT devices is that so few of them implement these solutions, or fail to implement them correctly (e.g. requiring SSL, but not validating the certificate). 
-",0,2017-10-23 12:16:23Z,44
-11,1,"
-Many companies (like fortinet, stormshield, ...) use selfsigned certificates. They have a internal PKI which produce these certificates but they are not trusted by web browsers.
-Many of them permit to upload the owner certificate. There is no big deal with this operation except that permissions must be carrefully configured
-What do you need is probably a PKI to manage your own certificates. Then, you can set a secured https channel if you control the gateway and the client.
-If you do not control the client, you cannot force it to trust your Certification Authority (CA), so you cannot ensure that https between the gateway and the client is safe (man is the middle is possible).
-So you can propose to clients to add your CA as a trusted one or make your CA be signed by a certification well known authority (comodo, verisign, etc.)
-",1,2017-09-29 12:54:13Z,47
-11,2,"
-I suggest that the critical part would be the ability to add and remove certs from the device, and to set/change any passwords. 
-If the device is acting as a server then the definition of certs is the server certificate(s) and private key(s). If the device acts as a client or validates client certificates then the definition includes ca certs. If you are not using client certs then you need some other way of authenticating management operations (e.g. password).
-So that's at least 3 security related functions.
-While CMP/rfc6712 springs to mind as a method for renewing a certificate, it strikes me that you probably should not initiate the certificate renewal on the IOT device.
-",1,2017-09-29 18:05:47Z,44
-12,1,"
+",2,2017-11-01 04:44:14Z,16
+3,1,"
 Some people argue that code which is open source can be audited by many and therefor contains little bugs. On the other hand, attackers have the same easy access and also look for these same vulnerabilities. There is definitely a tradeoff here which is not correctly described in previous answers.
 Others mention that code should be inherently secure and therefor requires no obfuscation/encryption/hiding. It is true that a system should be designed to be secure even if you know how it works. This doesn't mean that this is always the case AND the implementation is flawless. In practice, code is never 100% secure. (Take a look at web app security: Why do we need security headers to protect us against XSS and CSRF attacks if there are no vulnerabilities in the web application?) Additional security measures can be taken by trying to hide the code through encryption and obfuscation. In the mobile world, reverse engineering is even seen as a serious risk: OWASP Mobile Top 10 risks. 
 As no system is 100% secure we can only try to increase the effort required to break it. 
 So now, the tradeoff between open source/easily available code VS encrypted and obfuscated code. Allowing public review on you source code can help reduce the number of bugs. However, if you are a small company where the public has little incentive to freely audit your code, there is no benefit from publishing your code as nobody will look at it with good intentions. However, it becomes much easier for attackers to discover vulnerabilities. (We are not talking about the newest iOS version which every security researcher is trying to crack)..
 In this case we aren't even talking about open sourcing the code for public review. We are talking about encrypting the firmware in transit. Security researchers are not likely going to buy your device to obtain the code to discover and publish vulnerabilities. Therefor the chance of having the good guys finding the vulnerabilities VS the bad guys finding them decreases.
-",5,2017-09-05 07:50:19Z,48
-12,2,"
+",5,2017-09-05 07:50:19Z,18
+3,2,"
 No. You should not rely upon the obscurity of your firmware in order to hide potential security vulnerabilities that exist regardless of whether or not you encrypt/obfuscate your firmware.
 I have a radical suggestion: do the exact opposite. Make your firmware binaries publicly available and downloadable, freely accessible to anyone who wants them. Add a page on your site with details on how to contact you about security issues. Engage with the security community to improve the security of your product.
-",86,2017-09-01 13:38:54Z,51
-12,3,"
+",86,2017-09-01 13:38:54Z,21
+3,3,"
 Doubtful it would be beneficial. It is by far a better option to push it open-source than closed source. It might seem silly and even controversial at first, but opening up a project to the public has plenty of benefits.
 While there are people with malicious intents, there are also people wanting to help and make the internet a better place. Open source allows more eyes to look over the project, not only to view about potential features, bugs, and issues but also increase security and stability of the ""thing""
 And to agree with Polynomial's answer, engaging in a community and building a base of people that help you out with security, will increase the client base by a significant margin.
-",11,2017-09-01 13:52:35Z,52
-12,4,"
+",11,2017-09-01 13:52:35Z,22
+3,4,"
 A well-designed firmware should rely on the strength of its access key rather than relying on the attacker's ignorance of the system design. This follows the foundational security engineering principle known as Kerckhoffs's axiom: 
 
 An information system should be secure even if everything about the
@@ -315,35 +121,868 @@ An information system should be secure even if everything about the
 
 The American mathematician Claude Shannon recommended starting from the assumption that ""the enemy knows the system"", i.e., ""one ought to design systems under the assumption that the enemy will immediately gain full familiarity with them"".
 You may be interested to know that prior to the late Nineteenth Century, security engineers often advocated obscurity and secrecy as valid means of securing information. However, these knowledge-antagonistic approaches are antithetical to several software engineering design principles — especially modularity.
-",6,2017-09-01 18:33:32Z,54
-12,5,"
+",6,2017-09-01 18:33:32Z,24
+3,5,"
 Are you sure you are not confusing two cryptographic methods?
 You should certainly sign your firmware updates for security reasons. This allows the device to verify they are from you.
 To encrypt them adds a little bit of obscurity and that's it. Since the decrypting device is not under you control, someone sooner or later will hack it, extract the decryption key and publish it on the Internet.
-",3,2017-09-02 05:49:21Z,55
-12,6,"
+",3,2017-09-02 05:49:21Z,25
+3,6,"
 You need to ask yourself this question.  Is someone clever enough and interested enough to download your firmware and start looking for vulnerabilities going to be deterred by an additional firmware encryption layer where the key must be revealed?
 This is just another hoop to jump through, no different than figuring out what disk format your firmware image is in.  This isn't even a particularly difficult hoop to jump through.  Keep in mind that all FAR more sophisticated methods of what amounts to DRM have all been broken.
 Odds are someone determined enough to hack your internet connected coffee maker/Dishwasher isn't going to be deterred by an additional encryption layer.
-",0,2017-09-01 19:40:07Z,56
-12,7,"
+",0,2017-09-01 19:40:07Z,26
+3,7,"
 In the sense of ""will the encryption of firmware prevent the detection of vulnerabilities in my code?"" other answers have addressed the core of it: although it may discourage some attackers, security through obscurity leads to a false feeling of invulnerability that is counterproductive.
 However, I'd like to add an extra bit on the basis of my experience. I have seen that the firmware packages are sometimes encrypted, but the motivation for that is only to preserve a company's intelectual property, rather than be a control against attackers.
 Of course, hackers often find ways around this ""control"", but that's a different story.
-",0,2017-09-08 06:53:14Z,57
-12,8,"
+",0,2017-09-08 06:53:14Z,27
+3,8,"
 Several people said you shouldn't rely on obfuscating the code by encrypting it, but to just make it secure. Quite recently the encryption of some rather critical software in Apple's iPhones was cracked (meaning that hackers can now see the actual code, no more). It stopped anyone from examining the code for three years, so the time from release to first crack has been increased by three years. That seems like some very successful obfuscation. 
 And encryption goes very well together with code signing. So when your device is given new firmware, it can reject any fake firmware. Now that part isn't just recommended, that is absolutely essential. 
-",-3,2017-09-01 21:03:46Z,58
+",-3,2017-09-01 21:03:46Z,28
+4,1,"
+Almost all IoT devices of the sort we are talking here (ie, consumer level) are deployed behind home grade routers (or ARE home grade routers) and are using IPv4 and NAT/uPNP to reach the internet.  That means they are sharing an IP with legitimate traffic for one and for another are using a dynamic IP, not a static IP, meaning there's even more opportunities for innocent parties to be caught up in such a blacklist.
+Once the glorious world of IPv6 comes, we can likely do just that - assign each one a routable IP address and blacklist them as they get shown to be vulnerable.
+One legitimate thing that CAN be done is for ISPs to perform source IP filtering - that is, don't let spoofed packets out, only let packets from IPs within the network.  That will help. Some.
+",14,2016-10-26 17:08:31Z,33
+4,2,"
+
+wouldn't it make since to start giving IOT devices a static IP
+
+No, because IPs only work in the proper network context.
+An device's IP needs to be routable, which is to say, sitting on a network with routers that know how to communicate with other networks and are willing to do so on behalf of the device.
+First of all, if you hardwire IPs and send them out, you'd have to use RFC1918 IPs (non-routable) to avoid conflicting with IPs owned by other people.  So you're already stuck with a narrow slice of addresses you can use.  And those IPs would need to be translated when they hit the Internet, thus removing the ability of the target to filter on them.
+Second of all, you'd be handing people devices with IPs that may or may not match their networks.  They wouldn't want to rework their networks to accommodate your cheap IOT devices.
+In short, a device's IP is set to allow it to work on the network.  Setting the IP and expecting the network to work with it breaks things.
+",6,2016-10-26 17:07:52Z,35
+4,3,"
+The way IP addressing is done for IOT devices doesn't matter in a DDOS attack. Here is the reason why.
+
+IOT devices may not always be exposed to network with an external IP address. 
+It can also be device behind a NAT which has only an internal IP
+address.  
+So irrespective of whether it is DHCP or some static IP, provided by  the router to the device, from the DDOS attack victim's
+perspective, the source of the attack is the external IP of the
+router. 
+In other words, if you have an IP cam at home, The packets from your IP cam as well as your laptop will have the same source IP address, ie the public IP address of your router. 
+So filtering the packets based on source IP of the packet can deny service for your laptop as well.
+
+",4,2016-10-26 18:06:32Z,36
+4,4,"
+No, as dynamic addressing isn't the attack vector when IoT devices get abused. It's poorly written software! On the DoS side, we have the 'underpowered' device vs. powerful computer problem, and on the connectivity side we have the ease of use vs. security problem.
+Ironically, the only way to do proper IoT is to not connect them to the internet! At least a gateway plus locally configured outgoing tunnel would be needed before they can be connected at some sort of safe level.
+",1,2016-10-26 17:49:55Z,37
+4,5,"
+A static IP would not help; as crovers mentions, due to ipv4 exhaustion, its just not practical. Although IPV6 provides a large enough address space for each device to have a staic IP address, there will still be a lit of overlap with the IPV4 world - where a server will just see lots of traffic arising from a point of presence for IPV6 nodes.
+But there are a lot of things manufacturers and governments can do (to make up for the lack of skills on the part of the buying public). Blocking traffic ther than from/to the local network on an appliance by default, forcing a change of admin password before the device, using encryption appropriately, supporting open standards.
+The goverment part is more tricky - the obvious solution isproviding an accreditation framework which is easily auditable but minimally invasive with minimum standards, the problem is that they tend to listen to either the ""experts"" advocating (for example) that all such devices should be fips-140 certified or the vendors bleating about customer freedom and over-regulation rather than seeking pragmatic solutions.
+Maybe someone might set up an IETF to look at the classification problem.
+",1,2016-10-26 18:12:42Z,38
+5,1,"
+I would suggest that rather than trying to protect the camera from the outside world with a firewall that using a black hole router as the only gateway for these devices would be more restrictive - also if you have a physical device at the router's address then it would make monitoring of egress attempts more visible. Also, point the device to the same black hole for DNS queries.
+If you need remote access then use a VPN with NAT.
+",3,2016-10-25 15:28:05Z,38
+5,2,"
+The following controls should help secure your device:
+
+Change the root password (if possible: See @crover's comment for more info)
+Segment the network so that only the host administering the camera can connect to it
+Block egress from the network from the camera's IP
+Apply any vendor supplied patches or configuration changes
+
+",2,2016-10-25 15:17:20Z,40
+5,3,"
+There are a few things to do to protect your camera:
+
+Make sure you’re not using the default password. This way, even if you’re discovered, it’ll be harder to break in. Especially change any root passwords, where possible.
+Incapsula has a Mirai vulnerability scanner, which scans your IP to see what may be at risk. https://www.incapsula.com/mirai-scanner.html They also offer a Web Application Firewall (WAF) to put your device behind.
+Disable any unnecessary remote connections. 
+Run the most up-to-date firmware to ensure discovered security vulnerabilities are patched. But realize that there are many unpatched vulnerabilities that remain. This is something that we are less likely to do for devices than our own home/work computer. 
+Reboot and make sure everything still works.
+
+And, as you mentioned, in the wake of Mirai, understand that your device is at risk even if you personally  aren’t a target.
+",1,2016-11-13 13:19:44Z,42
+5,4,"
+Other than nagging your vendor for an update or replacing the cameras with something more secure, the only other option would be putting them on their own network, with limited and controlled access via another router.  You can do this with some higher-end switches which support segmentation or you can just plug them into their own switch, with a firewall/router between, which limits access to those cameras only to the 'secured' ports.
+",0,2016-10-25 15:17:33Z,33
+5,5,"
+I would put them on a separate network segment with no access to the Internet. The only access would be through a VPN gateway. You not only protect them from attacks but also secure your connection to them (as those cheap cameras don't support HTTPS).
+In the future I would also recommend buying cameras from a reputable vendor with a good security track record (a network company such as Cisco/Ubiquiti).
+",0,2016-11-13 14:32:07Z,43
+6,1,"
+The devices are designed to be accessible from outside the home. To offer this service to their owners, they make themselves accessible through the homeowner's router/firewall. The way they do this is by sending a UPnP packet to the owner's router that tells the router to open a port that connects back to them. They then listen for connections that arrive directly from the internet.
+In other words, the devices first hacked their owner's routers by design, which exposed their own vulnerabilities.  (This has nothing to do with secured, private, or open WiFi, other than many IoT devices connect via WiFi; UPnP exposes the exact same vulnerabilities on wired devices connected by Ethernet cables, too.)
+To protect yourself, disable UPnP on your router.
+",84,2016-10-25 02:59:31Z,48
+6,2,"
+Your understanding of the attack is not as clear as you think. In this article, Krebs mentioned that the attackers didn't really have to hack the devices. The vulnerability was well known, they just had to scan the internet for those devices.
+Sure, if SSH/Telnet to the devices was disabled, the problem would have been solved easily. To make the matter worse, the hard coded credentials present in the hardware were not even visible to the web interface for the administrator.
+Yes, it is absolutely imperative to know what are the devices present in your network and what are the services that you do/do not need.
+EDIT : After @tlng05 's clarification about the question.
+As already mentioned in other answers, you should disable UPnP on your router to absolutely make sure that your device is not straight forward configurable from the outside world.
+",15,2016-10-25 03:03:16Z,51
+6,3,"
+Your misconception is here:
+
+secured private wifi networks
+
+Whilst many home WiFi networks are secured against unauthorised wireless devices connecting directly, many are wide open to access from the wider Internet.  It's this access (that's demanded by the IoT devices to perform their legitimate functions) that can be abused (and on a much bigger scale than physically visiting many WiFi networks).
+The attack surface of a router is on both all networks!
+",10,2016-10-25 09:00:47Z,53
+6,4,"
+
+What I don't understand is although easily hacked, most IoT devices are connected to secured private wifi networks.
+
+Yes they are connected to your private wifi networks, But are they secured? Well not so much as pointed by you these device are unprotected by firewalls, IPSs unlike the enterprise networks. Some of them have ancient firmwares, which haven't been updated since ages. And yes some have default passwords still working, So that anyone can easily take access and exploit them for attacks.
+
+So is it assumed that these thousands of IoT devices' networks were hacked first, then the device itself was hacked?
+
+Well not necessarily, Although it may be possible in some cases. But mostly these devices are intentionally left exposed to the internet because they are needed to be accessed from anywhere around the world.
+As pointed out by many examples above, If you want the CCTV footage of your house mostly you would want it live streamed on your handheld device and that is why they are needed to be accessible over internet. They are N number of other examples. 
+Conclusion: To use IoT devices to attack, one doesn't need access to your network. These devices can be directly accessed from internet. What we need to do is protect these devices from such un-authorized accesses and keep our devices safe without having to use expensive devices like firewalls and IPSs.
+",2,2016-10-25 08:26:14Z,55
+6,5,"
+UPnP can be an issue, but everybody seems to be missing the point that many of these devices make persistent standard outgoing NAT connections to the vendors' servers. All the attacker has to do is hack into the vendor's site to gain control of all of the attached IoT devices, and from there, since they are now inside home networks, to attack other computers inside the network or launch DDoS attacks. Direct HTTP, SSH or other UPnP-enabled access through your router isn't necessarily a requirement. 
+",2,2016-10-25 14:45:22Z,57
+6,6,"
+While IoT devices are indeed within secure networks, they are largely made such that they are accessible from the internet. For example, the temperature setting of your home is accessible from your phone app when you're at work. This is enabled by a connection being opened up to the internet. This answers why they're able to access the outside world. 
+Now, most IoT devices, or botnets, are not well patched and use loose security configurations. Parts 1 and 2 of the article found here explain this in detail, but to summarize, these devices are infected with malware. They are able to send outgoing messages to the internet (the outside world). And thus, they end up sending the ""DoS"" message to the target. 
+",1,2016-10-25 03:14:10Z,58
+6,7,"
+Most IoT devices are on networks that are connected to the Internet by conventional SoHo NAT routers that typically have very limited firewall capabilities or where the firewalls are not enabled or maintained. There is a common myth that NAT is a security layer, it is not.
+
+""NAT and firewalling are completely orthogonal concepts that have nothing to do with each other. Because some NAT implementations accidentally provide some firewalling, there is a persistent myth that NAT provides security. It provides no security whatsoever. None. Zero."" -- How Important is NAT as a security layer?
+
+",1,2016-10-25 18:46:34Z,30
+6,8,"
+It may be worthwhile thinking about terminology and what is meant when people say that IoT things have been 'hacked'. In many cases, the devices have not been hacked at all - they are performing as designed. 
+Broadly speaking, there are two types of network connections. The first type is a fully connected type connection where both parties need to be fully connected. Similar to a phone call, you need to have someone on both ends. With this type of connection, the initiating system makes an initial connection to the destination system and the destination system connects back to the initiating system. This type of connection is what normally occurs when it is important to be able to coordinate communications, track data packet order and request re-sending of any lost data. 
+The other type of connection is more like a messaging connection (think of SMS or some other messaging In this type of connection, you don't have a bi-directional connection. The originating system sends a message to the destination system and, depending on the message, the receiving system may send back a response to the sender address in the initial message. This type of communication is good when order of data, loss of some data etc is not critical. 
+The thing is, while fully connected connections are great for things like data integrity and because of the bi-directional nature, are difficult to spoof, they are more expensive in terms of resources and overhead. The second type of connection has less integrity and is easier to spoof because there is no bi-directional connection, but they are cheap - require less resources and have lower system overheads to process. 
+Many IoT systems are small, lightweight and need to be efficient. They typically have less memory and less powerful processes and therefore tend to favour designs which use connecitonless protocols rather than more expensive connected protocols. However, this also means that it is easier for rogue systems to 'lie' and do things like spoof IP addresses. This is like me sending you a message, where the return address is false. When you reply to the message your reply will go to the address in the message, but that is not the real originating address. 
+In effect, what is happening is that the IoT devices are being folled into sending data/responses to an innocent bystander who has not requested anything. The system has not been 'hacked', only fooled. 
+Often, the situation can be made worse by using amplification techniques. There are some connectionless type services out there which, when asked a vary simple/short question, will respond with a vary long answer i.e. answers with lots of data. This can make it vary easy to create a situation where suddenly, a victim site (such as a DNS) suddently starts receiving large amounts of data it was not expecting or did not ask for. 
+to do this, all you need to do is identify devices on the internet which support a connectionless protocol, send these devices a message which requests something which is likely to involve a large data response and spoof the IP address of the targeted victim. 
+to make it worse, the targeted system doesn't even need to know or understand the data being sent to it. The idea is to just send so much data that the system becomes overwhelmed - that could happen when the system is forced to look at large amounts of incoming data simply to make a decision to discard it and take no further action. With enough data, even that process of working out you need to just ignore it can be enough to prevent the system from being able to process legitimate connections.  The fact that this data is comming from multiple different source systems i.e. all the IoT deices means you cannot just block an IP address because there are simply too many. 
+So, while it is vary true there are far too many IoT devices which ahve been poorly designed and lack sufficient security controls, a part of the problem is the conflicting requirements to implement a light-weight resource efficient solution on one hand, but somehow deal with a world with too many malicious agents who want to exploit your good intentions. There is certainly a lot IoT vendors could do to improve the situation, but for most of them, this would just increase production costs and the reality is, most consumers are not aware of the issues, so failing to invest in the better solution doesn't affect market share and therefore doesn't result in sufficient financial benefit.  
+",1,2016-10-27 23:11:01Z,60
+6,9,"
+XM actually disabled telnet/ssh on many of their IoT devices (they supply many for new DvRs, webcams, etc.) more than a year ago. So anyone who had actually updated the firmware (who knows) or had bought a more recent model of (IoT device whatever) since then likely would have been immune from that sort of attack.
+My understanding is the Mirai (not sure about the other popular one Bashlight) connected to most IoT devices through GRE - an IP point-to-point virtual tunnel. GRE is kind of like a VPN of packet delivery - it can pass data through public network privately - without the actual data/headers being identifiable and with almost no protocol overhead. So once you have a master list of exploitable cams, home sec, connected whatever devices and the models, you can scan the whole internet and tunnel IPs accessible through open ports, run against passwords, etc etc. Hard for people to see it coming because GRE looks like regular IP transmission between devices calling home or streaming home video to app, etc. This is just my take...
+",0,2016-10-26 01:31:37Z,61
+6,10,"
+New in this forum I thought I'd chime in from a hobby IoT device maker's perspective. I may very well be off topic, not least since I am not entirely sure what you guys even consider to BE an IoT device, but for what it's worth:
+The ""IoT devices"" I create, which do useless things such as report whether or not someone has moved within a certain area in a certain time, could easily be ""hacked"" without accessing my WiFi. You could probably just put up a receiver of the right sort (we could be talking 433MHz) and eavesdrop all day. Then you could craft your own messages and send them to my stupid device and/or the server that collects that information, and have me running home in panic since my not-so-smart-home system says it's 200 degrees Centrigrade in my fridge and five thousand people have passed into my garage but noone came out.
+Basically what I'm saying is that whatever flaws the IoT devices hardware exposes directly, and it's software doesn't guard against, could be an entry port for a hacker. Heck, based on where the device is placed you could even attach your own hardware to it and start making trouble. ""Here's my WiFi enabled ESP8266, go ahead and upload your own software to it via USB."" But I guess that's really out of scope.
+",0,2016-10-27 11:40:59Z,62
+7,1,"
+
+... but they used their own infrastructure
+
+It's not really their own infrastructure what they use. They use instead botnets consisting of  hijacked systems. These are systems which they p0wn but definitely not own. And thus it is very cheap for them.
+Apart from that any VPS provider who would rent their VPS for DDoS attacks would quickly lose reputation and thus proper customers. And if a VPS provider then specializes on providing VPS for DDoS attacks to make up for the loss of normal customers it would be more easy to block such DDoS because they all origin from the same networks, i.e. simply cut off this provider from having access to major networks.
+",40,2017-04-25 04:54:20Z,66
+7,2,"
+Cloud based DoS attacks are possible, and they do happen from time to time. But it's not a very popular option for a couple of reasons:
+
+Initial setup - Deploying hundreds of VMs is not an easy feat, and paying for them isn't simple either. However if you're using someone else's VM, then this makes things a lot easier. 
+Detection - Many providers including Azure monitor their services to check for any malicious activity. In fact, launching attacks from their systems violates their ToS, and will have you shut down very quickly.
+
+However, the ability to have thousands of machines spread over the world, each generating some traffic can be very powerful. If you want to take it a step further, tunnel your traffic through the Tor network, to make it nearly impossible for a defender to stop. 
+It's been done before though:
+
+In 2012 group of cyber-criminals exploite  the CVE-2014-3120 Elasticsearch 1.1.x vulnerability, followed by the use of Linux DDoS Trojan Mayday and with that, they compromised several Amazon EC2 Virtual Machines. Although this vulnerability was not unique to cloud-based systems and could have been used against any server, including non-cloud based systems, it did open up some interesting opportunities to the attackers. They were able to launch a UDP based DDoS attack from the compromised cloud instances. They utilized the outbound bandwidth of the Cloud Service Provider, Amazon in this case. 
+  Source: Infosec Institute
+
+Getting caught - this is more difficult. Creating and deploying VMs these days is as easy as signing up for an anonymous email ID, registering and deploying machines. However, providers will notice large amounts of traffic from a system. Since you're​ violating their ToS, they will nearly always shut you down immediately. However since you're not ever revealing your actual identity (assuming you're accessing their services through an anonymizer and using stolen credit cards (no morals ;] )), they mostly will not be able to discover your real identity. But this does mean that you're flushing your money down the drain - which is why it's just simpler to set up your own infrastructure and offer it as a service. 
+",9,2017-04-25 04:48:58Z,70
+7,3,"
+The funny thing is that what you describe is available right now. It's called Mirai, it's more or less open source, and chances are you've already been affected by it
+
+Mirai is a type of malware that automatically finds Internet of Things devices to infect and conscripts them into a botnet—a group of computing devices that can be centrally controlled. From there this IoT army can be used to mount distributed denial of service (DDoS) attacks in which a firehose of junk traffic floods a target’s servers with malicious traffic. In just the past few weeks, Mirai disrupted internet service for more than 900,000 Deutsche Telekom customers in Germany, and infected almost 2,400 TalkTalk routers in the UK. This week, researchers published evidence that 80 models of Sony cameras are vulnerable to a Mirai takeover.
+These attacks have been enabled both by the massive army of modems and webcams under Mirai’s control, and the fact that a hacker known as “Anna-senpai” elected to open-source its code in September. While there’s nothing particularly novel about Mirai’s software, it has proven itself to be remarkably flexible and adaptable. As a result, hackers can develop different strains of Mirai that can take over new vulnerable IoT devices and increase the population (and compute power) Mirai botnets can draw on.
+
+There's lots and lots of IoT devices flooding the market. Everyone wants ""smart"" technology. But, as is usually the case, security is an afterthought. So we put that device out there and it's on the Internet for anyone to contact and use as they see fit. And most users (and indeed ISPs) probably won't notice 
+
+Fast forward another 45 minutes. The router was reset, and the network was set up again. By the time I was done messing around, Peakhour had my traffic clocked at 470GB. But I'd gotten rid of the problem (or so I thought). The next morning, before I left for the weekend, I checked: the total traffic was at around 500GB. Maybe I'd defeated the hackers.
+That night, I heard from Donna. She'd been monitoring traffic, which was now over 3TB. And, just to make sure we had no doubt, devices were dropped off the network again.
+
+The tipoff that something was amiss? His phone used all of it's 4G allotment despite his being at home. His ISP never batted an eyelash at 3TB of bandwidth consumed
+
+Ultimately, you can count on people who are technically illiterate and companies that don't care to provide all the botnet devices you'll ever need.
+",2,2017-04-25 16:38:18Z,13
+7,4,"
+Cloud providers generally require their customer's identity. If an enterprising young hacker wished to rent Amazon Web Services or the like, they would have to provide a credit card number (or more) to the service, which can be traced back to the owner. Cloud services don't want to engage in DDOS because their networks would be blocked, and it would cost them money in bandwidth. 
+There are services where you can rent a VPS anonymously in Bitcoin, but they are generally smaller and they also don't want to be blocked by their uplink or peers. 
+So that is why it isn't common. DDOS generally considered anti-social behavior, and sociopaths only make up 4% of the population.
+",2,2017-04-25 17:11:10Z,72
+7,5,"
+The key to your question is in the first 'D'. 
+What makes a DDoS attack so effective is the distributed nature of that
+attack. With an old style DoS attack, the victim would usually experience a
+large number of requests or connections to a specific server or resource
+originating from a single or small number of sources. To mitigate the attack,
+you could simply block the traffic from the attacking systems. Often, this could
+be done by the local firewall or similar. 
+Under the DDoS attack, the victim is flooded with requests from a large number
+of different sources. The number is too high to block individually and the
+volume of attackers will typically overload all local infrastructure such as
+firewalls and network switches. In this scenario, you typically need to work
+with your ISP to have traffic to the target system sent to a 'black hole', which
+will reduce the volume and allow local infrastructure to recover, but typically
+does mean that the DDoS on the specific system is successful (because traffic to
+that system is being sent to the black hole). The key point is that because the
+attack is distributed, it is very difficult to block the attacking systems. 
+So, with respect to your question regarding cloud based DDoS services - this to
+some extent depends on your definition of cloud. One definition would be any
+service that is not on your own infrastructure and is delivered from 'the
+cloud'. In this sense, DDoS attacks are already cloud based. They don't use the
+attackers own infrastructure, but instead, use hosts the attacker has either
+compromised or hosts the attacker has identified which have either poorly
+configured services or lack sufficient controls to prevent them from being used
+as part of a DDoS attack. For example, one of the reasons there is so much
+concern surrounding IoT is that many of these IoT devices include services which
+can be exploited as part of a DDoS attack and lack sufficient controls to
+prevent this exploitation by unknown remote uses. 
+If you define cloud to be just IaaS, PaaS and SaaS providers, the situation is
+slightly different. You are unlikely to see these services being used to perform
+the actual attack simply because the DDoS attack relies on high numbers of
+attackers and being able to use that number of cloud providers is prohibitive -
+remember that the cloud providers are not going to welcome this sort of use of
+their infrastructure, so you will have to do it in a 'stealthy' manner, which is
+becoming increasingly difficult as cloud providers lock down what is considered
+appropriate use of their infrastructure (remember, they have a reputation to
+maintain - if they become known as a host for 'bad actors', ISPs and others will
+just block traffic from their IPs). 
+This doesn't mean attackers don't use cloud services. What  you will often find
+is that DDoS service providers will use cloud services as the command and
+control centre for their DDoS agents/bots. They still need to do this in a
+stealthy manner as most reputable cloud services will deactivate any users they
+detect doing such things, but this is much harder to detect and they only need a
+few cloud providers. The agents/bots they use to actually perform the attacks
+are usually compromised desktops and servers, often in home systems which have
+poorer security controls and increasingly IoT devices, many of which are also in
+home or small office environments which lack enterprise security measures or
+skilled system administrators etc. 
+",0,2017-04-28 01:22:35Z,60
+8,1,"
+I answered a similar question here.  For a normal hardware solution, a hardware security module (HSM) does this.  For software, .NET offers the Secure String mechanism to encrypt and protect sensitive data in RAM. Other platforms may offer something similar.  For an AWS solution, Amazon offers CloudHSM to do pretty much what you are asking for, I think.
+From AWS:
+
+HSM is short for Hardware Security Module. It is a piece of hardware —
+  a dedicated appliance that provides secure key storage and a set of
+  cryptographic operations within a tamper-resistant enclosure. You can
+  store your keys within an HSM and use them to encrypt and decrypt data
+  while keeping them safe and sound and under your full control. You are
+  the only one with access to the keys stored in an HSM.
+The AWS CloudHSM service brings the benefits of HSMs to the cloud. You
+  retain full control of the keys and the cryptographic operations
+  performed by the HSM(s) you create, including exclusive, single-tenant
+  access to each one. Your cryptographic keys are protected by a
+  tamper-resistant HSM that is designed to meet a number of
+  international and US Government standards including NIST FIPS 140-2
+  and Common Criteria EAL4+.
+
+",6,2016-05-03 18:14:43Z,74
+8,2,"
+While everyone else has suggested a hardware solution, I'll suggest a software solution (though I don't mean to imply that it's any better or worse than using an HSM - that you'll have to decide on your own based on your own needs). This solution is a kernel patch which encrypts processes.
+RamCrypt is a project which encrypts the majority of the memory of individual processes with AES128 in XEX mode, so all secrets in the processes are safe in memory, even if all of the memory is forensically acquired. The memory is encrypted with TRESOR, so the encryption key is never present in RAM. It keeps the key in the x86 debug registers, so they are out of memory, and does all the AES computation using AES-NI, general registers, and SSE registers, so it never enters main memory or CPU cache. The key is then used to encrypt and decrypt memory pages for an entire process. Only 4 pages are kept unencrypted, and all others are encrypted. When an encrypted page needs to be accessed, it is decrypted using the AES key, and one of the 4 unencrypted pages is encrypted. RamCrypt comes as a kernel patch, and you can adjust the number of pages which remain unencrypted to choose a trade-off between performance and security. See the project's main page, and the associated research paper.
+",3,2016-05-03 22:17:47Z,76
+8,3,"
+I'm not sure if I get you right. But at some point the plain secret has to be in some sort of memory (most likely the RAM). If the attacker can read the memory at that point and if he is able to find the secret he can decrypt the data afterwards.
+I think theoretically there can't be a way (maybe with some special security module that contains your program code) to save the secret in memory without any chance the attacker can find it. There is always an algorithm that can find the key (there has to be because you want to use the key in your own code). But as pointed out in the paper it can get really really hard to find the key. 
+Just a side note: I also don't see the use case of generating a random secret that no one knows and then not store it anywhere.
+Cheers
+",1,2016-05-03 07:21:37Z,78
+8,4,"
+Fundamentally, there is nothing that can solve this issue in the absolute. You're running into the DRM problem, which is that you need plaintext access to some data on a system in order to fulfill some functionality, but you're also placing that system under the control of a party which is untrusted. The best you can do is make it incredibly difficult for all but the most determined and skilled attackers, essentially making it a poor a cost/benefit trade-off for them.
+In terms of solutions which do make it hard, devices such as Hardware Security Modules (HSMs) should be pretty much top of your list. They utilise a range of features designed to make it exceedingly difficult to recover information from them illegitimately. For example, a common feature is to encrypt data with a key stored in volatile memory (e.g. DRAM) on a separate board, physically attached to the upper casing of the device. The power and data connections for this board are supplied via a contact connector (often made from conductive polymer or foam) via pads on the main board, which is physically attached to the lower casing of the device. If you attempt to open the device, you separate the boards, thus disconnecting the power from the DRAM and losing the keys. Additional sensors such as light, temperature, pressure, acceleration and position (incl. GPS) and even magnetic fields or radiation can be present in order to detect different types of tampering.
+One additional potential system which may, in some circumstances, be of use to you is the concept of homomorphic cryptosystems. Homomorphism, in laymen's terms, is essentially the property of a cryptosystem that allows certain operations to be performed on data in its encrypted form, without needing to first decrypt the data. There are a variety of schemes available, some of which are even practical for certain types of scenarios, but they are usually quite complex in nature and can be particularly slow. I am unaware of any existing cryptosystem which provides homomorphism in a way that would be conducive to cloud storage applications.
+",1,2016-05-03 19:20:38Z,21
+8,5,"
+It depends.
+Other posters suggest an HSM.  This can be a good solution for a limited set of purposes where you temporarily need access to a key, it's erased from active memory after, and the key to the HSM itself isn't stored in memory long-term.  
+It sounds like you need the secret to be active in memory all the time, and not stored in an HSM most of the time.  In that case, I don't see much value in the key storage capabilities of an HSM, since it can't protect keys already stored in memory.
+And HSM can also perform the cryptographic functions in the module itself.  Whether this is useful to you or not would depend on your application.
+",1,2016-05-03 21:09:27Z,26
+9,1,"
+This may not be the answer you will be happy with but how about abstaining from having any undesirable data inside your phone in the first place and instead using the right tool for the job? 
+According to Wikipedia:
+
+The app records information about the device it is installed on, including its [...] IMEI, the phone's model and manufacturer, and the phone number. The app searches the phone for images, videos, audio recordings, and files [...]
+
+So, instead of trying to tamper with this spyware in any way (which can get you in a much bigger trouble), simply don't do anything suspicious on this phone and let this app do its job. Prepare against it by not having any photos, videos, audios, file, etc., and instead use the right tool for the job. Use some other secure software/hardware to connect to internet, use encrypted email provider and do all of your communication through the computer where you can do communication safely, and store all of your files somehow in a safe place (encrypted, somewhere on computer or USB, etc). Pretend to be an obedient citizen and use the right tool for the job to do whatever it is you don't want your government to find out. 
+Some people may wonder why bother having a phone in the first place (and FYI, I asked the same question under OP's question, for clarification). My answer is: 
+
+to make phone calls (and have conversations which are not going to be considered by Chinese government suspicious, in case they are tracking that too)
+to use it as a ""red herring"" - if police asks you to give them your phone you won't have to lie to them that you have no phone, or worry that they will find out that you tampered with app, or get in trouble if you don't have app, etc. You'll just confidently give them phone, with no ""illegal"" information on it, they will check it, and walk away. You may, actually, even have some ""red herring"" files: pictures of nature, shopping list (milk, eggs, etc.), etc., just so that they wouldn't suspect that you deliberately not using your phone for such purposes, and harass you farther. 
+
+I mean, not long ago mobile phones didn't even have the ability to store pictures, videos, files, etc. 
+Are you willing to put your life in danger simply because you want to have some files on your phone?
+Tough times require tough decisions.
+",335,2018-09-24 18:47:56Z,82
+9,2,"
+Get a phone which doesn't support Android apps.
+Why are so many of the answers complex? And not just complex, fragile and suspicious and downright dangerous to the questioner? 
+You want to use your phone to send messages and make calls, right? You don't want this app installed, right?
+Say hello to your new phone:
+
+Good luck getting an Android app running on this. 
+It's probably not illegal to have an old phone.
+",177,2018-09-26 11:47:30Z,85
+9,3,"
+This is a tricky one.  It goes without saying, but it's also a dangerous one.  Attempting to circumvent these restrictions and getting caught doing so will potentially cause a lot of legal trouble.  If they throw people in jail for refusing to install the app, I wouldn't want to figure out what they do to people circumventing the app restrictions.  It is especially relevant because even experts in tech security have gotten caught by their governments despite extensive safeguards (the founder of Silk Road is a great example and is now serving a life sentence).  Granted, evading this app is most likely a much less serious ""crime"", but the Chinese government isn't exactly known for lenience here.  So while I would like to answer your question, please don't take this as me suggesting that you actually do any of this.  I consider myself a tech-expert, but I still wouldn't do it.
+Still, to answer your question, you have a few options.  I won't bother mentioning the ""Get a second phone"" option because you've already ruled that out.
+1. Virtual Machine/Dual Boot
+There are some options for ""dual booting"" android phones.  I don't have any examples to immediately link to (software suggestions are off topic here anyway) but there are options.  If you can get your phone to dual boot then you can install the tracking software on one ROM and then do all your personal stuff on the other.  You may need to put some basic information on the ROM with the tracking app installed just so you don't raise too many flags.
+Of course there are still risks here: risks that they might reboot your phone and notice, risks that they might realize you have a completely different system installed next to the tracked one, and the simple risk that you would go out and about and forget to reboot into the ""tracked"" system, allowing a police officer to find and install the tracking app on your actual system.
+2. App modification/interceptors
+If this app creates enough bad press it is possible that anti-tracking apps or hacked versions of this app may start floating around that try to automatically protect you from it.  I would not expect there to be any general tools already available that would protect you from this, so this is something that would simply take lots of googling or (perhaps) requests to the right people.  This has a major downside that unless you are an expert at reverse engineering, there isn't much to do to make this happen.  It's also hard to estimate what the risks of detection are.  That will obviously vary wildly depending on the skill level of the person who put it together.
+3. Server Spoofing
+Depending on your level of technological know-how you might be able to put something together yourself (note: this is not for novices).  Based on what I know and my experience in this area, I'm going to try to summarize some details about what a server-spoofing measure might look like.  Again, I'm not summarizing this because I think you should do it, but because understanding how things like this operate can be generally informative and also help understand the risks there-in.
+Built-in security
+First, we need to understand how this spying app might secure itself.  From all information available so-far, the answer is ""it doesn't"".  This is a pretty simple conclusion to come to because the app communicates exclusively through http.  It is very easy to intercept http requests, either from the device itself (if your phone is rooted) or with network sniffing tools on a computer attached to the same network as the device.  Most likely it is also very possible to easily figure out how the app authenticates itself with the end-server and how the end-server authenticates itself with the app.  In all likelihood there is no authentication in either direction, which means that spoofing requests in either direction is trivially easy.  This might be hard to believe (given that a country like China sets aside lots of resources to invasive technology like this), but the reality is that if the people who developed this app wanted to secure it from outside tampering, using HTTPS for transit would be the very first step to perform.  It is cheap, easy, and very effective.  The lack of HTTPS means that it is very likely that there is no actual security in this ecosystem, which is a plus for anyone trying to evade it.
+Sniff all traffic coming out of this app to determine what requests/responses it makes
+This is the first step.  By watching the traffic leaving this app (which can be easily intercepted in the network itself since there is no SSL encryption) you can figure out what requests it sends to the destination server and what responses it expects back.  Understanding the underlying API is critical, but easy due to the lack of encryption.  This will also let you know if there is any authentication happening in either direction.  If there is, you can at least see the full request and responses, so you can most likely figure out how to spoof it.  It is possible that there is some hard-to-reverse-engineer authentication going back and forth, but again, given the lack of basic encryption, I doubt there is any such thing built in.
+Figure out if the app is talking to a domain name or IP address
+The destination server the app is talking to is either found via a DNS lookup or has its IP address hard-coded in the app.  In the event of the former you can edit the DNS for your android phone to repoint it to a different server, including one running on your phone.  In the event of a hard-coded IP address you will similarly have to redirect all traffic to that IP address to your local android phone (presumably you can do this with Android - you can with other operating systems, but you would definitely have to root your phone).
+Setup a replacement server
+You then setup a local server that responds to all requests just like the server did in your initial spoofing.  You would have to get this server to run on your phone itself, that way it is always available.  This doesn't necessarily have to be complicated (although that depends on how detailed the actual server interaction is), as you don't actually care about keeping any data on hand.  You just need to make sure that you provide valid responses to all requests.
+Risks:
+
+The app may auto-update itself (although your mock-server may make this impossible) and point to new domains/ip addresses, suddenly removing your protections
+If there is an auto-update functionality and your end up unintentionally killing it (which would be good per point #1 above), a police officer may notice that it is not properly updated, flag you for ""extra"" checking, and discover what you are doing.
+They may do server-side tracking and discover what you are doing because they don't find any data on their end for your particular IMEI (because your mock-server acts like a black-hole and sucks up everything).  Even if you send spoofed requests there will be easy ways for them to determine that (imagine the police copy a blacklisted image to your phone and discover that the app doesn't block/report it)
+They may have root-checking in the app itself, which will cause you problems
+
+Actually, that's it
+I was trying for a longer list but that is really what it all boils down to.  Short of not carrying around a phone or purchasing a separate one, these are about your only options.  For reference, I haven't gone into details about the server spoofing because I think you're necessarily going to go out and do it.  If anything, I've gone through it because it gives opportunity to talk through the risks in more detail, and those should make it clear that there are a lot of risks.  Even if you find a solution from someone, they have to deal with all of these same risks (or ones like it).  Right now this app sounds like it is poorly executed and easily fooled, but depending on how much the Chinese government decides it cares, that could change very quickly.  At that point in time not getting caught basically turns into a cat-and-mouse game with the Chinese government, and that isn't realistically something that someone can continue to win for an extended period of time.  There are a lot of risks, so tread lightly.
+",79,2018-09-24 18:55:17Z,90
+9,4,"
+They can execute code on your device while they have physical access to it. And you can't refuse it. I'm sorry to say that but you are basically doomed. There's no way to trust this device anymore. That's part of the 10 immutable laws of security. In your case the rules #1, #2, #3, #6 and #10 are applicable.
+But when you act like you don't trust the device you could raise their suspicion. Maybe. Because nobody knows what they are actually doing with the collected data. Maybe nothing at all. In the ""best"" case it's primary for spreading FUD.
+But when they are actually using the data it's easy for them to spot burner phones and all kind of tampering. As far as I know you only get a SIM card by identifying with your ID. Since the spyware reads identifying information like IMEI and IMSI they can simple compare the collected data from the phones with the purchase records. They can combine this with behavior tracking based on metadata collected on the phone (Which apps are used and how often, how long the screen is on etc.) and the mobile network (usage of data, location based on cell tower etc). Since they can do that on a large scale, they can spot strange usage patterns by your usage history or how a ""average"" user is behaving. Of course there's a vast amount of ambiguity and such in this data but they have the ultimate interpretational sovereignty.
+You must also keep in mind that you need to keep your measures working all of the time because it could always happen that you get stopped on the street again.
+I'd like to emphasize on rule #10. You are basically trying to solve a social problem with technology - just as your government does.
+",54,2018-09-24 21:51:43Z,92
+9,5,"
+Use a custom ROM (two, to be correct).
+Android phones can have more than one ROM installed, and you choose one or the other. So install two copies.
+On the clean ROM you install the spyware, anything not dangerous, games, whatever you feel clean. On the secure ROM you install things you don't want anyone to know about.
+Keep the clean ROM running almost all the time, specially when you are out of home. Boot on the secure ROM only when you really need.
+You will need to keep a secure mindset too, to have awareness of what ROM you are using and what content you can create or access. That is the main point of failure. Using a different keyboard on each ROM, or different OS languages can help: Chinese on the clean, English on the secure, for example.
+But first you must weight the risk/reward of doing so. If the risk of getting caught plus the mental effort to keep activities and files containerized is worth the benefits of bypassing the spyware, do it. Don't do otherwise.
+",28,2018-09-24 20:42:44Z,96
+9,6,"
+I'd recommend you just go with it. The Chinese police doesn't just stop any random person in the street and asks for their phone. They stop Uyghur.
+This happens for reasons which are somewhere in between ""mitigate a real threat"" and ""Woah, no go, dude"", but whatever it is, it's what the government does, so it's legal and ""right"". No benefit of doubt, and no assumption of innocence, no Sir. By Western standards, it's kind of unthinkable, but you cannot draw to the same standards there.
+So the situation is that you are easily identified as Uyghur, both from looking at your face, and from the fact that police knows. They know who you are and where you live. And sure they know whether you've been stopped before. Again, you're not being stopped at random. You're stopped because you are already a well-identified target, on their screen.
+It isn't even unreasonable to expect that your Internet traffic is monitored (targetted) and even asking about how to circumvent the measures may move your name onto a different, more high priority list.
+You can bet that police keeps a list of people where the spyware has been installed (with device IDs), too. If no data comes in from your device, well, guess what. You'll be stopped again by police, and they will look very carefully why this isn't working.
+Insofar, it is kind of unwise to try and circumvent (and risking being caught) what police wants. From their point of view, you are a possible criminal, and a possible terrorist. By trying to circumvent the measures you prove that you are a criminal.
+The surveillance happens on the base that if you have nothing to hide, then you need not bother if they're watching you. Again, by Western standards, this stance would in no way be acceptable. But whatever, in China it's perfectly acceptable.
+I wouldn't want to risk disappearing in a detention camp if I was you. Rather, let them have their spyware, and simply don't do anything that isn't opportune to the system.
+",15,2018-09-25 16:46:31Z,98
+9,7,"
+First of all, I think you should search for solutions that are already implemented by other people. For instance, what do other people in your case do to prevent the spying activities?
+One possible solution would be to have a man-in-the-middle implementation analyzing the information that is being sent, altering it, and sending it to the same server and port the spyware is trying to connect to.
+I read a bit about the functionality of the app, and the information it gathers is, and I quote from the Wikipedia source you provided:
+
+sent in plaintext
+
+Hence, after doing some tests with a packet sniffer tool and clearly understanding how the spyware and server exchanges made using the HTTP protocol work, you could, if you have root access to your Android phone, redirect the traffic of the spyware app to a process that is running on the background of your Android OS. This process would change the data that is going to be sent to the server the spyware is trying to connect to. That way, you can send data that matches another cellphone (maybe, literally faking the data is a bad idea, because that can trigger alarms).
+You should also take into consideration any kind of validation processes that the spyware has implemented so you do not alter them. More specifically, the data that is in the HTTP packets’ headers and that is sent from the spyware app to the server to gracefully initiate an upload.
+Of course this is theoretical, but it is a realistic thing to do. Also, you probably will require knowledge of Android programming (mostly in C or Java) and IT.
+This approach is stealthy and will not require an uninstall of the spyware app. There is always a risk, but in this case, depending on the data that is actually spoofed, the risk is minimal.
+",11,2018-09-24 15:43:41Z,101
+9,8,"
+Due to the nature of the spyware, they will be able to detect any mitigation techniques which will make you a person of interest to them.
+I know you said you can't afford two phones but it really is the best advice - why not clean and refurb an older phone if you have one around?
+A burner phone doesn't need to be anything special and even better if it isn't a smartphone.
+",9,2018-09-24 13:41:15Z,106
+9,9,"
+One idea is to think of your phone as a networking device and nothing more.  If you carry a secondary ""tablet"", that is NOT a phone, you can tether through your phone, and use a VPN on the tablet to protect your data.  Now you can hand out your phone to be inspected as all of your actual important data and work is on your tablet which is clearly not a cellphone.  If traditional hotspotting is too dangerous, you may want to consider alternative methods such as using a USB2Go cable or bluetooth pairing. If hotspotting is detected or blocked, you might also be able to use an app like PDANet to bypass those restrictions.
+",8,2018-09-25 13:52:59Z,108
+9,10,"
+Disclaimer: I live in North America.
+
+Knowing that I may be forced to install it sooner or later, what are my options to prepare against it?
+
+Remove illegal items and anything else that you think that the government wouldn't approve of from your property - your clothing, phone, desk at work, home, etc.
+If the government can't find you doing anything wrong then you only have to worry about someone planting false evidence on you - you need to search your own stuff from time to time.
+When I go through Customs I've made absolutely certain that I have checked everything for anything I shouldn't have, because you know that they will likely check when you go through the port of entry.
+As a result of my efforts they've not found anything to object to and have even simply waved me through a few times. Nothing to see here, move along.
+
+Ideally:
+
+Make it appear like the app is installed and working as intended, without having it actually spy on me.
+
+
+We have different ideas of what's ideal.
+Ideally I'd prefer to be paid millions of dollars per hour.
+
+
+I don't know whether it includes sophisticated anti-tampering features or not. I can't afford two phones nor two contracts, so using a second phone is not a viable option for me.
+
+
+
+It wouldn't make any sense for it not to detect tampering.
+The APP is probably an excuse.
+If they obtain the information by another means (like monitoring the cell phone towers and WiFi, along with all Internet traffic, and then there's your neighbors whom earn a healthy living turning people in) they can say in Court that they obtained the information from the spyware - that way you don't know how the information was actually obtained.
+This happens in more places than just where you are, it's different where you are in that roving gangs force you to install the APP. In other places (including North America) they get by without using an APO and rely on other techniques.
+Proof: In the last few months people whom have a lot of contact with children (Coaches, High School Principals, etc.) have had their work, home and computers searched for possession of inappropriate images. This appears in the news monthly.
+
+Moral of the story: If you are poor and unsophisticated don't fight the rich, powerful, intelligent army trying to do something that they can find someone to back their actions to prevent you from doing it.
+If you can't afford a second phone and contract that's a hint that you couldn't afford trouble in the first place, and the fine.
+In your country they are upfront about it and demanding because objections fall on deaf ears. It's not much different in North America, just that they are sneaky to avoid complaints and only focus on major infractions so people don't suspect that they can see the lessor consequential things just as easily.
+",4,2018-09-30 13:09:39Z,110
+9,11,"
+While other answers do provide useful insights, my alternative would be to use the phone as you normally would but isolate the app access to data
+One method has been suggested by rooting the device, installing Xposed and corresponding modules of Xprivacy / XPrivacyLua. While I personally use this, rooting the device, managing additional risks due to unlocked bootloader and malicious apps gaining root access is yet another challenge - IMO beyond the scope of average user and hence easy alternative approach below
+There is an open source app called Shelter that does two things
+
+Use the ""Work Profile"" available in Android from version 5.0 (Lollipop) onwards
+It allows you to install the app of your choice, in this case, your spy app in the work profile. Once it is installed on the work profile (by cloning) , it essentially is on an island and can't access any data that is outside your work profile (your photos, emails, SMS or any other app information). You can safely uninstall the original app and if police check, show them your app, which has a padlock icon indicating it is on your work profile. You can keep the app always in your recents or Overview and pull from there so that they don't even see the icon
+
+In simple terms, the spy app has nothing to spy on!
+Download Shelter - an open source app from F-droid or GitHub. Quoting the developer, relevant use case
+
+Run “Big Brother” apps inside the isolated profile so they cannot access your data outside the profile
+
+(Emphasis supplied) 
+I am currently using this, in addition to XprivacyLua. For more details see WhatsApp: How to isolate contacts and photos - Privacy concerns 
+",3,2018-10-01 09:03:49Z,112
+9,12,"
+For a rooted phone (without you will have a hard time to stop the app from doing what it is doing), you can use AFWall+ to prevent the app from phoning home and XPrivacy.
+XPrivacy on Android up to 6 is better than XPrivacyLua (Android 6 and newer), because the old version can block more different things.
+This setup works best, if you can install the app voluntary at a time nobody is watching you configuring the security solutions. If you can only get the app when a policeman stops you, it is a bit harder to hide the security apps.
+",2,2018-09-26 09:49:13Z,113
+9,13,"
+I wouldn't be shocked if there isn't a fake version somewhere--looks exactly real but doesn't actually spy.  Unless the police are actually checking functionality in some fashion this would stop them.
+As others have said, though, getting caught fooling the cops would not be a good thing!
+",2,2018-09-29 02:59:38Z,114
+9,14,"
+There are a lot of great answers, but most of them give solutions that are beyond the ability of the average Android user.
+I would like to offer a compromise between absolute privacy and getting spied upon.
+I assume that your government has other means of acquiring the IMEI and phone metadata. You can stop the app from acquiring other information by denying it permission for:
+
+Body sensors
+Calendar
+Camera
+Contacts
+Location
+Microphone
+Phone
+SMS
+Storage
+
+Here are instructions on how to do it.
+(I am not sure of your Android OS version, but the steps should be similar.)
+This way the spyware would not be able to collect information about you, and therefore I assume that it will either not try to send information to servers, or it will send empty information.
+However, this means that you install the app before police stops you and makes you install it. You can let the app download, kill the network connection while it's installing, and then remove permissions before it starts.
+Risks
+You should be aware that if the police does a deeper investigation, turned off permissions would be evidence that you have willfully tampered with the spyware. You should calculate if this risk is worthy.
+This will also be a useful method of stopping other spyware (such as your flashlight app that requires contact information) from breaching your privacy.
+",1,2018-10-02 04:29:12Z,115
+9,15,"
+You can simply resolve the servers it attempts to connect to back to localhost. 
+This can be accomplished by modifying the /etc/hosts file on your device if you have root. 
+Alternatively, you can use a local VPN which doesn't require root, such as this. 
+",0,2018-09-25 21:42:49Z,116
+9,16,"
+Based on your question I cannot be sure whether you are a Chinese resident, or someon who is planning to visit (for instance a tourist).
+It was already mentioned earlier that so far it seems that only certain minority citizens people are targeted (and if they were to start targeting foreigners that news is sure to spread very quickly).
+Regardless of what I think about that, the following bit may actually help most tourists:
+The google play store is currently blocked in China, so though it is easy to overcome, this likely means that you will not be able to get the app through the standard procedure.
+",0,2018-09-27 14:53:24Z,117
+9,17,"
+(radically edited) 
+I had proposed that one idea to consider was that
+
+Playing dumb can be a good strategy.  
+For example, ask the phone vendor, :""Hi.  My phone is working really slow and keeps crashing.  Can you show me how to do a factory reset?""  
+
+However, I've been informed (see comments below) that even if this led to it being documented that someone else had removed the spyware, the person would likely still get in deep trouble when it was noticed that the spyware was no longer installed.   It sounds like the answer to the question, ""Is there any excuse for not having the spyware installed that would be considered valid?"" is 'NO!'  So it wouldn't matter whether the factory reset is more effective at wiping the system than the spyware is at staying installed.  I would say don't risk it, especially if you think you'd make a high-value target.  
+Sadly, the software is effective at repressing dissidents and dissent even if technically it is 100% defective.  
+So my answer is that secretly helping to evangelize, build or crowdfund efforts to make it not work or prove it doesn't work well or to break it or make the phone to appear broken when spies try to install spyware would be better than a more direct approach, which would paint a target on your back.  Good luck, and may the force be with you.
+",-5,2018-09-25 00:03:02Z,120
+9,18,"
+I agree with Doomgoose. Get a burner phone for this. Alternatively, get an app called Orbot (it's Tor for Android) which can get you a bit of the privacy you so desire by encrypting your online activities. Another alternative is adding a VPN on top of the equation.
+",-15,2018-09-24 15:12:23Z,122
+10,1,"
+
+That way the hacker won't know if they have got the login details correct or not.
+
+If the information presented after login has no relationship to the person who the login should be for, then most hackers will quickly recognize that the login is probably not the real one. 
+But, in order to show information which looks like it fits the user, considerable effort could be needed. It also needs to be created specifically for each user and show some true information about the user so it does not look fake but not too much so no important information is leaked. 
+You cannot expect your provider to do this for you but you might try to do this yourself in many cases, i.e. add another email account, another facebook account etc. 
+",66,2018-06-01 12:58:38Z,66
+10,2,"
+The concept you're describing is called Plausible Deniability and methods to provide it have indeed been implemented in some software, VeraCrypt being one example.
+One problem with implementing it in websites, as you suggest, is that it's very hard for the website developer to come up with fake data that is realistic enough to fool an attacker while not giving away any sensitive data about the user. In encryption software like VeraCrypt, that task is shifted to the user, who is obviously in a much better position to do that.
+",50,2018-06-01 12:58:54Z,135
+10,3,"
+Because hackers don't attack login forms
+The flaw is that you assume hackers get into accounts by brute-forcing credentials against remote services. But that's futile anyway.
+Any website with decent security (the ones without decent security wouldn't care about your idea either) will have a limit imposed on how many failed login attempts can be made in a certain timeframe per IP address, usually something like 5 failed attempts every 6 hours. If security is a bit stronger, accounts might also need action from the owner after a number of failed attempts, and/or the owner might be notified of failed login attempts or even all logins from new devices.
+So while brute-force attacks may well be feasible against plain data (such as password hashes exposed in a breach), they are nowhere near feasible against any service with even a bit of security.
+For attackers, it is thus much easier to go phishing, or better yet set up a genuine free service themselves and work on the assumption of password reuse:
+
+",31,2018-06-02 04:07:43Z,138
+10,4,"
+I have never heard of any service or device implementing this either.
+The case where an attacker is present and forcing you to login is pretty unlikely. They are more likely to just take your $1000 iPhone and run.
+However, it is very plausible for this to happen if the ""attacker"" is a security guard/TSA officer at an airport security checkpoint. Especially if you are in a foreign country. (There was a PHENOMENAL Defcon talk on this subject a few years back.)
+Websites
+It probably wouldn't make much sense to implement this on a website. If you (the admin) are certain that someone who is attempting to access an account is a hacker, just block them/lock the account. Problem solved.
+If the attacker is trying to access multiple accounts, they will probably know something is fishy if they are able to ""successfully"" login to multiple accounts on the first or second try.
+Phones
+While phones don't allow fake logins (?), but you can set them to lock after the password isn't entered correctly n times.
+
+Attacker/TSA agent tells you to unlock phone. You intentionally enter wrong password on 1st try.
+""Oh, oops, wrong password...""
+You enter the wrong password again on the 2nd try.
+""Sorry, my hands get sweaty when I am nervous...""
+You enter wrong password on 3rd try. Phone is now locked for 30 minutes!
+
+This of course will not work if you are reciting the password to the attacker, and they are entering it in the phone. And I think most phone lockouts only last for 30 minutes (?), during which time the attacker/TSA agent will do their best to ""convince"" you to remember the password in a back room.
+Laptops
+Your suggestion would be relatively easy to implement on a laptop...
+Create 2 or more user profiles.
+The first profile you name after yourself (first and last name). You set a picture of yourself as the profile picture. This will be your ""fake"" account. Set the password as something simple and easy to remember. Put some ""personal stuff"" in the account (music, pictures of your pet, ""work"" documents, etc).
+The second account you give a generic family member name (""hubby"", ""the kids"", ""honey"", etc). Keep the default profile picture. Set a strong password. This will be the account with admin privileges on the laptop, and the account which you will use for your important/confidential work.
+Now imagine a scenario in which you are forced to login...
+
+You are in an airport in Oceania, about to fly home to Eurasia. Airport security stop you on your way through the terminal.
+Security: ""Give us your passport and laptop!""
+You hand them the laptop and passport. They turn on laptop, and try to login to the account which you named after yourself. Upon seeing they need a password, they demand you tell them the password.
+You: ""The password is opensea. No spaces.""
+The airport security enter the password, and successfully enter your fake account.
+After looking around for a few minutes and not finding anything that interests them, they log out and try to login to your real account.
+Security: ""Whose account is this? What is the password?""
+You: ""That is my kids' account. The password is 123dogs.""
+They enter the password, but are unable to login.
+Security: ""That password is wrong! Tell us the correct password!""
+You act surprised, and ask them to give you the laptop so you can attempt to login. They hand you the laptop, and you start typing in bogus passwords.
+You: ""Those darn kids, I told them NOT to change the password! I'm sorry, they were only supposed to use that account for their stupid video games!""
+The airport security confer with each other, and then let you go on your way. You safely return to Eurasia without having the confidential information on your laptop compromised.
+
+",14,2018-06-01 21:45:19Z,143
+10,5,"
+It's not exactly the context you had in mind but there are in fact systems which implemented this idea. I used to work at a (somewhat sensitive) facility where each employee had two codes to disable the alarm system: The regular one and a duress code. If you used the duress code, the system would be disabled so as to not put you in danger but a silent alarm would go off at the monitoring centre. I am reading on Wikipedia that this was also considered for bank ATM in the US but ultimately ruled out.
+Another similar concept is the “honeypot“. Some of them might in fact accept any credentials or serve dummy data when attacked, to be able to record what an attacker does next or otherwise exploit the situation (e.g. capture the payload of a worm).
+As to why it's not more common in consumer products, online services, etc. there is simply a trade-off between the benefits (how likely a particular attack is, whether it would effectively deter criminals or just prompt them to slightly alter their technique) and the costs (more complex systems to develop, maintain and certify - which also means increased attack surface that could afford an attacker with an actual entry point, bandwidth and operating costs to serve the dummy data to all botnets constantly attacking online services, effort to create credible dummy data to fool more sophisticated attacks).
+",13,2018-06-02 09:20:20Z,139
+10,6,"
+This is called 'Deception Technology' in the cyber world where the solution deceives cyber foes (attackers) with turn-key decoys (traps) that “imitate” your true assets. Hundreds or thousands of traps can be deployed with little effort, creating a virtual mine field for cyber attacks, alerting you to any malicious activity with actionable intelligence immediately. The traps would carry login details, dummy data, dummy system, etc to deceive the attacker by intimating like actual system.
+Deception technology is an emerging category of cyber security defense. Deception technology products can detect, analyze, and defend against zero-day 
+ (where the attack type/procedure is not known before) and advanced attacks, often in real time. They are automated, accurate, and provide insight into malicious activity within internal networks which may be unseen by other types of cyber defense. Deception technology enables a more proactive security posture by seeking to deceive the attackers, detect them and then defeat them, allowing the enterprise to return to normal operations.
+You may refer below link for some solution providers:
+https://www.firecompass.com/blog/top-5-emerging-deception-technology-vendors-at-rsa-conference-2017/
+",5,2018-06-03 16:32:45Z,145
+10,7,"
+This has been done in the past, rather successfully, but depends a lot on what the system is. 
+At one point it was not uncommon for paid access websites to auto detect when an account was logging in from too many IP addresses or with other suspicious patterns and redirect those users to a version of the site that was primarily ads and affiliate links to other sites. If done well the sharing of stolen login credentials could become a revenue center. 
+There are also websites that direct users to different versions based on IP address or other criteria; the simplest version of this is targeted advertising. 
+For shell access it's possible to direct a login to a chrooted jail that has only a small section of disk and specially provisioned binaries, which may not necessarily be the same as the general system. 
+",2,2018-06-02 05:33:46Z,146
+10,8,"
+First off, I wouldn't call the attacker in this scenario a hacker. A hacker is trying to get around the security that the website offers, in your scenario the attacker doesn't care how secure your services are, he cares how easily the user is intimidated and possibly what to do with the body afterwards.
+Secondly, alternate credentials that change your access has been done, but if it does more than present a restricted view of the truth, is a lot of work and of limited utility.
+The reason it is of limited utility, is because your users know about it,  you must presume that any attacker knows about it as well.  Suppose you did this for an ATM card so that it showed a balance that was less than a hundred dollars in order to limit your loss. Either the attacker asks for both (in which case the victim has at best a 50% chance of not loosing more) or simply includes as part of his demands that it produces more than that -- ""if I don't get at least 200 you're dead"".
+It's not totally useless, but is only effective against an ignorant attacker.  Relying upon the attacker not knowing something is called security through obscurity, aka ""they got it"".
+",2,2018-06-02 12:16:20Z,147
+10,9,"
+For web and  a remote attack, as many folks here stated before, appart from the difficulty of creating fake user's content  , there is the problem of : how do you know it's a compromised login?
+I mean, if you assume there is some sort of suspicious activity , like a brute-force attack, you can just block the login for that IP and maybe for that account itself for a while (until the real owner somehow validates its identity)
+The only usefull cases are forced logins, that's another story and a pretty cleaver idea. Here is the implementation I imagine for a social network:
+
+The user creates himself an account with dummy data, and set it as his dummy account.
+When there is a forced login going on, like you jelous gf or bf extorting you to login , then you put the dummy password and there is! you are logged in your beautiful self created dummy account.
+
+BUT Its  not a perfect solution either. The attacker probably would know you and, if it's your crazy ex  for instance, she may just check her chatlog with you and will know you just logged on the bogus account. 
+This is specially relevant because it will be a public  well known feature of the platform you are , so anybody who forces you would be able to check wheter are you or not.
+For banks or other sites, it's a pretty good idea.
+",1,2018-06-02 19:10:47Z,130
+10,10,"
+The problem is that your users have to know about it, thus you must presume that any attacker knows about it as well. 
+",-1,2018-06-02 12:53:22Z,148
+10,11,"
+To me, this sounds as if you were inviting the attacker to dance with you. 
+""Hey attacker, you want to hack my website? Well here is a fake login web site for you!""
+You certainly do not want to invite the attacker to dance with you because he might find it amusing and challenging which would give him even more motivation to try to hack into your website.
+",-2,2018-06-04 15:22:26Z,150
+11,1,"
+Let's go through the process of what actually happened:
+
+Telegram requires a cell phone number to be linked in order to create an account. 
+To verify that the number exists, they send out a verification code for you to enter in the app while creating the account.
+This person obviously didn't want their own cell phone number to be linked to the Telegram account, which is an indication they might use it in malicious ways (terrorism, hacking, …), so:
+They tried to set you up to get that code.
+
+So to answer your questions:
+
+
+Was this a scam?
+
+I'd call it gray zone. But yes, someone did try to scam you for a Telegram verification code.
+
+If yes, did I prevent the scam by denying this user the code?
+
+Yes, you did well, using common sense :-)
+
+If not, what's at risk? Is my bank account at risk, for instance? (I only gave the user my cell phone number. No name, no address, nothing else whatsoever)
+
+That depends, how visible are you on the internet? If you have domain names registered with that number, they can find that. Facebook linked? They can likely find that depending on privacy settings. In brief, if you've linked that number to a lot of accounts, they might find those accounts and the information that's publicly in them.
+
+If I am at risk, what do I need to do to prevent any theft of my information, passwords, money, etc.?
+
+""At risk"" is a heavy word in this situation. They just want a Telegram account; I find it likely they just moved on to one of the other 50 people they PMed while talking to you. 
+
+Just keep an eye open for ""strange things"" (like hacking attempts to other accounts etc.), research yourself with that phone number and see if what you can find needs changing. 
+",108,2018-03-29 16:41:00Z,153
+11,2,"
+It could easily have led to a scam. The request was to get access to Telegram using your phone number. 
+Works just like Whatsaap, when you register, you enter your number and a code is sent to your phone. 
+This could easily be removed by re-registering Telegram on your phone where it would repeat the process but make the other user using it unusable. 
+You may not use Telegram but some of your contacts may use it, and may try to contact you because they see you on the app. They may be conned in the process as they could think its you. You were clever to think twice but next time avoid giving your number so freely.
+",16,2018-03-29 20:49:58Z,156
+11,3,"
+There's also the risk of targeted attacks to your smartphone by having your number (e.g. Android or iOS vulnerabilities) through MMS or SMS. But the risk is low.
+If changing your number is not to burdensome, you might want to change it.
+And kudos on your quick thinking!
+",6,2018-03-29 18:32:21Z,161
+11,4,"
+Contrary to what one of the other answers said, I wouldn't change your number over this. Most of the nuisance stuff from having your number comes from bulk data collection services who resell it. This girl, whomever she is, just wanted to create an account for potentially negative purposes and thought you were a useful patsy (props for having some common sense to not feed her what she wanted). I seriously doubt she'll contact you again, or even share your number with anyone.
+Had you given in, I suspect she would have strung you along and tried to get you to do other unwise things (you'd be amazed what people will do for a female voice and a pretty picture, not having met the person).
+",5,2018-03-30 12:21:00Z,13
+11,5,"
+I understood her intention i.e she wants to open a telegram account with your number. Telegram is a good app to maintain privacy but remember criminals also use telegram to maintain their privacy. Hence why she wants to do such a thing so that no one can discover her identity.
+Note: Telegram is encrypted so what I mean by identity is her location.
+You are completely safe because you didn't give her the code. As I earlier said, telegram is best for maintaining security, privacy.
+But next time don't give your number to an unknown person :)
+",2,2018-03-31 21:08:59Z,162
+12,1,"
+Unless you can come up with some other explanation of how this happend, it sounds like your phone has been infected by some malware. It's impossible for us to say if the infection was the result of something the factory did or something you did. Either way, you should be very concerned. I'd recommend the following course of action:
+
+Make a backup of any data you have on the phone. (The backup could be infected, see this question, but if you have no earlier backup you either have to take the risk or lose your data.)
+Do a complete factory reset, wiping the phone clean.
+Change any passwords that has been stored on or entered on the device.
+
+While you are only seeing one app, it might just be a symptom of a deeper infection.  Just removing the strange chinese app may not be enough.
+",103,2018-03-27 17:13:16Z,9
+12,2,"
+I would be very concerned. One thing I have learnt about security, in all the years I have been trying to understand it, is that if you didn't put something there, somebody else did, and if you don't know what it is doing then the only thing to do is reset, reinstall, and be happy with everything. If you don't know why that software is there, be assured, somebody put it there for a reason and it may be a good reason but it isn't your good reason so if that phone was mine I would save all my data, and only my data, and completely factory reset it.
+",31,2018-03-27 18:32:02Z,167
+12,3,"
+Yes, and be concerned about more than your phone. 
+I can’t imagine a situation where an app was installed without your pin/password. without them first jail-breaking or otherwise significantly compromising your phone's OS. I think the only safe assumption is that anything your phone had access to, they also had access to. 
+So any account your phone has access to is suspect. Particularly any email account you have setup. Look for password reset emails, check your sent items etc. If you had any kind of financial app ( bank etc) check for odd transactions etc.
+If that all looks fine,  I’d follow the advice of others in terms of resetting the phone, but also go beyond the phone and reset all your important passwords etc.
+",22,2018-03-28 02:29:18Z,169
+12,4,"
+The most concerning point is that the repair shop employee claims not to know anything about it.
+The app may or may not be okay. If someone in the repair shop installs a new app, i.e. for testing if installing works again, this can be a problem, but doesn't have to be.
+But if they tell you they do not know about it, either it was some malware installed it, or they are lying to you. And either way you cannot trust the phone anymore not to be infected with something which should concern you.
+",11,2018-03-28 08:50:23Z,113
+12,5,"
+
+when the guy in store suggested to just delete it I did it without thinking. Here's the link to icon I found that looks the same, I suppose it's UC Browser. As I mentioned, everything was in Chinese, including name of the app. – Rafi Rosa
+
+Yes, it was UCBrowser. This is a popular browser in China (since Google Play/Services are not available there) most Chinese phones actually come with this browser pre-installed.
+I believe it was perhaps a way for the repair guy to test the phone in a familiar app... UCBrowser was found to have several flaws that would allow others to exploit, but mainly they'd only happen if you actually used the browser.
+
+I have done a complete factory reset of my phone and changed all passwords that I used while using it. After that all of apps I have previously installed were restored by iPhone and all of my files were stored on iCloud, is it all I can do? – Rafi Rosa
+
+I believe you did well. Even if it was just an app that the repair guy decided to use for testing, he might have done a lot more than just installing and using the browser. Not being honest/upfront about what they really did when they just needed to repair a battery is certainly not professional.
+A factory reset and passwords change should be safe enough regarding your data. If the store does not have ways to profit from replacing other hardware in your phone, you won't notice any difference. However, if you need to be completely sure about its integrity perhaps a certified Apple store may perform a check and tell you what was really changed (not sure if they do this though).
+",10,2018-03-29 09:23:21Z,172
+12,6,"
+I didn't see this addressed in the previous answers, so I thought I'd add:
+If you are going to surrender control of your device, you should perform a backup and a factory reset beforehand. You should reset it again and then restore your backup when returned. It only takes a few seconds to copy your files or install malware.
+It is too late in this case, but the mystery about ""what happened"" applies every time it leaves your control---not just this time because you noticed something wrong. Intruders usually try to avoid detection, so a good intrusion would be unnoticeable.
+",6,2018-03-29 18:37:49Z,173
+12,7,"
+As already stated, anything done to your phone while out of your sight is definitely cause for concern and probably worth restoring from backup, as well as resetting passwords / 2FA for anything tied to that phone.
+However, the exact way this icon got on your home screen would say a lot about how bad of a breach may be involved and how concerned to be. I can think of 2 options not already discussed:
+
+An employee installed the app, but removed it from your list of purchased apps. You could check your purchase history in iTunes for hidden purchases to verify whether this has happened, even for a free app.
+The icon was not actually an installed iOS App, but a bookmarked website / Progressive Web App that was pinned to the Home Screen for some reason to help with diagnostics. You could potentially verify this by checking your Safari history for any activity during the time your phone was at the shop. Clearing the history/cookies would erase the tracks for this, but if that's what happened then the 'app' itself isn't really a cause for alarm.
+
+",4,2018-03-28 20:47:56Z,168
+12,8,"
+Yes you should be concerned. 
+Do a factory reset. 
+If you have backed up your iPhone since before the app, your in luck. If you didn't, less great but still preferable to wipe it clean and start over.
+",2,2018-03-28 01:50:05Z,174
+12,9,"
+if you gave access to the phone to the store, the new app might not be in the list of your purchased apps, simply because an employee in the store logged off, and installed it with their user.
+Nonetheless, I would still handle the phone and passwords used/cached there as potentially compromised.
+However, as mentioned in my first paragraph, the app installation might be just routine, and someone forgot to delete it.  
+",1,2018-03-30 02:04:04Z,175
+12,10,"
+I would recommend you to replace your phone instead of resetting it. The store has had the access to the phone's hardware and firmware and could have replaced them with malicious counterparts in addition to installing this app.
+",0,2018-03-31 16:12:23Z,176
 13,1,"
-My answer would always be ""in comparison to what else?""
-In this moment, SHA-1 is weaker than SHA-2:
-https://en.wikipedia.org/wiki/Secure_Hash_Algorithms
-It's got known weaknesses, a smaller number of security bits, increased risk of collisions, and SHA-2 is fairly prolific, has a good performance, and is fairly widely accepted.  So... why not use something better?
-There is a reason - compatibility.  There will always be some suitably old technology out there that simply cannot (or has not) been upgraded to use the current recommended best practice.  So the big question is - does your business model benefit more from interoperability, or cryptographic strength?  
-My not-spending-lots-of-time-doing-math-research answer on SHA-1 vs. SHA-2 would be that it's a no brainer - SHA-2 is better.  But if you told me that your biggest customer has a substantial investment in SHA-1 only technology and can't improve the system... well... I'd probably advise finding a way to limit the scope of where and who you do SHA-1 with, and then make sure you have that customer sign a nice sounding waiver that they understand that you can't be entirely responsible for the risks of using a not-best-practices algorithm.
-",2,2017-06-26 19:50:58Z,62
+It might improve security but it's a very strange way of doing things.
+What you are suggesting is to start with an image with ""unnecessary"" software installed and remove some of the stuff you don't need (bash, echo,...). This does not only risk breaking things, it also increases container size because the base layer with the unnecessary tools is still shipped.
+A better approach is to start with a minimal image. Not alpine, that's still a full os. The more minimal approach is to use a base image that only contains the required language runtime like googles distoless images https://github.com/GoogleCloudPlatform/distroless . For static binaries, you can even start with an empty image.
+That way you get an image that is as small as possible and does not provide the ""attack surface"" of bash.
+",6,2018-03-22 13:59:51Z,177
 13,2,"
-The risk of using any algorithm is down to your risk appetite. Only you know if the risk of a SHA1 attack is something you are willing to accept. 
-I would use it if that was the only option for none mission critical or sensitive data. But that's only a personal opinion.
-",0,2017-06-26 17:45:16Z,63
+You shouldn't remove bash or any executables that exists in the base image. A lot of executables are interlinked, and removing one executables may cause other apparently unrelated executables to fail to run correctly on some corner case. Instead you should use a base image that doesn't contain anything that you don't really need. alpine makes a great minimalist base image, weighing at 5MB, it contains just the most useful stuffs and nothing more.
+If you know that your application doesn't use any external binary or shell, or if you know exactly which external binary you will be needing, you may want to consider compiling into a statically linked binary and then basing your container of the scratch image.
+",1,2018-03-22 10:53:34Z,178
+13,3,"
+The answer is: it depends. Removing bash and all other interpreters reduces the attack surface of the container. The same applies to e.g. compilers, nc, wget, ...
+The real question is: is this the best way to spend the money?
+E.g.
+
+Testing and production images probably diverge 
+creating a patched container gets (slightly) harder
+Troubleshooting gets way more difficult 
+....
+
+A better way to spend the money might be to harden the application itself by investing in other security measures like regular penetration tests, security monitoring, automated patching, ...
+",0,2018-03-22 11:15:18Z,179
+13,4,"
+It depends to what extent you are following the Container philosophy. If you don't need it, you should avoid using anything not strictly necessary. You should define and refer to everything you need in the Dockerfile, and the entrypoint of a web server should be the apache (or any other web server you are using) binary itself.
+But more importantly, take into account that many binaries (as ls, find, etc.) are linked to the base image layer of the container, so you should leave them untouched, or make a more custom base image. Any ubuntu, debian, etc., base image will have this binaries, and tampering the base image is not recommended.
+It would be a much more secure approach to define an isolated network for databases, or other backend entities, leaving just the port you are exposing to the world as attack surface.
+Obviously, hardening the machine you into what you are containerizing your services is critical.
+I would not worry much because of these binaries. I would worry much more about securing the access to the Docker commands to avoid invoking these binaries during the container runtime.
+",0,2018-03-22 10:17:05Z,181
+13,5,"
+I wanted to add some more resources to the answers so far. In general, it's considered best practice for an OS container image to be as basic as it can possibly be. Removing unneeded shells is just a start. There are multiple hardened OS images out there specifically for a secure container deployment, but there are also many other things to consider, like lowest possible privileges, Read-Only file systems, and much more.
+This page: https://access.redhat.com/articles/2958461 Has multiple links to many good articles. Dan Walsh's Red-Hat blog is also very good for deep level information. https://rhelblog.redhat.com/author/dan-walsh/
+This page has lots more that is directly helpful to this question in the sense of practices even more useful than removing un-needed applications: https://access.redhat.com/blogs/766093/posts/2334141
+And here is a hardened OS for containers. Full disclosure: I haven't used it though, our Systems Engineering worked with my security team to build a gold image for us on our cloud deployment. It's more of an example: https://coreos.com/os/docs/latest/
+",0,2018-03-23 01:37:46Z,182
+14,1,"
+You can't.
+To securely send information over an unsecure channel, you need encryption. 
+Symmetric encryption is out, because you would first need to transport the key, which you can't do securely over an unsecure channel[*].
+That leaves you with public key cryptography. You could of course roll your own, but you don't want to be a Dave, so that's out, which leaves you with HTTPS.
+[*] You can of course try to use a secure channel to exchange the key, for example physical exchange of a key. Then you can use secret key crypto, like Kerberos.
+",109,2018-11-09 14:08:48Z,187
+14,2,"
+TLS is really the only way to do it.
+But what if I encrypt it with JavaScript?
+The attacker can change the JavaScript you send to the client, or simply inject their own JavaScript that logs all information entered.
+Then I'll use CSP and SRI to prevent the addition of scripts and the modification of my own scripts.
+Glad you're using modern tools to help protect your site, but SRI in a non-secure context really only protects against the compromise of an external resource. An attacker can simply modify the CSP headers and SRI tags.
+There's really no way to do this without using encryption from the beginning, and the only standard way to do that is to use TLS.
+",45,2018-11-09 14:09:52Z,97
+14,3,"
+While I agree that you should use HTTPS, you can make it even more secure by using the Salted Challenge Response Authentication Mechanism (SCRAM, see RFC 5802) for the actual authentication exchange.
+It's not trivial to implement, but the gist of it is that, rather than send the password to the server, you send proof to the server that you know the password. Since deriving the proof uses a nonce from the client and server, it's not something that can be reused by an attacker (like sending the hash itself would be).
+This has a few added benefits to using HTTPS with the basic authentication you describe:
+
+The server never actually sees your password as you log in. If someone has managed to insert malicious code onto the server, they still won't know what your password is.
+If there is a bug in the HTTPS implementation (think Heartbleed), attackers still won't be able to acquire your password. Because, even once TLS is bypassed, the password isn't available.
+If, for some reason, you can't use HTTPS, this is better than sending the password in the clear. An attacker will not be able to guess your password based on the exchange. That said, you should still use HTTPS, because defense in depth is better.
+
+Please note that this is only secure if the client is able to perform the SCRAM computations without downloading code from the server. You could provide a fat client, or users may be able to write their own code that they control. Downloading the SCRAM code over HTTP would give an attacker an opportunity to modify the SCRAM code to send the password in cleartext, or otherwise expose it.
+",26,2018-11-09 18:01:00Z,189
+14,4,"
+You should definitely deploy TLS in this case.
+If you decide to try to invent a transport security system over HTTP, ultimately you're going to end up implementing a susbset of the TLS functionality anyway. There are many pitfalls to be aware of when designing and implementing such a system, which are further amplified when you choose to try to implement the system with a language that doesn't offer many safety features.
+Even if you did implement a correct implementation of a cryptographic protocol in JavaScript (which is already a big challenge) you can't rely upon that implementation being resistant to timing attacks, and the whole thing breaks if someone has scripts disabled (e.g. with NoScript).
+As a general rule you should choose the implementation that consists of the most simple, well-understood, trusted components that require you to write the least amount of security-critical code. To quote Andrew Tannenbaum:
+
+A substantial number of the problems (in application security) are caused by buggy software, which occurs because vendors keep adding more and more features to their programs, which inevitably means more code and thus more bugs.
+
+",7,2018-11-09 18:31:24Z,21
+14,5,"
+
+Do I need to implement some encryption algorithm like RSA public key encryption?
+
+If you're considering trying that, you may as well just go the full mile and use HTTPS. Since you don't seem to be an expert, ""rolling your own"" encryption will undoubtedly have misimplementations that render it insecure. 
+",6,2018-11-09 16:03:34Z,192
+14,6,"
+There is actually a way to authenticate a user over an insecure connection: Secure Remote Password (SRP) protocol. SRP is specifically designed to allow a client to authenticate itself to a server without a Man-in-the-Middle attacker being able to capture the client's password, or even replay the authentication to later impersonate the client, whether the authentication succeeded or not. Furthermore, successful authentication with SRP creates a shared secret key that both the client and the server know, but a MitM does not. This secret key could be used for symmetric encryption and/or HMACs.
+However, there are a number of limitations of SRP:
+
+The user must have registered in some secure fashion, as the registration process does require transmitting password-equivalent material (though the server does not need to store it).
+Although it is safe to attempt an SRP login with an untrusted server (that is, it won't expose your password to that server, and you'll be able to tell that the server didn't have your password in its database), It's not safe to load a login web page from an untrusted server (it could send down a page that captures your every keystroke and sends it off somewhere).
+Although successful authentication via SRP generates a secure shared secret key, the code to actually use this key in a web app would need to be loaded from a server, and an attacker could tamper with that code to steal the symmetric key and make changes to the requests and responses.
+
+In other words, while SRP can be useful in situations where you have a trusted client that doesn't need to download its code over the insecure connection and also you have some other secure way to register the user(s), SRP is not suitable for a web application. Web apps always download their code from the server, so if the connection to the server isn't secure, a MitM (or other network attacker, for example somebody spoofing DNS) can inject malicious code into the web app and there's nothing that you, the victim, can do about it. Once that code is there, it can capture any password or other data you enter, steal any key that is generated, and tamper with any requests you send or responses you receive without you even knowing.
+",2,2018-11-10 10:42:20Z,193
+14,7,"
+It is actually quite possible.
+Password has to be hashed on the client side, but not with a static function. The following method uses two steps, and is inspired by the Digest access authentication:
+NOTE: The server keeps a HMAC of the Password and the corresponding Key (Digest);
+
+The client starts by requesting a nonce to the server, the server returns the Key and the Nonce;
+Client calculates: HMAC( HMAC( Password, Key ), Nonce) and sends it to the server;
+Server calculates: HMAC( Digest, Nonce ) and compares it to the received value.
+
+This protects you against replay.
+The main interest I see is not a protection against eavesdropping, but to be completely sure that the plaintext password will not be store on the server, not even in a system log (see Twitter or GitHub).
+Note: HMAC can be replaced by PBKDF2.
+",2,2018-11-10 09:38:45Z,195
+14,8,"
+It is certainly possible to send a password securely using HTTP. There is even a standard for it. It's called HTTP-Digest and it's defined in RFC 7616. It's been a part of the HTTP spec for quite a while. It was originally designed to use only the MD5 message-digest (""hashing"") algorithm, but later revisions of the standard allow the client and server to negotiate which algorithm to use.
+Unfortunately, there are many problems with HTTP-digest and the most glaring of them is that the server needs to have the password in cleartext. So while it's possible to communicate passwords securely using HTTP, it's not possible to securely-store passwords on the server while using it. So basically, it's not useful.
+As others have said, it would be better to implement TLS because it solves multiple problems all at the same time, and it's fairly forward-compatible.
+",1,2018-11-10 22:51:55Z,196
+14,9,"
+As others have said TLS! TLS! TLS! (and with decent key length too)
+But if you have to to use HTTP and any server to implement, is this for programmatic use or human use?
+If for human use, are you looking at basic authentication or form-based? And are your uses able to apply a little logic E.g. not for joe public to use.
+Does anything else need to be protected, or just the password itself?
+If so you may be able to look at:
+
+Use a one-time password pad/generator (RSA fobs ain't cheap, and if you've got that sort of money to spend then you can afford TLS)
+Some other 2-factor auth like SMS (not without it's own issues).
+A simple challenge/response mechanism to obfuscate the password, for example the  page displays two numbers on it in the text (not blatantly labelled either), user has to start password with a simple calculation such as difference between the two numbers added to each digit of a PIN, maybe with random stuff before and/or and after, eg 98634572dkkgdld. Changing the challenge numbers should stop replay attacks that aren't tried instantly, but if an attacker can capture enough attempts they may be able to work it out. You can't put any obfuscation logic in user-facing script either 'cos that'll be seen and if the scheme is too complex your users will hate you even more.
+
+I'd still so with TLS though, certificates are cheap (even free) these days so convoluted obfuscation schemes really have no reason to exist any more.
+",1,2018-11-12 21:55:03Z,197
+14,10,"
+An alternative would be to set up a secure VPN to the destination server, and perform a HTTP login from there. A malicious man in the middle will therefore have to break the encryption on the VPN channel in order to attack the connection and retrieve the passwords. 
+However, in terms of end user usability, it's still not as good as HTTPS, since it requires them to setup and use a different channel with a different set of credentials. 
+",-3,2018-11-09 23:17:20Z,199
+14,11,"
+You need the recipient to send you his key. You can't randomly send someone encrypted info without them first providing you with their personal public key.
+",-4,2018-11-11 01:58:52Z,200
+15,1,"
+Welcome to the internet! This is the normal situation, business as usual.
+You don't have to do anything, but to harden your website. Probes like that occurs all the time, on every site, day and night. Some people call that ""voluntary pen testing.""
+Depending on your site, there are some tools that you can use to help you keep those kinds of probes out of the site. Wordpress sites have a couple plugins (you can search for Security plugins on the plugins directory), and I believe the other popular platforms out there will have equivalent plugins.
+Other tool I usually employ is fail2ban. It can parse your webserver log files, and react accordingly.
+",67,2018-11-05 14:08:39Z,96
+15,2,"
+The first step outside of immediately looking to a solution is to conduct a pentest of your own site and be actually aware of what weaknesses there are in your site. If you don't know what you are protecting, then how will you know to protect it?
+First, look at the infrastructure such as CMS. For example, if you are using Wordpress, then there are pentesting tools for Wordpress available both as apps and cmd tools. ie Wordfence , and I've used WPscan also.
+Second option is to look at tools like OWASP zaproxy and do an attack scan of your network and gain a list of vulnerabilities. Just a note that some of these could be false positives.
+Your findings may mirror what has already been found but I think knowing what the vulnerabilities are in your own site is useful.
+The next step is how you are finding out about these probes. If it was a manual check, you can also consider setting up some log collection system like NXLog 
+",5,2018-11-05 15:18:27Z,206
+15,3,"
+Work out what they are looking for, and ban their IP for a month or two if they try it on.  You might also dummy up some PHP to slow them down. 
+Do not refer them to other sites for huge downloads, and do not leave malware for them to find. 
+
+90% will be Wordpress, PHPMyAdmin, Telephony. If they are script kiddies the same old values pop up.
+
+Look into Fail2Ban and DenyHosts for ideas.
+If you are actually running WP, harden it up with a security solution.
+Only allow access to admin tools and any database by exception, and this should almost never be from an Internet address, but something local with it's own Bastion-like protection.
+",2,2018-11-06 02:09:45Z,12
+15,4,"
+If I had a cent for every scan my website gets...
+Literally, if you check your logs, you will notice a constant stream of automated probes and attacks. When I consult clients (I work in information security), I call this ""background noise"". It is there and any attempt to do anything about it is more costly than just accepting that it's there. I would even go so far as to filter it out before you pipe the logfiles into your monitoring, alerting, SIEM, etc. systems.
+What you must do is keep your systems up-to-date and patched. Almost all of these attacks are using well-known and often quite old exploits. They are fishing for easy targets.
+What you should do is spend a little bit of time on hardening your system. Setting up permissions correctly, blocking unused ports, disabling unused software, running stuff under dedicated users, that kind of stuff.
+What you can do, especially for a private website with a local audience, is to block out broad IP ranges belonging to China, Russia, Europe and/or the USA, depending on where your audience isn't. The vast majority of attacks originate from these origins, and if you don't have anyone in, say, the USA who reads your webpage because your webpage is about your local dog club in Spain, you can reduce the noise just by blocking them out at the firewall. I write ""can"" because it doesn't make much of a difference, really, but it will reduce the noise in your log (it will also affect your Google ranking, but that's a different subject).
+",0,2018-11-06 13:06:14Z,25
+15,5,"
+
+Block the whole country
+Check ASN and it’s allocated IP range, and block that IP range.
+Fingerprint the attacker using a user agent or a JavaScript library and attach a strong captcha when the fingerprint is detected.
+
+Last but not least, secure your site and monitor attacks regularly.
+",-5,2018-11-05 14:07:36Z,0

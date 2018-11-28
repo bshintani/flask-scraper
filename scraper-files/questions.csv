@@ -1,95 +1,96 @@
 Post ID,Title,Question,User ID,Vote Score,Answer Count,View Count,Date,URL,Full URL
-1,Proper security for IoT device,"
-I'm developing a product with simple Cortex-M MCU (with no OS on board, firmware on bare metal) and internet connectivity via external module.
-How do I make it secure? More specifically, how do I protect the data that is sent to and from the remote server?
-My thoughts are:
-
-I can't assume that firmware can be protected; since all users will have physical access to it - they eventually will find a way to dump it. Flash-read protection won't work, encrypting the flash won't prevent dumping it from RAM or something else.  
-Using external encrypted flash/eeprom won't work for the same reasons.  
-Relying on HTTPS on the external chip won't be enough because external module is connected to the MCU via UART and can easily be sniffed or tampered.
-
-I have very basic understanding of cryptography but I know that I shouldn't invent my own, so I presume I'll have to encrypt all the data that is sent to the server by some well-known public key crypto. Probably using session keys.
-But that still requires using one master secret key on the device and I don't know how to store it securely due to 1).
-Any ideas? Is there a well-known bulletproof solution?
-Or I should just generate random keys for every device (not derived from device ID or anything like that)? So if one device is compromised it won't affect the whole network - and that's about it?
-UPD: Clarification - I don't want to allow device owner to impersonate other devices and upload false data (about other devices) to the database.
-",1,2,2,98 times,2018-10-14 19:18:06Z,/questions/195666/proper-security-for-iot-device,https://security.stackexchange.com/questions/195666/proper-security-for-iot-device
-2,Do I need Gateway Firewall for IoT network? [closed],"
-Do I need a gateway firewall to prevent attacks like DoS, if my IoT network can only talk to cloud using IPsec?
-Even if  there is need that can be implemented at cloud. Is there any need for it to present in IoT network?
-",6,1,2,49 times,2018-09-01 12:04:17Z,/questions/192840/do-i-need-gateway-firewall-for-iot-network,https://security.stackexchange.com/questions/192840/do-i-need-gateway-firewall-for-iot-network
-3,What kind of IoT devices use certificates?,"
-I have read that PKI certificates are the main way to provide security on IoT platforms. And the common enrollment protocols for certificates are:
-
-SCEP (Simple Certificate Enrollment Protocol) 
-EST (Enrollment over Secure Transport) 
-CMP (Certificate Management Protocol) 
-CMC (Certificate Management over CMS)
-
-(CMP is the one which is used for securing LTE eNodeBs.) 
-
-Now what is not clear is what devices get the certificates? I am assuming that sensors etc are too small to get certificates and use them? So is anything used for securing sensors in IoT? I think gateways can use certs but gateways probably don't need these protocols - they are not really IOT devices. Also what do the gateways use the certs for - is it to communicate with the cloud servers or is it to communicate with the gateways?  
-So what kind of IoT devices use these protocols to enroll certs? How do they use the certs? Do they use it only for authentication? Or also for encrypting communication? Are they sophisticated enough to do this?
-",7,1,3,228 times,2018-06-19 12:33:16Z,/questions/187941/what-kind-of-iot-devices-use-certificates,https://security.stackexchange.com/questions/187941/what-kind-of-iot-devices-use-certificates
-4,Which are the most dangerous and popular botnets that came from IoT devices?,"
-The ease of taking control of a cheap IoT device makes them the perfect target to craft a botnet to perform DDoS attacks. 
-I heard about botnets created from a lot of hacked IoT devices used to create DDoS attacks on websites.
-How much of this information is true? Is there an existing common threat about IoT botnets nowadays? Which were the most popular IoT botnets and attacks?
-",13,-1,2,227 times,2018-04-23 10:03:25Z,/questions/184365/which-are-the-most-dangerous-and-popular-botnets-that-came-from-iot-devices,https://security.stackexchange.com/questions/184365/which-are-the-most-dangerous-and-popular-botnets-that-came-from-iot-devices
-5,Which are the most common vulnerabilities for poor crafted IoT devices? [closed],"
-I'm learning about securing IoT devices and starting to learn how to develop my own software for them. 
-I wanted to know which are the most common vulnerabilities that any scriptkiddie could exploit and how to be aware of them in general terms. 
-I'm in a very initial stage, so any tip or information regarding:
-
-Popular vulnerabilities in devices or brands
-Securing typical sofware for cameras/sensors/small devices...
-Tools for pentesting devices/examples
-
-",13,0,2,71 times,2018-04-20 08:44:22Z,/questions/184139/which-are-the-most-common-vulnerabilities-for-poor-crafted-iot-devices,https://security.stackexchange.com/questions/184139/which-are-the-most-common-vulnerabilities-for-poor-crafted-iot-devices
-6,Is using both client side certificate and JWT for IoT device redundant?,"
-Is there a case to be made for authorizing with both a client side certificate and JWT for an IoT device?
-Are JWTs good enough (assuming following of the specs)?
-And if client side certs are truly needed, what of expiration dates? (set the client cert expiration way out into the future, etc)?
-",18,1,2,262 times,2018-02-07 16:09:08Z,/questions/179315/is-using-both-client-side-certificate-and-jwt-for-iot-device-redundant,https://security.stackexchange.com/questions/179315/is-using-both-client-side-certificate-and-jwt-for-iot-device-redundant
-7,How to keep Internet of Things projects secure? [closed],"
+1,How to keep Internet of Things projects secure? [closed],"
 I want to experiment with the use of sensors for data logging and potentially for automated actions based on data properties. An example of the latter is if a value being monitored exceeds a threshold for X amount of intervals, some kind of notification or response is triggered, whether an LED lighting up or email being sent out.
 I'm not an expert about sensors, networking, IoT, robotics, scripting, machine learning, or programming in general. That's all part of the learning process. I know enough to know security is important and easier to achieve if it's a goal from the beginning. So my question as I embark on this learning excursion is, what do I need to be aware of or control for to keep these systems safe as I create and experiment with them? If that question is so broad a book answers it, could you recommend a learning resource? Where does one start for learning how to keep home brewed IoT systems secure?
 I realize this depends on two major things: security is harder as complexity increases; and security depends on threat models. Well, my simple sensor systems are bound to get more complex if I pursue more significant projects with them, thus the importance of good security that scales from the start. As for threat models, I don't anticipate enemies and these would all be relatively low-value and plentiful targets (many sensors monitoring basic things) but I do expect there are malicious agents seeking to control any processing power they can or disrupt systems just for the sake of chaos. Lastly as an importart part of the threat model is physical security, because if I put a sensor outside with a solar panel to power it, how do I stop mischievous kids or crooks from destroying or stealing the technology?
-",22,3,5,173 times,2018-02-02 20:45:41Z,/questions/179009/how-to-keep-internet-of-things-projects-secure,https://security.stackexchange.com/questions/179009/how-to-keep-internet-of-things-projects-secure
-8,How safe are wifi enabled talking toys?,"
+",1,3,5,175 times,2018-02-02 20:45:41Z,/questions/179009/how-to-keep-internet-of-things-projects-secure,https://security.stackexchange.com/questions/179009/how-to-keep-internet-of-things-projects-secure
+2,How safe are wifi enabled talking toys?,"
 There have been ads on the radio recently for a wifi enabled toy called Talkies, which are advertised as being able to communicate with app enabled phones, with a ""trusted circle"" that other phones can be added to.
 (Obligatory photo of a cute wifi enabled critter)
 
 Especially considering the Krack vulnerability, and the known process of ""grooming"" a child that a sexual or other predator goes through to gain their trust and exploit them (Here is a story about how Snapchat was used), is this a toy that I should steer away from for my child? (3 years old currently)
-",38,50,6,"10,789 times",2017-10-31 19:19:44Z,/questions/172553/how-safe-are-wifi-enabled-talking-toys,https://security.stackexchange.com/questions/172553/how-safe-are-wifi-enabled-talking-toys
-9,how to implement TLS between web-server and embedded devices,"
-I am working on remote light control system. The devices/controllers are like raspberry pi sized units running embedded programs to accept commands from a management application running on remote web-server. The devices are deployed in the field (street) and connected to internet via  GPRS & Ethernet.
-There are hundreds of such devices not having host-name and their IP is not static. So SSL certificates may not be possible here???.  
-Does the ""shared secrete"" approach works best here? but then distributing these keys to already existing devices would be challenging as it cannot be done over insecure OTA.
-",40,0,3,738 times,2017-10-26 16:37:43Z,/questions/172226/how-to-implement-tls-between-web-server-and-embedded-devices,https://security.stackexchange.com/questions/172226/how-to-implement-tls-between-web-server-and-embedded-devices
-10,Secure operation of IoT equipment?,"
-In the light of recent events around Mirai not being the only IoT botnet, but being joined by IoTroop / IoT_reaper (see here and here ), I wondered what steps need to be taken to securely operate an IoT device. Obviously, just plugging the device into your public-IP internet connection is unwise. But I don't feel that this is the usual deployment scenario. My personal setup is a rather typical home-user's: ISP -> cable modem -> wireless router, and all computers/devices behind this router. This means that there is some firewalling between any given device and the internet. As far as my experience from several companies and universities goes, there is a similar amount of firewalling, if you'd plug your IoT device into any of their company-in-house-network sockets.
-So, the first part amounts to the question: What (network) attack vectors need to be considered?
-In the above-mentioned setup I regarded the IoT-device as not directly accessible from the internet. This does not seem to be true in the presence of an UPnP-enabled router. On several sites I found that deactivating UPnP increases your security. By my mediocre understanding what UPnP does, this seems very logical, as I don't want insecure devices to poke holes into my firewall. But the same sites that suggest turning UPnP off, never seem to mention what possible side-effects this might have. (I read that some software like Windows Live Messenger relys on UPnP?)
-Without UPnP, and without manually redirecting any ports to my IoT device, it seems that my IoT-device would need to make active connections. I can imagine two reasons to make such connections: Connecting to an automatic firmware upgrade mechanism, and to connect to a manufacturer/third-party service, which allows the device to be available from outside of my LAN (e.g. like the Ivideon service).
-So, the second part of the question is: Do these active connections pose a threat? (Given that any accounts on such sites have decent passwords.) Does one need to be afraid of man-in-the-middle attacks on the FW-upgrade mechanism, or maliciously altered FW-images?
-But what else am I missing out? 
-[ Of course, there are two most-basic suggestions, one hears on a daily basis: Change default passwords and apply firmware updates (if the manufacturer even cares to provide them). ]
-",45,1,2,111 times,2017-10-22 14:24:25Z,/questions/171893/secure-operation-of-iot-equipment,https://security.stackexchange.com/questions/171893/secure-operation-of-iot-equipment
-11,Managing https security for IoT gateways,"
-My company is a IoT-Gateway manufacturer. Customers are increasingly getting serious about security issues in the IoT domain. Additionally, governments require dedicated security features as HTTPS for embedded web severs.
-For example, the German government agency for security in IT-systems (BSI) requires to use ""TLS 1.2 in combination MIT Perfect Forward Secrecy"" as minimum security.
-My questions are: 
-
-From an IoT manufacturer's point of view, is an ""upload certificate"" feature in the IoT device sufficient to ensure certificate security?
-Are there already a standard API (or RFC) to replace certificates? Considering large IoT installations the replacement and management of certificates is defitively a big challenge.
-How do companies manage the HTTPS certificate infrastructure for IoT devices today? Are self-signed certificates used in Intranets or official certificates? Does every IoT gateway get a different certificate? Do companies operate private certificate authorities?
-
-",46,1,2,176 times,2017-09-29 17:17:56Z,/questions/170371/managing-https-security-for-iot-gateways,https://security.stackexchange.com/questions/170371/managing-https-security-for-iot-gateways
-12,Should firmware images for IoT be encrypted for security reasons?,"
+",17,50,6,"10,795 times",2017-10-31 19:19:44Z,/questions/172553/how-safe-are-wifi-enabled-talking-toys,https://security.stackexchange.com/questions/172553/how-safe-are-wifi-enabled-talking-toys
+3,Should firmware images for IoT be encrypted for security reasons?,"
 When working with Internet of Things devices, is it recommend to obfuscate or encrypt firmware images pushed to clients? This to make reverse engineering harder.
 (They should be signed of course)
-",61,27,8,"5,283 times",2018-02-05 11:27:54Z,/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons,https://security.stackexchange.com/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons
-13,Does still make sense to use SHA1?,"
-I'm working with Arduino and hash-based signatures which are signature schemes that use only hash functions. Due to the constraints of an Arduino I was thinking about using SHA1 as the underlying function of my hash-based signature. But I'm not sure if it still makes sense to use SHA1 due to its vulnerabilities. Is there a scenario in which would be acceptable to use SHA1?
-",64,4,2,338 times,2017-06-26 17:28:45Z,/questions/162779/does-still-make-sense-to-use-sha1,https://security.stackexchange.com/questions/162779/does-still-make-sense-to-use-sha1
+",31,27,8,"5,304 times",2018-02-05 11:27:54Z,/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons,https://security.stackexchange.com/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons
+4,Could IOT Botnets be Stopped by Static IP addressing the Devices?,"
+I followed the recent IOT DDOS against Dyn and noticed that the attack seemed have three rounds of attack and mitigation. Since I'm not well versed in infosec I did some reasearch around DDOS mitigation techniques. From what I could tell it seems mitigation is essential heuristic traffic analysis to filter out humans from bots then IP banning.  Separately, I also noticed that in almost all the media had the same conclusion that IOT devices are insecure and can't/won't be patched for years. If these two assumptions are true, DDOS mitigation in its rawest since is IP filtering, and we are stuck with millions of infected IOT devices (and adding millions more devices that will one day likely be infected), wouldn't it make sense to start giving IOT devices a static IP, and then when it's detected as participating in a DDOS share the IP to others and block it?
+",39,4,5,"2,163 times",2016-10-26 19:39:44Z,/questions/140984/could-iot-botnets-be-stopped-by-static-ip-addressing-the-devices,https://security.stackexchange.com/questions/140984/could-iot-botnets-be-stopped-by-static-ip-addressing-the-devices
+5,How can I secure my security cameras?,"
+I have dozens of cheap security cameras in my offices. I was under the assumption that, once I changed the admin password, disabled the insecure ""P2P Mode"", disabled UPNP, disabled guest access and changed default ports I was safe.
+After the Mirai hack, I was shocked to see that my ""security"" camera it's accessible via telnet with root:xc3511.
+
+Now, the telnet port shouldn't be forwarded outside by the router, but still it's a problem. What if some PC on the LAN gets infected by some malware?
+",41,3,5,515 times,2016-10-25 19:02:32Z,/questions/140842/how-can-i-secure-my-security-cameras,https://security.stackexchange.com/questions/140842/how-can-i-secure-my-security-cameras
+6,Does the local network need to be hacked first for IoT devices to be accessible?,"
+I completely understand how IoT devices were used in the massive DDoS attacks because they are easily manipulated due to lack of firewalls, default passwords, etc.
+What I don't understand is although easily hacked, most IoT devices are connected to secured private wifi networks. 
+Here's the question: So is it assumed that these thousands of IoT devices' networks were hacked first, then the device itself was hacked? 
+",63,56,10,"10,247 times",2018-01-22 19:20:57Z,/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible,https://security.stackexchange.com/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible
+7,Cloud-based DDoS as a Service,"
+With the consolidation of cloud computing and virtualization, a really simple doubt comes to my mind: why isn't DDoS being largely offered as a service? Why don't we see cloud-based DDoS attacks? 
+vDOS, LizardStresser and others offered a way in which you could pay to attack a target but they used their own infrastructure. 
+It seems safer and simpler to just charge a client, use part of that money to rent servers on an IaaS provider and build a cloud-based botnet. That way one could start an attack from inside the provider to a specific target without even using their own structure. This could even be used for spoofing of attacks in general. Is there any particular reason why this doesn't happen? 
+I have no idea how difficult it is to build a botnet in either context (standard or cloud-based), if getting caught in the cloud would be easier or if this could just be a matter of profit.
+Thanks in advance.
+",73,18,5,"5,623 times",2017-04-25 03:19:47Z,/questions/158047/cloud-based-ddos-as-a-service,https://security.stackexchange.com/questions/158047/cloud-based-ddos-as-a-service
+8,Can secrets be made safe in memory?,"
+Say, I am running an application on a cloud server such as AWS. Suppose I supply a key at run-time (so its not stored anywhere alongside/inside code), is there a way to secure this key in memory?
+So if an attacker gets access to the remote server at a later time, he still should not be able to extract the key from memory. Are there any ways to achieve this? Or is it known to be theoretically impossible?
+The technique discussed here, transparent runtime security, is claimed to make it ""difficult"", but it may still be computationally feasible.
+EDIT: Hardware based solutions are also ok.
+",75,8,5,305 times,2016-05-03 09:46:37Z,/questions/122189/can-secrets-be-made-safe-in-memory,https://security.stackexchange.com/questions/122189/can-secrets-be-made-safe-in-memory
+9,"Police forcing me to install Jingwang spyware app, how to minimize impact?","
+Chinese police are forcing whole cities to install an Android spyware app Jingwang Weishi. They are stopping people in the street and detaining those who refuse to install it.
+Knowing that I may be forced to install it sooner or later, what are my options to prepare against it?
+Ideally:
+
+Make it appear like the app is installed and working as intended,
+without having it actually spy on me.
+
+The app is downloadable and documented. It basically sends the IMEI and other phone metadata, as well as file hashes, to a server. It also monitors messages sent via otherwise secure apps. I don't know whether it includes sophisticated anti-tempering features or not. 
+I can't afford two phones nor two contracts, so using a second phone is not a viable option for me.
+",103,507,18,"106,075 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
+10,Why don't websites and devices offer fake logins for hackers?,"
+I was thinking about this earlier this morning and was wondering why websites and devices don't offer fake logins for hackers? What I mean by that is that if a hacker finds out some of your details and tries to log in to a website (for example) the website will show that you have successfully logged in but will show dummy data that is completely fake.
+That way the hacker won't know if they have got the login details correct or not. It will also protect people in a security situation. For instance, imagine a criminal has stolen someones phone and realises he can't access it. He then points a gun at the owner who then types in part of their details correct but some of them incorrectly. The device unlocks in fake mode, and the criminal then thinks they have access and they decide not to shoot the person because they have complied with their wishes. But the criminal never knows that what they see is just a fake login.
+Has anyone implemented something like this? It seems like quite a good idea to me.
+",151,62,11,"21,508 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
+11,I gave my cell number to a stranger on the internet. Have I fallen victim to a scam?,"
+I was playing an online game and I came in contact with this user. She was listed as from the same country as me (Egypt). So when she asked me for my cell phone number, I gave it to her. I figured it was to add me on WhatsApp so we can chat or something.
+However, I instead received an SMS message (titled 'Telegram') with a number, and she asked me to tell her that number. I asked what it's for, she said that she's from Canada (not the country she listed on her avatar) and that she needs that code I received to connect with me, since I'm outside Canada.
+At the same time, I received a phone call (no number appeared on my screen) with an automated message. I hung up before hearing that message.
+I refused to give this girl the code I received via SMS and parted ways.
+My questions:
+
+Was this a scam?
+If yes, did I prevent the scam by denying this user the code?
+If not, what's at risk? Is my bank account at risk, for instance? (I
+only gave the user my cell phone number. No name, no address,
+nothing else whatsoever)
+If I am at risk, what do I need to do to prevent any theft of my
+information, passwords, money, etc.?
+
+",152,75,5,"16,090 times",2018-03-30 11:09:02Z,/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s,https://security.stackexchange.com/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s
+12,"Should I be concerned about strange, new iPhone app appearing after repair?","
+I had my iPhone battery replaced in a phone repair shop. After collecting it, I noticed that there is a strange new app installed, some ""Chinese"" web browser. It has no alphanumeric name and nothing in the interface was in English.
+I spoke with the technician who replaced the battery and he said that they didn't do anything with the phone, didn't even connect it to a PC.
+Should I be concerned? There's plenty of sensitive data on it.
+It has never been jailbroken, I never visited any suspicious sites on it and I didn't connect it to any PC other than my trusty laptop.
+",165,66,10,"18,722 times",2018-03-30 01:49:06Z,/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair,https://security.stackexchange.com/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair
+13,Should I remove bash from my Docker web app container?,"
+Suppose I am a dev and want to harden my web application environment. If my application does not make use of binaries like sh, ls, find, echo etc. should I just remove them from my image?
+",183,5,5,333 times,2018-03-22 06:25:22Z,/questions/182034/should-i-remove-bash-from-my-docker-web-app-container,https://security.stackexchange.com/questions/182034/should-i-remove-bash-from-my-docker-web-app-container
+14,How to secure passwords over HTTP?,"
+Say my password is abc. I want to send it to the server over HTTP.
+I could send it in plaintext and let the server hash it and compare it to the entries in its database, but then anyone that can see traffic over that connection would see the password in plain text.
+So then I could hash it client-side and let the server just compare it without hashing since it's already hashed (or the server could even double hash, but no difference in this situation). But then again anyone that can see the traffic would see the password hashed, and then send the hashed password to the server and the server would accept it.
+How do I send passwords over HTTP? Do I need to implement some encryption algorithm like RSA public key encryption? Or is this impossible?
+The method should be usable in any browser.
+",201,25,11,"9,435 times",2018-11-13 14:42:35Z,/questions/197330/how-to-secure-passwords-over-http,https://security.stackexchange.com/questions/197330/how-to-secure-passwords-over-http
+15,"I detected someone probing my site for weaknesses, what can I do about it? [duplicate]","
+
+My site has been getting probed by a bunch of IPs from Morroco (trying to submit forms, trying out potential URLs, trying to execute scripts etc..), I have a strong suspicion it's the same person after observing the pattern of how they behave. Looking at the logs they don't seem to have found any vulnerabilities. I'm not sure what I should do about this other than keep observing. Blocking the IP doesn't seem useful since it seems to change. 
+Is there anything I can do about it at this point?  
+",210,27,5,"8,224 times",2018-11-05 14:00:28Z,/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it,https://security.stackexchange.com/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it

@@ -28,9 +28,7 @@ class Question(db.Model):
     full_url = db.Column(db.String())
     answer_id = db.Column(db.Integer, db.ForeignKey('answer.id'))
     answers_ref = db.relationship('Answer', backref='answers', foreign_keys=[answer_id], lazy=True)
-    # accurate = db.Column(db.String)
-    # relevant = db.Column(db.String)
-    # complexity = db.Column(db.Integer)
+    rating = db.relationship('QuestionRating', backref='rating', lazy=True)
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,9 +39,6 @@ class Answer(db.Model):
     date = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     questions_ref = db.relationship('Question', backref='questionsref', foreign_keys=[post_id], lazy=True)
-    # accurate = db.Column(db.String)
-    # relevant = db.Column(db.String)
-    # complexity = db.Column(db.Integer)
 
     def __repr__(self):
         return f"Answer('{self.id}', '{self.post_id}', '{self.answer_id}')"
@@ -55,9 +50,17 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comment = db.Column(db.String())
     date = db.Column(db.String())
-    # accurate = db.Column(db.String)
-    # relevant = db.Column(db.String)
-    # complexity = db.Column(db.Integer)
+    #rating = db.relationship('Rating', backref='rating', lazy=True)
 
     def __repr__(self):
         return f"Comment('{self.post_id}', '{self.answer_id}', '{self.user_id}')"
+
+class QuestionRating(db.Model):
+    #id = db.Column(db.Integer, primary_key=True)
+    accurate = db.Column(db.String())
+    relevant = db.Column(db.String())
+    complexity = db.Column(db.Integer)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), primary_key=True)
+
+    def __repr__(self):
+        return f"Rating('{self.question_id}', '{self.accurate}', '{self.relevant}', '{self.complexity}')"

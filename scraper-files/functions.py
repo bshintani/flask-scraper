@@ -18,57 +18,43 @@ full_question_list = []
 full_answer_list = []
 full_comment_list = []
 # change the range of pages to increase the amount of pages. 1 page = 50 questions.
-pages = [str(i) for i in range(1,2)]
+pages = [str(i) for i in range(1,3)]
 
 def scrape_pages(url):
     requests = 0
     for page in pages:
         print(f'Making request to: {url + page}')
-
         # make a get request
         response = get(url + page + '&sort=newest&pagesize=50')
-
         # pause the loop
-        #sleep(randint(13,45))
         sleep(randint(3,5))
-
         # monitor the requests
         requests += 1
         elapsed_time = time() - start_time
         print(f"Request:{requests} || {elapsed_time/60}")
         clear_output(wait = True)
-
         # parse the content of the request with BeautifulSoup
         html = BeautifulSoup(response.text, 'html.parser')
-
         # remove questions with similar class that are not relevant
         for a in html.find_all('a', 'js-gps-track question-hyperlink mb0'):
             a.decompose()
-
         # scrape all div containers for each question
         question_containers = html.find_all('div', 'question-summary')
         # scrape all href values of each anchor tag (these are the URL's to each question)
         raw_links = html.find_all('a', 'question-hyperlink', href=True)
-
-        # iterate over the question_containers ResultSet to select only answered questions
-        # for question in question_containers:
-        #     if question.div.find('div', 'status unanswered'):
-        #         pass
-        #     else:
-        #         questionList.append(question.h3.a.text)
-        #         urlList.append(question.h3.a['href'])
-
+        # this loop decides which questions to add to the list that will be used later
         for question in question_containers:
             isNotAnswered = question.div.find('div', 'status unsanswered')
             answerCountList = question.find('div', 'stats').find_all('strong')
             answerCount = int(answerCountList[1].text)
-            if not isNotAnswered and answerCount >= 2:
+            # this conditional is only adding questions with 2 or more answers
+            if not isNotAnswered and answerCount >= 5:
                 questionList.append(question.h3.a.text)
                 urlList.append(question.h3.a['href'])
             else:
                 pass
-    print('Number of questions collected:' + str(len(questionList)))
-    print('Number of URLs collected:' + str(len(urlList)) + '\n')
+    print('Questions collected:' + str(len(questionList)))
+
 
 def step_into_url():
     post_id = 1
@@ -86,24 +72,23 @@ def step_into_url():
                     # remove "this question already has an answer here" div
                     for div in html.find_all('div', 'question-status question-originals-of-duplicate'):
                         div.decompose()
-                    # scrape the header, question, and answer(s)
-                    vote_count = html.find('div', 'question').find('span', 'vote-count-post ' ).text
-                    answer_count = html.find('div', 'subheader answers-subheader').h2.get('data-answercount')
-                    view_count = html.find_all('p', 'label-key')
+                    # scrape the question header, body, vote count, date, and view count
                     header = html.find('div', {'id': 'question-header'}).h1.a.text
                     question = html.find('div', 'postcell post-layout--right').div.text
+                    vote_count = html.find('div', 'question').find('span', 'vote-count-post ' ).text
                     question_date = html.find('div', 'user-action-time').span['title']
-                    answer_containers = html.find_all('div', 'answer')
+                    view_count = html.find_all('p', 'label-key')
+                    # scrape the user who asked the question as well as their avatar image and url
                     user_question = html.find('div', 'post-signature owner grid--cell').find('div', 'user-details').a.text
                     user_question_img = html.find('div', 'post-signature owner grid--cell').img['src']
                     user_question_url = html.find('div', 'post-signature owner grid--cell').find('div', 'user-details').a['href']
-                    #answer_containers = html.find_all('div', 'grid mb0 fw-wrap ai-start jc-end gs8 gsy')
-                    #TEST#
-                    #answer_containers = html.find_all('div', 'answer')
-                    #comment_containers = html.find('div', 'question').find_all('div', 'comment-body')
+                    # scrape the answer divs
+                    answer_containers = html.find_all('div', 'answer')
+                    answer_count = html.find('div', 'subheader answers-subheader').h2.get('data-answercount')
 
-                except:
+                except Exception as e:
                     print('\nSet Variable Error.\n')
+                    print(e)
                     continue
                 try:
                     # This try block collects the ANSWER USERS ONLY
@@ -111,170 +96,132 @@ def step_into_url():
                     answer_id = 1
                     # for each answer on the question's page
                     for user in answer_containers:
-
+                        # scrape all the comment divs
                         answer_comment_containers = user.find_all('div', 'comment-text js-comment-text-and-form')
                         print(f'\n\n  Answer: {answer_id}')
-                        #print(len(answer_comment_containers))
+                        # the following try/except block scrapes all the answer comments and users respectively
                         try:
+                            # iterate over the comment divs list and scrape the comment body, user, user url, and date
                             for comment in answer_comment_containers:
-                                #print('start of comment loop')
                                 comment_body = comment.find('span', 'comment-copy').text
                                 comment_user = comment.find('a', 'comment-user').text
-                                # comment_user_urls.append(comment.find('div', 'comment-body').a['href'])
                                 comment_user_url = comment.find('div', 'comment-body').find('a', 'comment-user')['href']
                                 comment_date = comment.find('span', 'relativetime-clean').text
                                 checklist = []
-                                #print('before if post_id != 1')
                                 if user_id != 1:
-                                    #print('in "if post_id != 1"')
+                                    # this loop is how we check whether or not the current user is already in our users_list
+                                    # for users(tuple) in users_list(list of tuples)
+                                    # if comment_user(current comment user) is not in the users tuple then append 'false' to the checklist
                                     for users in users_list:
                                         if comment_user not in users:
-                                            #print('Not in Checklist')
                                             checklist.append('false')
                                         else:
-                                            #print('In Checklist')
                                             checklist.append('true')
                                             break
-
-                                    #print(checklist)
+                                    # if there is a 'true' in checklist[] then we skip this user because that means they are already added to the list
                                     if 'true' in checklist:
                                         print(f'\tSkip Commenter: {comment_user}')
                                         rev_user_id = 0
+                                        # this loop and conditional maintains and adds the skipped user's ID to the tuple
                                         for users in users_list:
                                             if comment_user in users:
                                                 rev_user_id = users[0]
+                                        # append the comment tuple to the full_comment_list which will be written to csv at the end
                                         full_comment_list.append(tuple((post_id, answer_id, rev_user_id, comment_body, comment_date)))
                                         print(rev_user_id)
                                         continue
+                                    # if the user isn't in users_list we scrape their user info and add it to users_list
                                     elif 'false' in checklist:
-                                        #print('FALSE')
-                                        #user_url = answer_containers[i].find('div', 'user-details').a['href']
                                         print(f'\tCommenter: {comment_user}')
                                         print(f'\t  {comment_date}')
                                         sleep(randint(3,5))
+                                        # step into the user's url
                                         response1 = get(base_url + comment_user_url)
                                         html1 = BeautifulSoup(response1.text, 'html.parser')
                                         comment_user_img = html1.find('div', 'gravatar-wrapper-164').img['src']
-
-                                        # user_data is the whole grid that contains pertinent metrics that we will be using
+                                        # on the user's landing page, scrape their metrics
                                         try:
                                             user_data = html1.find('div', 'fc-medium mb16')
                                             user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                            #user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
-                                            #print(user_id)
-                                            #print(comment_user)
-                                            #print(comment_user_img)
-
                                             user_num_answers = user_metrics[0].text
-                                            #print('num_answers good')
                                             user_num_questions = user_metrics[1].text
-                                            #print('num_questions good')
                                             user_num_reached = user_metrics[2].text
-                                            #print('num_reached good')
-                                            #print('correct2')
+                                        # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
                                         except:
                                             response2 = get(base_url + comment_user_url + '?tab=topactivity')
-                                            #print('activity url entered')
                                             html2 = BeautifulSoup(response2.text, 'html.parser')
                                             user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
                                             user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
-                                            #print(f'num_answers {user_num_answers}')
                                             user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
                                             user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
-                                            #print(f'num_questions {user_num_questions}')
                                             user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
-
+                                        # the join date and profile views share class names with other div's we don't need
+                                        # the following block filters out the two metrics we are interested in
                                         arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                         for arbitrary_tag in arbitrary_tags:
                                             if arbitrary_tag.find(text=re.compile('Member for ')):
                                                 user_joined_date = arbitrary_tag.span['title']
-                                                #print('joined_date good')
                                             if arbitrary_tag.find(text=re.compile(' profile views')):
                                                 user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                                #print('profile_views good')
-                                        #print(f'Joined Date: {user_joined_date}')
-                                        #print(f'Views: {user_profile_views}')
                                         user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                        #print('reputation good')
-                                        #print(f'Reputation Obtained: {user_reputation}')
-                                        #print(base_url + comment_user_url)
-
+                                        # append the user tuple to users_list
                                         users_list.append(tuple((user_id, comment_user, comment_user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + comment_user_url)))
-
+                                        # append the comment tuple to full_comment_list
                                         full_comment_list.append(tuple((post_id, answer_id, user_id, comment_body, comment_date)))
-                                        print(post_id, answer_id, user_id)
-                                        #answer_id += 1
-                                        #print('append good')
-                                        user_id += 1
-                                        #print('+1 user good')
-                                        #print('\n')
 
+                                        user_id += 1
+
+                                # this elif is triggered only on the first user that is iterated over.
                                 elif user_id == 1:
-                                    #user_url = answer_containers[i].find('div', 'user-details').a['href']
                                     print(f'\tCommenter: {comment_user}')
                                     print(f'\t  {comment_date}')
                                     sleep(randint(3,5))
                                     response1 = get(base_url + comment_user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
                                     comment_user_img = html1.find('div', 'gravatar-wrapper-164').img['src']
+                                    # on the user's landing page, scrape their metrics
+                                    try:
+                                        user_data = html1.find('div', 'fc-medium mb16')
+                                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                        user_num_answers = user_metrics[0].text
+                                        user_num_questions = user_metrics[1].text
+                                        user_num_reached = user_metrics[2].text
+                                    # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                                    except:
+                                        response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                                        html2 = BeautifulSoup(response2.text, 'html.parser')
+                                        user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                                        user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                                        user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                                        user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                                        user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
-                                    # user_data is the whole grid that contains pertinent metrics that we will be using
-                                    user_data = html1.find('div', 'fc-medium mb16')
-                                    user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                    #user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
-                                    #print(user_id)
-                                    #print(comment_user)
-                                    #print(comment_user_img)
-
-                                    user_num_answers = user_metrics[0].text
-                                    #print('num_answers good')
-                                    user_num_questions = user_metrics[1].text
-                                    #print('num_questions good')
-                                    user_num_reached = user_metrics[2].text
-                                    #print('num_reached good')
-                                    #print('correct2')
+                                    # the join date and profile views share class names with other div's we don't need
+                                    # the following block filters out the two metrics we are interested in
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
                                         if arbitrary_tag.find(text=re.compile('Member for ')):
                                             user_joined_date = arbitrary_tag.span['title']
-                                            #print('joined_date good')
                                         if arbitrary_tag.find(text=re.compile(' profile views')):
                                             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                            #print('profile_views good')
-                                    #print(f'Joined Date: {user_joined_date}')
-                                    #print(f'Views: {user_profile_views}')
                                     user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                    #print('reputation good')
-                                    #print(f'Reputation Obtained: {user_reputation}')
-                                    #print(base_url + comment_user_url)
-
+                                    # append the user tuple to users_list
                                     users_list.append(tuple((user_id, comment_user, comment_user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + comment_user_url)))
-
+                                    # append the comment tuple to full_comment_list
                                     full_comment_list.append(tuple((post_id, answer_id, user_id, comment_body, comment_date)))
-                                    print(post_id, answer_id, user_id)
-                                    #answer_id += 1
-                                    #print('append good')
-                                    user_id += 1
-                                    #print('+1 user good')
-                                    #print('\n')
 
+                                    user_id += 1
                             answer_id += 1
+
                         except Exception as e:
                             print(e)
                             continue
-    #             except Exception as e:
-    #                 print(e)
-    #
-    #     except Exception as e:
-    #         print(e)
-    #     break
-    # print(users_list)
+
                         # If this length is == 1 that means the answer was not edited.
                         if len(answer_containers[i].find_all('div', 'post-signature grid--cell fl0')) == 1:
                             user = answer_containers[i].find('div', 'user-details').a.text
                             user_img = answer_containers[i].find('div', 'gravatar-wrapper-32').img['src']
                             checklist = []
-                            #print('#' + str(len(users_list)))
                             if post_id != 1:
                                 for users in users_list:
                                     if user not in users:
@@ -306,16 +253,11 @@ def step_into_url():
                                             user_joined_date = arbitrary_tag.span['title']
                                         if arbitrary_tag.find(text=re.compile(' profile views')):
                                             user_profile_views = arbitrary_tag.find('div', 'grid--cell fl1').text
-                                    #print(f'Joined Date: {user_joined_date}')
-                                    #print(f'Views: {user_profile_views}')
                                     user_reputation = html1.find('div', 'grid--cell fs-title fc-dark').text
-                                    #print(f'Reputation Obtained: {user_reputation}')
 
                                     users_list.append(tuple((user_id, user, user_img, user_num_answers, user_num_questions, user_num_reached, user_joined_date, user_profile_views, user_reputation, base_url + user_url)))
 
                                     user_id += 1
-                                    #print(comment_user)
-
 
                             elif post_id == 1:
                                 for users in users_list:
@@ -552,8 +494,6 @@ def step_into_url():
     write_answers_to_csv(full_answer_list)
     write_users_to_csv(users_list)
     write_comments_to_csv(full_comment_list)
-
-
 
 def write_questions_to_csv(full_question_list):
     with open('questions.csv', 'w') as out:
