@@ -9,11 +9,11 @@ There have been ads on the radio recently for a wifi enabled toy called Talkies,
 (Obligatory photo of a cute wifi enabled critter)
 
 Especially considering the Krack vulnerability, and the known process of ""grooming"" a child that a sexual or other predator goes through to gain their trust and exploit them (Here is a story about how Snapchat was used), is this a toy that I should steer away from for my child? (3 years old currently)
-",17,50,6,"10,795 times",2017-10-31 19:19:44Z,/questions/172553/how-safe-are-wifi-enabled-talking-toys,https://security.stackexchange.com/questions/172553/how-safe-are-wifi-enabled-talking-toys
+",17,50,6,"10,796 times",2017-10-31 19:19:44Z,/questions/172553/how-safe-are-wifi-enabled-talking-toys,https://security.stackexchange.com/questions/172553/how-safe-are-wifi-enabled-talking-toys
 3,Should firmware images for IoT be encrypted for security reasons?,"
 When working with Internet of Things devices, is it recommend to obfuscate or encrypt firmware images pushed to clients? This to make reverse engineering harder.
 (They should be signed of course)
-",31,27,8,"5,304 times",2018-02-05 11:27:54Z,/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons,https://security.stackexchange.com/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons
+",31,27,8,"5,315 times",2018-02-05 11:27:54Z,/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons,https://security.stackexchange.com/questions/168620/should-firmware-images-for-iot-be-encrypted-for-security-reasons
 4,Could IOT Botnets be Stopped by Static IP addressing the Devices?,"
 I followed the recent IOT DDOS against Dyn and noticed that the attack seemed have three rounds of attack and mitigation. Since I'm not well versed in infosec I did some reasearch around DDOS mitigation techniques. From what I could tell it seems mitigation is essential heuristic traffic analysis to filter out humans from bots then IP banning.  Separately, I also noticed that in almost all the media had the same conclusion that IOT devices are insecure and can't/won't be patched for years. If these two assumptions are true, DDOS mitigation in its rawest since is IP filtering, and we are stuck with millions of infected IOT devices (and adding millions more devices that will one day likely be infected), wouldn't it make sense to start giving IOT devices a static IP, and then when it's detected as participating in a DDOS share the IP to others and block it?
 ",39,4,5,"2,163 times",2016-10-26 19:39:44Z,/questions/140984/could-iot-botnets-be-stopped-by-static-ip-addressing-the-devices,https://security.stackexchange.com/questions/140984/could-iot-botnets-be-stopped-by-static-ip-addressing-the-devices
@@ -27,24 +27,24 @@ Now, the telnet port shouldn't be forwarded outside by the router, but still it'
 I completely understand how IoT devices were used in the massive DDoS attacks because they are easily manipulated due to lack of firewalls, default passwords, etc.
 What I don't understand is although easily hacked, most IoT devices are connected to secured private wifi networks. 
 Here's the question: So is it assumed that these thousands of IoT devices' networks were hacked first, then the device itself was hacked? 
-",63,56,10,"10,247 times",2018-01-22 19:20:57Z,/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible,https://security.stackexchange.com/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible
+",63,56,10,"10,257 times",2018-01-22 19:20:57Z,/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible,https://security.stackexchange.com/questions/140760/does-the-local-network-need-to-be-hacked-first-for-iot-devices-to-be-accessible
 7,Cloud-based DDoS as a Service,"
 With the consolidation of cloud computing and virtualization, a really simple doubt comes to my mind: why isn't DDoS being largely offered as a service? Why don't we see cloud-based DDoS attacks? 
 vDOS, LizardStresser and others offered a way in which you could pay to attack a target but they used their own infrastructure. 
 It seems safer and simpler to just charge a client, use part of that money to rent servers on an IaaS provider and build a cloud-based botnet. That way one could start an attack from inside the provider to a specific target without even using their own structure. This could even be used for spoofing of attacks in general. Is there any particular reason why this doesn't happen? 
 I have no idea how difficult it is to build a botnet in either context (standard or cloud-based), if getting caught in the cloud would be easier or if this could just be a matter of profit.
 Thanks in advance.
-",73,18,5,"5,623 times",2017-04-25 03:19:47Z,/questions/158047/cloud-based-ddos-as-a-service,https://security.stackexchange.com/questions/158047/cloud-based-ddos-as-a-service
+",73,18,5,"5,624 times",2017-04-25 03:19:47Z,/questions/158047/cloud-based-ddos-as-a-service,https://security.stackexchange.com/questions/158047/cloud-based-ddos-as-a-service
 8,Can secrets be made safe in memory?,"
 Say, I am running an application on a cloud server such as AWS. Suppose I supply a key at run-time (so its not stored anywhere alongside/inside code), is there a way to secure this key in memory?
 So if an attacker gets access to the remote server at a later time, he still should not be able to extract the key from memory. Are there any ways to achieve this? Or is it known to be theoretically impossible?
 The technique discussed here, transparent runtime security, is claimed to make it ""difficult"", but it may still be computationally feasible.
 EDIT: Hardware based solutions are also ok.
-",75,8,5,305 times,2016-05-03 09:46:37Z,/questions/122189/can-secrets-be-made-safe-in-memory,https://security.stackexchange.com/questions/122189/can-secrets-be-made-safe-in-memory
+",75,8,5,306 times,2016-05-03 09:46:37Z,/questions/122189/can-secrets-be-made-safe-in-memory,https://security.stackexchange.com/questions/122189/can-secrets-be-made-safe-in-memory
 9,What are some considerations before moving personal data to Google Drive?,"
 I am considering uploading some (all) of my digital personal data to Google Drive. I guess this would instantly grant access for NSA to my data. (Is that right?)
 Who would have access to my data on my gDrive? After deleting some files on the Drive, will they actually be deleted? 
-",88,47,8,"8,921 times",2014-07-07 08:16:48Z,/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive,https://security.stackexchange.com/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive
+",88,47,8,"8,923 times",2014-07-07 08:16:48Z,/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive,https://security.stackexchange.com/questions/62599/what-are-some-considerations-before-moving-personal-data-to-google-drive
 10,How to mitigate SSL based DDoS attacks?,"
 as you probably know the problem with SSL based DDoS attacks is, that the traffic cannot be analysed and filtered by a DDoS mitigation service provider such as Prolexic, Akamai, Radware, etc. without having the key to decrypt the traffic. 
 I recently spoke with on of the above mentioned companies employees (Lets say company A) and they said that the only way is to use one of their products, wich is located in your network and its purpose is to deliver content via ssl and send all traffic in plaintext to the defense solution (same company, also internal network) which then in turn gives the filtered ""good traffic"" to your internal webservers.
@@ -52,10 +52,10 @@ Other companies have the approach that you handout your ssl key to them, so they
 Company A stated, that the later is a absolute nogo and that it shouldn't even be considered. Problem is, their solution can only filter as much traffic as your infrastructure and their appliance can handle while cloud solutions have much higher capacities.
 So the question is, is there another way of mitigating SSL based DDoS attacks, is handing out your ssl key really that bad and why?
 I know that there already was a question on ""storing keys in the cloud - trusting the cloud provider vs. your own laptop, etc."" so I'm sorry if some of this is a duplicate, but the answers there didn't really answer my question.
-",97,5,5,"6,017 times",2015-07-23 11:09:17Z,/questions/45410/how-to-mitigate-ssl-based-ddos-attacks,https://security.stackexchange.com/questions/45410/how-to-mitigate-ssl-based-ddos-attacks
+",97,5,5,"6,024 times",2015-07-23 11:09:17Z,/questions/45410/how-to-mitigate-ssl-based-ddos-attacks,https://security.stackexchange.com/questions/45410/how-to-mitigate-ssl-based-ddos-attacks
 11,Can I scan with nmap from cloud services? [closed],"
 Can i conduct nmap scanning from cloud services (i.e AWS)?  i am looking to do external scanning for my company and want to set up something that will be quick, efficient, and cheap. I dont want to stand up my own external box on my own.the cloud services would be ideal. I need to have powerful boxes to handle the workload. 
-",110,3,5,"3,825 times",2013-02-12 16:38:44Z,/questions/30786/can-i-scan-with-nmap-from-cloud-services,https://security.stackexchange.com/questions/30786/can-i-scan-with-nmap-from-cloud-services
+",110,3,5,"3,833 times",2013-02-12 16:38:44Z,/questions/30786/can-i-scan-with-nmap-from-cloud-services,https://security.stackexchange.com/questions/30786/can-i-scan-with-nmap-from-cloud-services
 12,Building a Security Training Simulation environment,"
 My university is keen to build a security training simulation environment/platform and it will be a good learning experience for students. I Googled around to find out how it is built, but I only ended up with recommendations for a VirtualBox or VMWare lab environment been built using pwnOS, Metasploitable, etc...
 What I'm looking for is to build an environment with a couple of vulnerable systems and network setup such that that students won't cross/interfere each other's work. For instance, the system could create a private simulation for each student to practice their class labs, I think some refer this as 'sandboxing'.
@@ -64,13 +64,13 @@ If you could give us some direction on how the system is actually built and if t
 We are aware that Offensive Security offers this service but I need to get quotes from different vendors before can I proceed (at the end I prefer to build the system and might as well give it as project for the security lab students) 
 We are also aware it may require a couple of servers and OSs to build it, and we do have unused hardware.
 Thank you and Happy New Year
-",120,4,5,"5,433 times",2013-01-03 18:10:27Z,/questions/26384/building-a-security-training-simulation-environment,https://security.stackexchange.com/questions/26384/building-a-security-training-simulation-environment
+",120,4,5,"5,434 times",2013-01-03 18:10:27Z,/questions/26384/building-a-security-training-simulation-environment,https://security.stackexchange.com/questions/26384/building-a-security-training-simulation-environment
 13,Encrypt Virtual Machine in the cloud,"
 I am no expert when it comes to security in virtualized environments.
 However a problem I always saw is: What happens if the host OS gets hacked and an attacker gains administrative privileges?
 How can I protect a VM in the (public) cloud against such threats? 
 As far as I know there do exist solutions like encrypting the storage layer or encrypting the VM's RAM. Unfortunately I never saw a tutorial describing how to apply those techniques. Are there instructions on how to do this without resorting to one of the providers' proprietary solutions?
-",125,10,7,"3,199 times",2012-10-06 13:02:25Z,/questions/21220/encrypt-virtual-machine-in-the-cloud,https://security.stackexchange.com/questions/21220/encrypt-virtual-machine-in-the-cloud
+",125,10,7,"3,203 times",2012-10-06 13:02:25Z,/questions/21220/encrypt-virtual-machine-in-the-cloud,https://security.stackexchange.com/questions/21220/encrypt-virtual-machine-in-the-cloud
 14,It is safe to store photos and documents on skydrive / google cloud services?,"
 I have over 20GB of photos and documents stored on my hard disk without a backup. I'm thinking about saving all of them in a cloud service such as Microsoft Skydrive or google cloud, but I'm wondering if it is really safe... I mean, can I trust these services in privacy and responsibility just as if I was saving these files on an external hard drive? 
 ",143,11,6,"27,540 times",2012-05-01 23:06:40Z,/questions/14159/it-is-safe-to-store-photos-and-documents-on-skydrive-google-cloud-services,https://security.stackexchange.com/questions/14159/it-is-safe-to-store-photos-and-documents-on-skydrive-google-cloud-services
@@ -79,7 +79,7 @@ I would like to use a dropbox because it is easy and convenient.
 But I want to encrypt the files with the public key of the intended recipient, so he will be the only one who can access the data in the file. 
 I have not found an easy mechanism to encrypt the data before it is stored in the dropbox.
 Is there an easy way to do so or is there aleady a service that supports my wish?
-",144,11,12,"12,270 times",2013-10-31 07:52:57Z,/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way,https://security.stackexchange.com/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way
+",144,11,12,"12,276 times",2013-10-31 07:52:57Z,/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way,https://security.stackexchange.com/questions/10232/how-can-i-share-files-with-other-individuals-using-the-cloud-in-a-secure-way
 16,GPU powered Password cracking machine - buy metal or cloud?,"
 As a IS consulting firm, we would like to have our very own password cracking machine.
 Great.
@@ -89,7 +89,7 @@ btw, we are thinking on using oclHashcat-plus if it makes any difference.
 Suggestions on how to settle the debate?
 Maybe some completely different approach?
 Thanks in advance,
-",176,9,7,"6,240 times",2011-11-16 16:33:17Z,/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud,https://security.stackexchange.com/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud
+",176,9,7,"6,244 times",2011-11-16 16:33:17Z,/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud,https://security.stackexchange.com/questions/8957/gpu-powered-password-cracking-machine-buy-metal-or-cloud
 17,Risks with Amazon S3 and costs,"
 I have little security knowledge and looking at image hosting for a startup:
 Considering S3 doesn't allow you to set a cap on costs, how likely is it that someone could flood S3 with requests for my files and run up a considerable amount of money?
@@ -103,7 +103,7 @@ Up to 10 TB / month   $0.120 per GB
 
 Does that pricing mean this is a non-issue?
 Does Amazon S3 have security measures in place to stop something like that happening?
-",187,15,5,"6,078 times",2011-11-02 02:18:51Z,/questions/8583/risks-with-amazon-s3-and-costs,https://security.stackexchange.com/questions/8583/risks-with-amazon-s3-and-costs
+",187,15,5,"6,081 times",2011-11-02 02:18:51Z,/questions/8583/risks-with-amazon-s3-and-costs,https://security.stackexchange.com/questions/8583/risks-with-amazon-s3-and-costs
 18,Is this set-up PCI-Compliant?,"
 Question: Is there a way to store credit card information on a shared hosting server AND be PCI compliant?
 Here is the setup:
@@ -122,12 +122,12 @@ without having it actually spy on me.
 
 The app is downloadable and documented. It basically sends the IMEI and other phone metadata, as well as file hashes, to a server. It also monitors messages sent via otherwise secure apps. I don't know whether it includes sophisticated anti-tempering features or not. 
 I can't afford two phones nor two contracts, so using a second phone is not a viable option for me.
-",226,508,18,"106,081 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
+",226,508,18,"106,163 times",2018-09-25 15:37:04Z,/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact,https://security.stackexchange.com/questions/194353/police-forcing-me-to-install-jingwang-spyware-app-how-to-minimize-impact
 20,Why don't websites and devices offer fake logins for hackers?,"
 I was thinking about this earlier this morning and was wondering why websites and devices don't offer fake logins for hackers? What I mean by that is that if a hacker finds out some of your details and tries to log in to a website (for example) the website will show that you have successfully logged in but will show dummy data that is completely fake.
 That way the hacker won't know if they have got the login details correct or not. It will also protect people in a security situation. For instance, imagine a criminal has stolen someones phone and realises he can't access it. He then points a gun at the owner who then types in part of their details correct but some of them incorrectly. The device unlocks in fake mode, and the criminal then thinks they have access and they decide not to shoot the person because they have complied with their wishes. But the criminal never knows that what they see is just a fake login.
 Has anyone implemented something like this? It seems like quite a good idea to me.
-",274,62,11,"21,508 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
+",274,62,11,"21,511 times",2018-06-01 12:49:54Z,/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers,https://security.stackexchange.com/questions/186925/why-dont-websites-and-devices-offer-fake-logins-for-hackers
 21,I gave my cell number to a stranger on the internet. Have I fallen victim to a scam?,"
 I was playing an online game and I came in contact with this user. She was listed as from the same country as me (Egypt). So when she asked me for my cell phone number, I gave it to her. I figured it was to add me on WhatsApp so we can chat or something.
 However, I instead received an SMS message (titled 'Telegram') with a number, and she asked me to tell her that number. I asked what it's for, she said that she's from Canada (not the country she listed on her avatar) and that she needs that code I received to connect with me, since I'm outside Canada.
@@ -143,18 +143,18 @@ nothing else whatsoever)
 If I am at risk, what do I need to do to prevent any theft of my
 information, passwords, money, etc.?
 
-",275,75,5,"16,090 times",2018-03-30 11:09:02Z,/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s,https://security.stackexchange.com/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s
+",275,75,5,"16,174 times",2018-03-30 11:09:02Z,/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s,https://security.stackexchange.com/questions/182567/i-gave-my-cell-number-to-a-stranger-on-the-internet-have-i-fallen-victim-to-a-s
 22,"Should I be concerned about strange, new iPhone app appearing after repair?","
 I had my iPhone battery replaced in a phone repair shop. After collecting it, I noticed that there is a strange new app installed, some ""Chinese"" web browser. It has no alphanumeric name and nothing in the interface was in English.
 I spoke with the technician who replaced the battery and he said that they didn't do anything with the phone, didn't even connect it to a PC.
 Should I be concerned? There's plenty of sensitive data on it.
 It has never been jailbroken, I never visited any suspicious sites on it and I didn't connect it to any PC other than my trusty laptop.
-",288,66,10,"18,724 times",2018-03-30 01:49:06Z,/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair,https://security.stackexchange.com/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair
+",288,66,10,"18,735 times",2018-03-30 01:49:06Z,/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair,https://security.stackexchange.com/questions/182410/should-i-be-concerned-about-strange-new-iphone-app-appearing-after-repair
 23,Privacy: can my employer access sensitive information if they pay my mobile subscription? I bought the hardware myself,"
 I bought the mobile phone myself, but my employer paid the mobile subscription.
 What data can they see and what are potential privacy risks? As far as I know they see which numbers I called (only traditional calls, not via VoIP apps), but they don't see individual Internet traffic.
 I also use the iPhone for the company Microsoft Exchange Server server.
-",302,30,5,"5,635 times",2017-07-28 16:48:32Z,/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs,https://security.stackexchange.com/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs
+",302,30,5,"5,653 times",2017-07-28 16:48:32Z,/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs,https://security.stackexchange.com/questions/166226/privacy-can-my-employer-access-sensitive-information-if-they-pay-my-mobile-subs
 24,Are users meant to hash their passwords? [duplicate],"
 
 When a user logs into their account on my server, should they send their raw data to me, and then I bcrypt compare them, or are they supposed to hash and and I directly compare?
@@ -164,15 +164,15 @@ If I were to do this, wouldn't I run into the exact same problem - slow experien
 ",304,0,5,152 times,2016-10-11 01:16:48Z,/questions/139388/are-users-meant-to-hash-their-passwords,https://security.stackexchange.com/questions/139388/are-users-meant-to-hash-their-passwords
 25,Should I remove bash from my Docker web app container?,"
 Suppose I am a dev and want to harden my web application environment. If my application does not make use of binaries like sh, ls, find, echo etc. should I just remove them from my image?
-",315,5,5,333 times,2018-03-22 06:25:22Z,/questions/182034/should-i-remove-bash-from-my-docker-web-app-container,https://security.stackexchange.com/questions/182034/should-i-remove-bash-from-my-docker-web-app-container
+",315,5,5,346 times,2018-03-22 06:25:22Z,/questions/182034/should-i-remove-bash-from-my-docker-web-app-container,https://security.stackexchange.com/questions/182034/should-i-remove-bash-from-my-docker-web-app-container
 26,Why does XSS affect so many websites?,"
 According to an article I read 65% of all websites globally suffer from XSS. Why can't developers find and fix it?
 Please help me understand. I'm not from a security or tech background.
-",323,9,7,"4,933 times",2016-07-08 11:28:41Z,/questions/129447/why-does-xss-affect-so-many-websites,https://security.stackexchange.com/questions/129447/why-does-xss-affect-so-many-websites
-26,What does it mean to secure something in computer security? [closed],"
+",323,9,7,"4,935 times",2016-07-08 11:28:41Z,/questions/129447/why-does-xss-affect-so-many-websites,https://security.stackexchange.com/questions/129447/why-does-xss-affect-so-many-websites
+27,What does it mean to secure something in computer security? [closed],"
 Can someone provide a formal and simple definition of ""to secure something"" in information security?
-",324,-3,5,116 times,2016-03-24 14:49:48Z,/questions/118027/what-does-it-mean-to-secure-something-in-computer-security,https://security.stackexchange.com/questions/118027/what-does-it-mean-to-secure-something-in-computer-security
-27,Obfuscating IDs for greater security in DB?,"
+",324,-3,5,117 times,2016-03-24 14:49:48Z,/questions/118027/what-does-it-mean-to-secure-something-in-computer-security,https://security.stackexchange.com/questions/118027/what-does-it-mean-to-secure-something-in-computer-security
+28,Obfuscating IDs for greater security in DB?,"
 Original post: https://laracasts.com/discuss/channels/general-discussion/best-way-to-secure-healthcare-data-in-db
 I have a problem dealing with high secure/sensitive (healthcare) data. I know about encryption and I'm encrypting some of my fields.
 But what I have been told is to ""obfuscate IDs"" between tables.
@@ -180,7 +180,7 @@ The idea is: even if someone gets the DB, he cannot see which doctor a patient h
 But I'm googling and reading all over the place that it's not a very good practice (because it's harder to make joins, poor performance etc...).
 Is obfuscating IDs necessary? 
 ",338,4,5,398 times,2017-01-17 22:06:58Z,/questions/104470/obfuscating-ids-for-greater-security-in-db,https://security.stackexchange.com/questions/104470/obfuscating-ids-for-greater-security-in-db
-28,Can simply decompressing a JPEG image trigger an exploit?,"
+29,Can simply decompressing a JPEG image trigger an exploit?,"
 The novel Daemon is frequently praised for being realistic in its portrayal rather than just mashing buzzwords.
 However, this struck me as unrealistic:
 
@@ -191,35 +191,259 @@ This was published in December 2006.
 Is it sensible to say ""the operating system"" was decompressing the image to render it? 
 
 Note this has nothing to do with security of PHP image uploading scripts.  I'm asking about the decoding process of displaying a JPEG, not scripts taking input from remote users, nor files misnamed as .jpeg.  The duplicate flagging I'm responding to looks poor even for a buzzword match; really nothing alike other than mentioning image files.
-",343,99,5,"14,197 times",2015-08-30 16:53:29Z,/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit,https://security.stackexchange.com/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit
-28,How to secure passwords over HTTP?,"
+",343,99,5,"14,224 times",2015-08-30 16:53:29Z,/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit,https://security.stackexchange.com/questions/97856/can-simply-decompressing-a-jpeg-image-trigger-an-exploit
+30,How to secure passwords over HTTP?,"
 Say my password is abc. I want to send it to the server over HTTP.
 I could send it in plaintext and let the server hash it and compare it to the entries in its database, but then anyone that can see traffic over that connection would see the password in plain text.
 So then I could hash it client-side and let the server just compare it without hashing since it's already hashed (or the server could even double hash, but no difference in this situation). But then again anyone that can see the traffic would see the password hashed, and then send the hashed password to the server and the server would accept it.
 How do I send passwords over HTTP? Do I need to implement some encryption algorithm like RSA public key encryption? Or is this impossible?
 The method should be usable in any browser.
-",370,25,11,"9,437 times",2018-11-13 14:42:35Z,/questions/197330/how-to-secure-passwords-over-http,https://security.stackexchange.com/questions/197330/how-to-secure-passwords-over-http
-29,"I detected someone probing my site for weaknesses, what can I do about it? [duplicate]","
+",368,25,10,"9,512 times",2018-11-13 14:42:35Z,/questions/197330/how-to-secure-passwords-over-http,https://security.stackexchange.com/questions/197330/how-to-secure-passwords-over-http
+31,"I detected someone probing my site for weaknesses, what can I do about it? [duplicate]","
 
 My site has been getting probed by a bunch of IPs from Morroco (trying to submit forms, trying out potential URLs, trying to execute scripts etc..), I have a strong suspicion it's the same person after observing the pattern of how they behave. Looking at the logs they don't seem to have found any vulnerabilities. I'm not sure what I should do about this other than keep observing. Blocking the IP doesn't seem useful since it seems to change. 
 Is there anything I can do about it at this point?  
-",378,27,5,"8,226 times",2018-11-05 14:00:28Z,/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it,https://security.stackexchange.com/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it
-30,Is exposing the server time a security risk?,"
+",376,27,5,"8,257 times",2018-11-05 14:00:28Z,/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it,https://security.stackexchange.com/questions/197038/i-detected-someone-probing-my-site-for-weaknesses-what-can-i-do-about-it
+32,Is exposing the server time a security risk?,"
 If I create a servlet that would return the server time publicly (no need for authentication), would this be a security issue? I couldn't think of any issue with this, but somehow something tells me I could be wrong.
 To explain more, this end-point will be used by mobile apps to enhance their security (to avoid cheating by adjusting the device date).
-",382,57,6,"9,207 times",2018-06-08 09:15:11Z,/questions/187316/is-exposing-the-server-time-a-security-risk,https://security.stackexchange.com/questions/187316/is-exposing-the-server-time-a-security-risk
-31,How can I protect my website against bitsquatting?,"
+",380,57,6,"9,208 times",2018-06-08 09:15:11Z,/questions/187316/is-exposing-the-server-time-a-security-risk,https://security.stackexchange.com/questions/187316/is-exposing-the-server-time-a-security-risk
+33,How can I protect my website against bitsquatting?,"
 I've just read an article about bitsquatting (which refers to the registration of a domain name one bit different than a popular domain) and I'm concerned about how it could allow an attacker to load its own assets on my website.
 For example, if my website located at https://www.example.org/ loads a script file located at https://www.example.org/script.js, then an attacker could register dxample.org and host a malicious JS file, which would be downloaded and executed by some users of my website.
 Is there any standard defense technique against it?
-",379,83,6,"23,464 times",2018-05-08 21:29:48Z,/questions/185435/how-can-i-protect-my-website-against-bitsquatting,https://security.stackexchange.com/questions/185435/how-can-i-protect-my-website-against-bitsquatting
-32,Is it more secure to program a client-server system in a language other than English?,"
+",377,83,6,"23,472 times",2018-05-08 21:29:48Z,/questions/185435/how-can-i-protect-my-website-against-bitsquatting,https://security.stackexchange.com/questions/185435/how-can-i-protect-my-website-against-bitsquatting
+34,Is it more secure to program a client-server system in a language other than English?,"
 I'm developing a system with communication via REST between front (JavaScript) and back end (Java/Spring) and this question popped up.
 Does it makes this system more secure to name variables, URLs, etc in a language other than English?
 I imagine it could because, since the most important programming languages are in English, it's likely most programmers know at least a bit of it. Naming our stuff in another language could make hacking more difficult because the attacker would have a harder time to understand what means and does what.
 I couldn't find results on Google because ""programming"" an ""language"" together makes it impossible to find results about the other meaning of ""language"".
-",411,43,10,"19,986 times",2018-05-01 07:09:12Z,/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng,https://security.stackexchange.com/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng
-33,How safe is redirecting to another site?,"
+",409,43,10,"19,986 times",2018-05-01 07:09:12Z,/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng,https://security.stackexchange.com/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng
+35,How safe is redirecting to another site?,"
 Lets say I have a website at https://example.com/test. Whenever someone accesses this site, I want to just simply redirect them to https://example.com/Test.
 Are there any possible vulnerabilities here? Or is this method safe since all I am doing is redirecting from one secured site to another?
-",425,10,5,"4,164 times",2018-04-12 10:36:17Z,/questions/183509/how-safe-is-redirecting-to-another-site,https://security.stackexchange.com/questions/183509/how-safe-is-redirecting-to-another-site
+",423,10,5,"4,169 times",2018-04-12 10:36:17Z,/questions/183509/how-safe-is-redirecting-to-another-site,https://security.stackexchange.com/questions/183509/how-safe-is-redirecting-to-another-site
+36,"A stranger asks for my delivery address, how much information should I give?","
+There's this person online with whom I have only interacted a few times. They had asked me for a small favour, which I did.  They then wanted to give me something in return as a thank you. They were going to post it, so they wanted my address. 
+I am countries away and I'm not used to mail, especially international mail. I hate that I'm paranoid like this when I genuinely look forward to their gift, but I need to know to what extent do I share my details? 
+",442,54,8,"16,569 times",2018-11-20 20:05:27Z,/questions/198067/a-stranger-asks-for-my-delivery-address-how-much-information-should-i-give,https://security.stackexchange.com/questions/198067/a-stranger-asks-for-my-delivery-address-how-much-information-should-i-give
+37,I am receiving weird emails regarding GDPR from electronicprivacy.eu,"
+Since a week, I am getting some French emails. Since I don't know French I used google translate to know what is this about:
+Email 1:
+
+Bonjour,
+En application de mon droits d’accès et d’informations sur les
+  traitements de données personnelles me concernant, je souhaites
+  obtenir de votre part la confirmation que vous n’avez pas dans vos
+  bases de données ou celle de vos sous-traitants d’informations liées à
+  mon email. Ma démarche fait suite à la réception de spam alors que
+  l’usage de cette adresse email est extrêmement limité; ainsi je
+  souhaites que la procédure de recherche se limite à mon email et aux
+  données que vous ou vos sous traitants pourraient avoir associées.
+Je ne souhaites pas accéder aux données de compte ni à des données
+  liées à une identité physique. Ainsi je vous demande de procéder au
+  contrôles sur la base de ma propriété de cette email sans autre
+  procédure de contrôles qui seraient excessives au regard de ma
+  demande.
+Dans l'éventualité où des données me concernant seraient
+  détectées...je vous demande de me préciser la source d’obtention de
+  ces données et les traitements et partagent associés.
+Dans l'attente de votre retour
+
+Email 2:
+
+Je me permet de vous relancer concernant ma demande d’accès aux
+  données liées à mon email datant de la semaine dernière. Avez vous
+  bien reçu ma demande? Vous avez légalement 1 mois pour me répondre.
+  Dans la mesure ou ma demande est simple et limitée,le prolongement
+  d’un mois du délais de réponse me semblerait plutôt inapproprié.
+Dans l’attente d’un retour de votre part.
+
+So basically, this person is asking me if I process his data (I don't have any business in France) in my app, which is targeted to different country.
+I did not respond to this email, thinking it was kind of a spam, however the second email says that I should respond to the first email and I have 1 month to do so.
+My questions are, what is this? Am I obliged to respond with 1 month to such emails? I don't know French, so officialy I can reply: I don't speak French, so no idea what you want. If he starts talking in English, I can do the same, telling I don't speak English :) 
+All the emails comes from electronicprivacy.eu.
+",448,1,6,"1,080 times",2018-11-08 17:39:48Z,/questions/197258/i-am-receiving-weird-emails-regarding-gdpr-from-electronicprivacy-eu,https://security.stackexchange.com/questions/197258/i-am-receiving-weird-emails-regarding-gdpr-from-electronicprivacy-eu
+38,Can someone get my home address if I click on a link to a IP logger?,"
+So I was going through my email and accidentally clicked on a suspicious link. It was a quickmessage.io link, which I had no clue what it was. When I clicked on it, my anti-virus came up and blocked it from accessing it, saying that the link may be harmful and may want to steal your info. I clicked off it and didn't go further than that.
+I looked into it and apparently, it's an IP tracker website. Now I'm scared that whoever it was now has my IP address and maybe my home address. Is it possible to get one's home address through the IP address? Is it possible that they have it, even if I clicked off it with my anti-virus?
+I went into shock mode and straight away downloaded a VPN. Am I safe?
+",459,34,10,"11,368 times",2018-09-13 21:54:58Z,/questions/193651/can-someone-get-my-home-address-if-i-click-on-a-link-to-a-ip-logger,https://security.stackexchange.com/questions/193651/can-someone-get-my-home-address-if-i-click-on-a-link-to-a-ip-logger
+39,Password entropy varies between different checks,"
+I'm massively under-informed when it comes to in-depth security, however my understanding was that password entropy should be somewhat similar between different algorithms.
+I gave a couple of passwords entropy checks, and the algorithms gave me massively varying results.
+Is this to be expected, and is there a reliable/standard check for password entropy?
+",467,14,7,"4,400 times",2018-09-05 09:37:53Z,/questions/193092/password-entropy-varies-between-different-checks,https://security.stackexchange.com/questions/193092/password-entropy-varies-between-different-checks
+40,Should I let my child's school have access to my kid's personal laptop?,"
+My kid is starting 6th grade and the school requires him to get a laptop and bring it to school. Now the school IT department wants to install some software on the laptop and is asking for administrative access. They want to install Office, Outlook, an AV and some site certificates. 
+I feel that on principle this is not right, as it's not the school's device, so school staff shouldn't have access. Additionally, I don't have any sense of how good the school's security practices are. What if they inadvertently install malware? However, if I refuse then I risk being ""that parent"" and I'm setting myself up for a few years of headaches as any time the school wants to add new software, I'll have to do it myself. 
+What would you do? 
+
+Update
+Wow, this certainly blew up! Thanks to everyone for reading and commenting.
+We ended up letting the school have access, for a couple reasons:
+
+The clock was ticking and our child was the only one whose laptop
+wasn't set up, so he wasn't able to fully participate in lessons and
+was missing out on emails sent to the students.
+I'm traveling and am not at home, so remotely installing the software myself   would add another layer of complexity and require someone at home to prep the laptop for remote admin, while adding more delay to the device being ready.
+
+It came down to what's best for the child and at the moment it seemed to us parents that it was letting the school have its way. I can check the device myself later and if there is anything that compromises the device's security or the child's privacy, then I have a better argument against the school's approach. In the meantime I'm letting them know that they could have communicated more about their plans and given us time to have a conversation about it rather than springing it on us at the last minute (though from their point-of-view this worked out just fine).
+",488,287,25,"41,309 times",2018-08-30 08:50:17Z,/questions/192535/should-i-let-my-childs-school-have-access-to-my-kids-personal-laptop,https://security.stackexchange.com/questions/192535/should-i-let-my-childs-school-have-access-to-my-kids-personal-laptop
+41,Is a standalone phone number considered Personally Identifiable Information?,"
+Personally Identifiable Information (PII) is defined (the example below is from NIST) as (emphasis mine)
+
+Information that can be used to distinguish or trace an individual's
+  identity, such as name, social security number, biometric records,
+  etc. alone, or when combined with other personal or identifying
+  information that is linked or linkable to a specific individual, such
+  as date and place of birth, mother’s maiden name, etc.
+
+How should this be interpreted in the case of a single phone number, not associated to a name?
+In other words, if an application is sending bare phone numbers to a server (I am looking at you WhatsApp) without the name of the number owner, is that number still PII?
+
+EDIT: Jonah Benton gave in his answer a very nice summary of the question, I quote him for the sake of clarity
+
+(...) the question refers to a practice where an app on a user's phone
+  gets access to contacts (...) on the phone and uploads all
+  phone numbers to the server without also uploading the names
+  associated with those numbers (despite having access to them.)
+Are these uploaded bare numbers, without names, considered PII?
+
+",426,33,6,"6,475 times",2018-07-04 09:51:17Z,/questions/188865/is-a-standalone-phone-number-considered-personally-identifiable-information,https://security.stackexchange.com/questions/188865/is-a-standalone-phone-number-considered-personally-identifiable-information
+42,Privacy Policy(ies). Does the cookie “collect” browser data or “request” browser data? [closed],"
+I'm working on legal portion of my site, Privacy Policy in particular. I've done the research and found that nearly all the answers to my question (below), is generalized.
+Question: Do cookies ""collect"" data from user browsers, or do cookies ""request"" then receive data from user browsers?
+This seems to be a very important distinction. Do I put into my privacy policy that my site ""collects"" data from my users or do I ""request"" data from my users.
+My understanding of the core functionality is that cookies request data of user browser or browser activity. Users control how their browser will respond (or handle cookies) in their browser settings. If users have the ultimate control of handling ""responses"" to cookies is it proper for website privacy policies to state that they use cookies to collect browser data? Isn't it more accurate to state something like: ""We use cookies to request data from your browser. Depending on you have your settings, your response to our request my impact your experience."" Or something along those lines.
+For years the way I understood the phrase ""cookies collect browser data"" is that we (websites) force code (the cookie), onto your browser that opens a siv for all your activity to flow back to us. But this isn't the case at all. Cookies actually make a ""request"" (i.e., asks) for the user's permission first, and depending on how the user has set up their browser settings, the cookie request is honored or denied.
+I'm trying to stay away from the term ""collect"" as a general matter. I think it's improperly used and leaves the wrong impression on users.
+Has anyone else thought about this? Am I missing something?
+UPDATE: Thank you for all the good responses below. I've concluded that my Privacy Policy will NOT state ""We use cookies to collect info...,"" but rather: ""We use cookies to request info..."" because the former implies no consent required, whereas the latter implies consent required, and IS the more accurate case.
+",517,8,6,"1,400 times",2018-06-19 21:21:45Z,/questions/187984/privacy-policyies-does-the-cookie-collect-browser-data-or-request-browser,https://security.stackexchange.com/questions/187984/privacy-policyies-does-the-cookie-collect-browser-data-or-request-browser
+43,Find IM user location via netstat?,"
+I got sent an article today (http://hakerin.com/facebook-user-location-finder-noobs/). With the click-bait title ""Facebook User location Finder"" Of course I clicked it. 
+Going through the ""article"" there is not a lot of details given. And I thought I would try it out. 
+It basically stated that it was possible to find out the location of a Facebook user that sent you a Facebook message. Specifically, by looking at the IP addresses that appear in the ""Foreign Address"" column of Netstat. To find the geo-location one has to copy the last added IP address from the list into a IP address lookup tool like http://whatismyipaddress.com/. Then copy the coordinates and use google maps to find the exact location of the person. 
+After some time getting the preferred Netstat arguments and some filtering with awk netstat -ntpw | awk '{print $5}'. The  GEO locations the IP addresses hold are mostly in America some in Ireland and some in the Netherlands. When I enter the coordinates in google maps I get unknown locations. 
+This is just fake, right? Or did it used to work like this? If so, that would seem very concerning.  
+",530,23,5,"10,652 times",2017-10-20 14:01:55Z,/questions/171697/find-im-user-location-via-netstat,https://security.stackexchange.com/questions/171697/find-im-user-location-via-netstat
+44,How did Google know I looked something up?,"
+Yesterday I was searching DuckDuckGo for booking a vacation. I ended up reading a lot on one specific website. Today multiple websites show me Google banners from this specific website. Normally, I never look up websites for booking a vacation. I use DuckDuckGo on purpose, to prevent these kind of things. My question therefore is: how is this possible?
+I'm 100% certain that I didn't accidentally Google something.
+The website I was reading was this, if that helps.
+",533,134,7,"23,947 times",2017-10-11 11:21:37Z,/questions/171055/how-did-google-know-i-looked-something-up,https://security.stackexchange.com/questions/171055/how-did-google-know-i-looked-something-up
+45,Is it safe to upload & scan personal files on VirusTotal?,"
+I had an idea to make a plugin for one of my email clients where my users will be able to upload & scan attachments using VirusTotal service, but then again I was worried about their privacy and security of uploading personal files which may have been exposed to someone. 
+My question here is; how safe is it to upload personal files, could they get exposed to someone beside owner of VirusTotal?
+",544,37,5,"8,860 times",2017-08-29 13:29:45Z,/questions/167744/is-it-safe-to-upload-scan-personal-files-on-virustotal,https://security.stackexchange.com/questions/167744/is-it-safe-to-upload-scan-personal-files-on-virustotal
+46,Internal network address contains my name - problematic?,"
+In my university, I needed to register the MAC address of my personal laptop with the admin in order to use the university network. Now, it seems like I am assigned a unique network address ""lastname.university.com"", as my login prompt shows:
+Last login: Wed Aug 16 07:45:38 2017 from lastname.university.com
+
+Is it a problem (e.g. security or privacy) that this address contains my last name? Is it exposed to the outside world, e.g. when I am browsing the web?
+",546,24,5,"4,758 times",2017-08-16 15:01:23Z,/questions/167631/internal-network-address-contains-my-name-problematic,https://security.stackexchange.com/questions/167631/internal-network-address-contains-my-name-problematic
+47,What makes Docker more secure than VMs or bare metal?,"
+I recently had a discussion with a Docker expert about the security of Docker vs. virtual machines. When I told that I've read from different sources that it's easier for code running within a Docker container to escape from it than for a code running in a virtual machine, the expert explained that I'm completely wrong, and that Docker machines are actually more secure in terms of preventing the malicious code from affecting other machines, compared to virtual machines or bare metal.
+Although he tried to explain what makes Docker containers more secure, his explanation was too technical for me.
+From what I understand, “OS-level virtualization reuses the kernel-space between virtual machines” as explained in a different answer on this site. In other words, code from a Docker container could exploit a kernel vulnerability, which wouldn't be possible to do from a virtual machine.
+Therefore, what could make it inherently more secure to use Docker compared to VMs or bare metal isolation, in a context where code running in a container/machine would intentionally try to escape and infect/damage other containers/machines? Let's assume Docker is configured properly, which prevents three of the four categories of attacks described here.
+",565,260,9,"35,894 times",2017-09-20 06:10:58Z,/questions/169642/what-makes-docker-more-secure-than-vms-or-bare-metal,https://security.stackexchange.com/questions/169642/what-makes-docker-more-secure-than-vms-or-bare-metal
+48,Would a VM such as Virtualbox be my best option for everyday security while working?,"
+I run a small business out of my home and I'm not really doing anything labor intensive, no games and I'm not cutting any code or anything of that nature. A lot of what I do is phone based sales, so I'm basically just accessing my web based work gmail account, sending PDF contracts out to be e-signed and storing those on cloud based drive and a lot of browsing for info, finding leads etc.
+I could probably get away with a thin client but I just bought a cheap laptop, and I am curious to know if I'm on the right track here by thinking that Virtualbox for everyday business is my best option for security and usability for just one desktop running Windows 10 (and if so maybe I should go with a lighter weight OS).
+",569,25,6,"10,615 times",2017-06-21 11:01:39Z,/questions/162420/would-a-vm-such-as-virtualbox-be-my-best-option-for-everyday-security-while-work,https://security.stackexchange.com/questions/162420/would-a-vm-such-as-virtualbox-be-my-best-option-for-everyday-security-while-work
+49,Will Running MEMZ or Wanna Cry in VirtualBox Harm Host Computer?,"
+I have read some threads talking about the safety of running malware in a VM. I found out that it may not be safe and there is still a risk. I would like to know specifically if running Wanna Cry, a ransomware, actually mess up my real computer. Is this virus made that way? I want to know about one other. Will running MEMZ, a trojan, harm my computer? Any answer to either of these will help.
+",578,1,5,"3,741 times",2017-05-16 18:26:35Z,/questions/159643/will-running-memz-or-wanna-cry-in-virtualbox-harm-host-computer,https://security.stackexchange.com/questions/159643/will-running-memz-or-wanna-cry-in-virtualbox-harm-host-computer
+50,"Company computers for competent developers, how can you deal with them?","
+This is a follow up on Is there a legitimate reason I should be required to use my company’s computer.  Mostly, because I see a huge issue in a couple of specific situations.
+Had I been in a position of the security engineer for an organization I would definitely put a policy that only company computers shall be used.  That does make sense, and protects not only company data but the liability of employees.
+Yet, there is one case in which such a policy bugs me:  A competent developer (I'm not talking about a junior developer, I'm talking about a middle to senior level developer) will potentially have on his work machine:
+
+17 database engines;
+20 docker containers;
+10 test virtual machines (let's say using something like qemu).
+
+That is a very common scenario in startups and post-startups (a startup that managed to survive several years).  Moreover, this developer will be changing his docker containers and virtual machines every week, since he will probably be testing new technology.
+Requiring this developer to refer to the security engineer to install new software every time is completely impractical.  Moreover, since a company would have more than one such developer, going with the typical company managed computers for everyone involves drawbacks:
+
+Maintaining the computers of, say, six such developers is a full time job for a competent security engineer.
+The manager of those developers will be terribly angry because what his team is doing for 50% of their work-time is to wait for the security engineer.
+
+On the other hand allowing the developers to use the machines freely is dangerous: one rogue docker container or virtual machine and you have an insider.  I would even say that these developer's computers are more dangerous than that of a common user (say, a manager with spreadsheet software).
+
+How do you make sensible policies for competent developers?
+Here are some other solutions I could think of (or saw in the past), most of which were pretty bad:
+
+Disallow internet access from the development machines:
+
+You need internet access to read documentation;
+You need to access repositories, often found on the internet.
+
+Give developers two computers, one for internet and one for development machines:
+
+Complaints about lost productivity: typing Alt+2 to get the browser is faster than switching to another computer;
+Repository access is cumbersome: download in one place, copy to the other.
+Encourages the developer to circumvent the security and make a USB-based connection between both machines, so he can work from a single computer (saw it happening more than once).
+
+Move development to the servers (i.e. not development on desk machines):
+
+This is just moving the same problem deeper, now the rogue container is on the server;
+Arguably worse than allowing the developer to do what he pleases on his own machine.
+
+
+There must be a better way.
+",586,88,13,"17,456 times",2017-07-16 11:47:00Z,/questions/135359/company-computers-for-competent-developers-how-can-you-deal-with-them,https://security.stackexchange.com/questions/135359/company-computers-for-competent-developers-how-can-you-deal-with-them
+51,"Home Banking, antivirus safe environments OR Linux on virtual machines?","
+Which is the safest way to do home banking, given that I do use Windows on a tablet, I do connect to both private and public networks and I cannot use a Linux live distro right now?
+I've been thinking about these methods so far:
+
+using a safe environment provided by an Antivirus Company (i.e. Avast Safe Zone, Kaspersky Safe Browser etc.);
+running Linux on a Virtual Machine.
+
+My questions are:
+
+Which is the safest method between the two? 
+Could you give me any additional advice I should take in mind?
+
+",601,6,5,"3,340 times",2016-01-11 21:25:52Z,/questions/110310/home-banking-antivirus-safe-environments-or-linux-on-virtual-machines,https://security.stackexchange.com/questions/110310/home-banking-antivirus-safe-environments-or-linux-on-virtual-machines
+52,Is it more secure to program a client-server system in a language other than English?,"
+I'm developing a system with communication via REST between front (JavaScript) and back end (Java/Spring) and this question popped up.
+Does it makes this system more secure to name variables, URLs, etc in a language other than English?
+I imagine it could because, since the most important programming languages are in English, it's likely most programmers know at least a bit of it. Naming our stuff in another language could make hacking more difficult because the attacker would have a harder time to understand what means and does what.
+I couldn't find results on Google because ""programming"" an ""language"" together makes it impossible to find results about the other meaning of ""language"".
+",409,43,10,"19,986 times",2018-05-01 07:09:12Z,/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng,https://security.stackexchange.com/questions/184905/is-it-more-secure-to-program-a-client-server-system-in-a-language-other-than-eng
+53,Spoofing POST/GET requests in a RESTful service,"
+I started working on an app that connects to a RESTful service for authentication and data.  User POSTs the user name and password to /token endpoint.
+Once they log in successfully, they get a bearer token that they then append to the Authorization header in the subsequent calls to different protected resources.
+My question is what prevents users from intercepting their regular post from the app (getting the token) and then possibly sending bunch of POST requests (using something like postman or fiddler) to create a large number of fake posts or articles or whatever else the app does.
+What are some possible ways from protecting from this?  Does the fact that the traffic to the service will eventually go via TLS make this a non-issue?
+",613,13,10,"6,191 times",2017-11-14 18:00:45Z,/questions/173391/spoofing-post-get-requests-in-a-restful-service,https://security.stackexchange.com/questions/173391/spoofing-post-get-requests-in-a-restful-service
+54,Is there a way to prevent someone from making his own client app for my webservice? [duplicate],"
+
+Say I have a RESTful web service and a commercial Android app on the front end which is used to interact with it. I may use SSL so that the endpoints are not visible, but someone could still do some reverse engineering to find them.
+I could also use SOAP instead, so that the call to the web service is a bit more complicated. But, I still don't know if this gives me any real advantage over RESTful based service.
+I was thinking about hardcoding the key into my client app, so that only my client app could use the service. Also, maybe some code obfuscation may help. But, how much does this really help?
+UPDATE: As JOW pointed out Fiddler
+could be used to decrypt https and see the full request. However, if I use Android app only, this may be solved by hardcoding server certificate in Android client app. And also, there is SOAP WS-Security, but I guess a tool can be made to function in similar way as fidler to circumvent that.
+",631,30,8,"5,939 times",2017-03-22 00:42:51Z,/questions/154535/is-there-a-way-to-prevent-someone-from-making-his-own-client-app-for-my-webservi,https://security.stackexchange.com/questions/154535/is-there-a-way-to-prevent-someone-from-making-his-own-client-app-for-my-webservi
+55,Returning the wrong HTTP response code on purpose?,"
+I'm writing a simple REST API, and I want to restrict access to my mobile-client only. In other words, I'm trying to prevent a malicious user from e.g. using curl to make an unauthorized POST request.
+Of course, this is impossible. However, there are certain countermeasures that make it difficult for a hacker to succeed. Right now, I am encrypting all requests with a private key, stored client-side (obviously, this is not ideal, but the difficulty in reverse-engineering an iOS app will hopefully deter all but the most determined hackers).
+One simple idea I had is to return the wrong HTTP response code for an unauthorized request. Rather than return a ""401 Unauthorized,"" why not return e.g. ""305 Use Proxy,"" i.e. purposely being confusing. Has anyone ever thought about doing this?
+",655,36,11,"10,143 times",2017-02-08 18:25:05Z,/questions/150758/returning-the-wrong-http-response-code-on-purpose,https://security.stackexchange.com/questions/150758/returning-the-wrong-http-response-code-on-purpose
+56,Ensure web service only accessed by authorized applications,"
+Preface
+My mobile app allows users to create accounts on my service. In addition to being able to log in with external authentication providers, like Facebook, I want to give the user the option to create an account using an e-mail address.
+Normally, all calls to my web service are authenticated via basic authentication over HTTPS. However, the create account function (also over HTTPS) does not have any authentication - since the user does not yet have any credentials.
+If I was writing a website, I would use Captcha to stop my database from being filled up with bogus accounts via script.
+Question
+How can I verify that new user requests are coming from an instance of my application and not from a bot?
+If all data is sent over HTTPS, is it sufficient for the application to have a stored password to say ""hey, it's me!""? What are the best practices for doing something like this?
+Elaboration
+The server is written in Java using the Spring Framework and Spring Security. It is hosted on App Engine. Cost is a concern (both network and computation). The app is a mobile game. I do not store sensitive information like credit card numbers. However, I do keep track of user purchases on the Apple and Android stores. My biggest concern is player experience. I don't want a hacker bringing down the system and ruining someone's enjoyment of the game. I also, need to make sure that the player faces as few obstacles as possible when creating an account.
+Update/Clarification
+I am looking for a way to ensure all calls to the service are coming from an instance of my application. User accounts are already protected because the stateless service requires that they send their credentials on every request. There are no sessions and no cookies.
+I need to stop bot-spam on the unsecured calls, such as create-new-account. I cannot use captcha because it does not fit into the flow of the application.
+",659,30,5,"24,798 times",2013-09-19 15:56:53Z,/questions/42586/ensure-web-service-only-accessed-by-authorized-applications,https://security.stackexchange.com/questions/42586/ensure-web-service-only-accessed-by-authorized-applications

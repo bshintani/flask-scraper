@@ -238,15 +238,33 @@ def step_into_url():
                                     sleep(randint(15,27))
                                     response1 = get(base_url + user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
-                                    # user_data is the whole grid that contains pertinent metrics that we will be using
-                                    user_data = html1.find('div', 'fc-medium mb16')
-                                    user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                    user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                                    # # user_data is the whole grid that contains pertinent metrics that we will be using
+                                    # user_data = html1.find('div', 'fc-medium mb16')
+                                    # user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                    # user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                                    #
+                                    # user_num_answers = user_metrics[0].text
+                                    # user_num_questions = user_metrics[1].text
+                                    # user_num_reached = user_metrics[2].text
+                                    # #print('correct1')
+                # ADDED THIS FOR CHECK
+                                    # on the user's landing page, scrape their metrics
+                                    try:
+                                        user_data = html1.find('div', 'fc-medium mb16')
+                                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                        user_num_answers = user_metrics[0].text
+                                        user_num_questions = user_metrics[1].text
+                                        user_num_reached = user_metrics[2].text
+                                    # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                                    except:
+                                        response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                                        html2 = BeautifulSoup(response2.text, 'html.parser')
+                                        user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                                        user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                                        user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                                        user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                                        user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
-                                    user_num_answers = user_metrics[0].text
-                                    user_num_questions = user_metrics[1].text
-                                    user_num_reached = user_metrics[2].text
-                                    #print('correct1')
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
                                         if arbitrary_tag.find(text=re.compile('Member for ')):
@@ -275,13 +293,30 @@ def step_into_url():
                                     sleep(randint(3,5))
                                     response1 = get(base_url + user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
-                                    # user_data is the whole grid that contains pertinent metrics that we will be using
-                                    user_data = html1.find('div', 'fc-medium mb16')
-                                    user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-
-                                    user_num_answers = user_metrics[0].text
-                                    user_num_questions = user_metrics[1].text
-                                    user_num_reached = user_metrics[2].text
+                                    # # user_data is the whole grid that contains pertinent metrics that we will be using
+                                    # user_data = html1.find('div', 'fc-medium mb16')
+                                    # user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                    #
+                                    # user_num_answers = user_metrics[0].text
+                                    # user_num_questions = user_metrics[1].text
+                                    # user_num_reached = user_metrics[2].text
+                    #ADDED THIS FOR CHECK
+                                    # on the user's landing page, scrape their metrics
+                                    try:
+                                        user_data = html1.find('div', 'fc-medium mb16')
+                                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                        user_num_answers = user_metrics[0].text
+                                        user_num_questions = user_metrics[1].text
+                                        user_num_reached = user_metrics[2].text
+                                    # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                                    except:
+                                        response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                                        html2 = BeautifulSoup(response2.text, 'html.parser')
+                                        user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                                        user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                                        user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                                        user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                                        user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
@@ -319,14 +354,31 @@ def step_into_url():
                                     sleep(randint(15,27))
                                     response1 = get(base_url + user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
-                                    # user_data is the whole grid that contains pertinent metrics that we will be using
-                                    user_data = html1.find('div', 'fc-medium mb16')
-                                    user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                    user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
-
-                                    user_num_answers = user_metrics[0].text
-                                    user_num_questions = user_metrics[1].text
-                                    user_num_reached = user_metrics[2].text
+                                    # # user_data is the whole grid that contains pertinent metrics that we will be using
+                                    # user_data = html1.find('div', 'fc-medium mb16')
+                                    # user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                    # user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                                    #
+                                    # user_num_answers = user_metrics[0].text
+                                    # user_num_questions = user_metrics[1].text
+                                    # user_num_reached = user_metrics[2].text
+                    #ADDED THIS FOR CHECK
+                                    # on the user's landing page, scrape their metrics
+                                    try:
+                                        user_data = html1.find('div', 'fc-medium mb16')
+                                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                        user_num_answers = user_metrics[0].text
+                                        user_num_questions = user_metrics[1].text
+                                        user_num_reached = user_metrics[2].text
+                                    # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                                    except:
+                                        response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                                        html2 = BeautifulSoup(response2.text, 'html.parser')
+                                        user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                                        user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                                        user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                                        user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                                        user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
@@ -357,14 +409,32 @@ def step_into_url():
                                     sleep(randint(15,27))
                                     response1 = get(base_url + user_url)
                                     html1 = BeautifulSoup(response1.text, 'html.parser')
-                                    # user_data is the whole grid that contains pertinent metrics that we will be using
-                                    user_data = html1.find('div', 'fc-medium mb16')
-                                    user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                                    user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                                    # # user_data is the whole grid that contains pertinent metrics that we will be using
+                                    # user_data = html1.find('div', 'fc-medium mb16')
+                                    # user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                    # user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                                    #
+                                    # user_num_answers = user_metrics[0].text
+                                    # user_num_questions = user_metrics[1].text
+                                    # user_num_reached = user_metrics[2].text
 
-                                    user_num_answers = user_metrics[0].text
-                                    user_num_questions = user_metrics[1].text
-                                    user_num_reached = user_metrics[2].text
+                #ADDED THIS FOR CHECK
+                                    # on the user's landing page, scrape their metrics
+                                    try:
+                                        user_data = html1.find('div', 'fc-medium mb16')
+                                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                                        user_num_answers = user_metrics[0].text
+                                        user_num_questions = user_metrics[1].text
+                                        user_num_reached = user_metrics[2].text
+                                    # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                                    except:
+                                        response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                                        html2 = BeautifulSoup(response2.text, 'html.parser')
+                                        user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                                        user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                                        user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                                        user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                                        user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
                                     arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                                     for arbitrary_tag in arbitrary_tags:
@@ -388,7 +458,7 @@ def step_into_url():
                 try:
                     # This loop and conditionals checks whether or not the user_question name is in the users_list; if not, it adds the user_question to the users_list.
                     checklist = []
-                    # print(f'\tChecking Questioner {user_question}')
+                    print(f'\tChecking Questioner {user_question}')
                     for users in users_list:
                         if user_question not in users:
                             checklist.append('false')
@@ -402,14 +472,31 @@ def step_into_url():
                         sleep(randint(15,27))
                         response1 = get(base_url + user_question_url)
                         html1 = BeautifulSoup(response1.text, 'html.parser')
-                        # user_data is the whole grid that contains pertinent metrics that we will be using
-                        user_data = html1.find('div', 'fc-medium mb16')
-                        user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
-                        user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
-
-                        user_num_answers = user_metrics[0].text
-                        user_num_questions = user_metrics[1].text
-                        user_num_reached = user_metrics[2].text
+                        # # user_data is the whole grid that contains pertinent metrics that we will be using
+                        # user_data = html1.find('div', 'fc-medium mb16')
+                        # user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                        # user_metrics_cont = html1.find_all('div', 'grid gs8 gsx ai-center')
+                        #
+                        # user_num_answers = user_metrics[0].text
+                        # user_num_questions = user_metrics[1].text
+                        # user_num_reached = user_metrics[2].text
+            #ADDED FOR CHECK
+                        # on the user's landing page, scrape their metrics
+                        try:
+                            user_data = html1.find('div', 'fc-medium mb16')
+                            user_metrics = user_data.find_all('div', 'grid--cell fs-body3 fc-dark fw-bold')
+                            user_num_answers = user_metrics[0].text
+                            user_num_questions = user_metrics[1].text
+                            user_num_reached = user_metrics[2].text
+                        # in some cases the metrics aren't listed on their landing page so step into the 'Top Activity' tab to retrieve the metrics
+                        except:
+                            response2 = get(base_url + comment_user_url + '?tab=topactivity')
+                            html2 = BeautifulSoup(response2.text, 'html.parser')
+                            user_num_answers = html2.find('div', id='user-panel-answers').h3.a.text.strip()
+                            user_num_answers = user_num_answers.translate({ord(c): '' for c in 'Answers ()'})
+                            user_num_questions = html2.find('div', id='user-panel-questions').h3.a.text.strip()
+                            user_num_questions = user_num_questions.translate({ord(c): '' for c in 'Questions ()'})
+                            user_num_reached = html2.find('div', 'grid--cell fs-body3 fc-dark lh-sm').text.strip()
 
                         arbitrary_tags = html1.find_all('div', 'grid gs8 gsx ai-center')
                         for arbitrary_tag in arbitrary_tags:
@@ -469,6 +556,7 @@ def step_into_url():
                 except Exception as e:
                     print(f'\nSecond Inner skip: {post_id}\n')
                     print(e)
+                    post_id += 1
                     continue
         except:
             print(f'\nOuter skip: {post_id}\n')

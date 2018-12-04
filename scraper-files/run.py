@@ -5,4 +5,8 @@ scrape_pages('https://security.stackexchange.com/questions/tagged/cloud-computin
 scrape_pages('https://security.stackexchange.com/questions/tagged/mobile?page=')
 scrape_pages('https://security.stackexchange.com/questions/tagged/appsec?page=')
 scrape_pages('https://security.stackexchange.com/questions/tagged/web-application?page=')
+scrape_pages('https://security.stackexchange.com/questions/tagged/privacy?page=')
+scrape_pages('https://security.stackexchange.com/questions/tagged/virtualization?page=')
+scrape_pages('https://security.stackexchange.com/questions/tagged/rest?page=')
+
 step_into_url()
